@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import Vote1 from './src/screens/vote/vote1.js';
+import VoteList from './src/screens/vote/voteList.js';
 
 
 const Stack = createNativeStackNavigator();
@@ -11,8 +11,8 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Vote1">
-        <Stack.Screen name="Vote1" component={Vote1} />
+      <Stack.Navigator initialRouteName="VoteList">
+        <Stack.Screen name="VoteList" component={VoteList} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
