@@ -2,11 +2,11 @@
 import React from "react";
 import { View } from "react-native";
 
-const topBar = () => {
+const VoteCard = () => {
     return (
-      <View>
-      </View>
+        <View>
+        </View>
     );
 };
 
-export default topBar;
+export default VoteCard;

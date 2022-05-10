@@ -1,12 +1,12 @@
-// 검색창
+// 결과 시 모달
 import React from "react";
 import { View } from "react-native";
 
-const SearchBar = () => {
+const ModalResult = () => {
     return (
         <View>
         </View>
     );
 };
 
-export default SearchBar;
+export default ModalResult;

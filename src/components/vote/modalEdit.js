@@ -1,12 +1,12 @@
-// 검색창
+// 수정 시 모달
 import React from "react";
 import { View } from "react-native";
 
-const SearchBar = () => {
+const ModalEdit = () => {
     return (
         <View>
         </View>
     );
 };
 
-export default SearchBar;
+export default ModalEdit;
