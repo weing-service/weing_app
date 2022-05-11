@@ -7,10 +7,10 @@
     <list default="true" id="6a0e8b05-36db-4d0e-9e16-5cc1b4b6a3ce" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/vote/listType.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/listType.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/vote/searchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/searchBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/vote/voteList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/screens/vote/voteResult.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteResult.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/CommonCalendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/CommonCalendar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/calenderContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/main/CalendarContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/CalendarContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/main/mainPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/main/mainPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

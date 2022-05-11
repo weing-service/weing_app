@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import VoteList from './src/screens/vote/voteList';
 import VoteResult from './src/screens/vote/voteResult';
-
+import MainPage from './src/screens/main/mainPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,5 +19,4 @@ function App() {
     </NavigationContainer>
   );
 }
-
 export default App;
