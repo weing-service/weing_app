@@ -2,11 +2,11 @@
 import React from "react";
 import { View } from "react-native";
 
-const mainPage = () => {
+const voteResult = () => {
     return (
       <View>
       </View>
     );
 };
 
-export default mainPage;
+export default voteResult;
