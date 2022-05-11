@@ -6,10 +6,10 @@ import ProjectBar from "../../components/main/ProjectBar";
 import CalenderContainer from "../../components/main/CalendarContainer";
 
 const MainPage = () => {
-  return <View style={{flex: 1}}>
+  return <View style={{ flex: 1, marginTop: 40}}>
     <TopBar style={{flex: 1}}/>
     <ProjectBar style={{flex: 1}}/>
-    <CalenderContainer style={{flex: 1}}/>
+    <CalenderContainer style={{flex: 3}}/>
   </View>;
 };
 
