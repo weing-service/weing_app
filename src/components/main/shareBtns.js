@@ -2,8 +2,8 @@
 import React from "react";
 import { View } from "react-native";
 
-const ShareBtns = () => {
+const shareBtns = () => {
   return <View></View>;
 };
 
-export default ShareBtns;
+export default shareBtns;

@@ -2,8 +2,8 @@
 import React from "react";
 import { View } from "react-native";
 
-const Schedules = () => {
+const schedules = () => {
   return <View></View>;
 };
 
-export default Schedules;
+export default schedules;

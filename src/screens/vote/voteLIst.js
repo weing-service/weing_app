@@ -2,12 +2,12 @@
 import React from "react";
 import { View } from "react-native";
 
-const voteList = () => {
+const mainPage = () => {
   return(
     <View>
-    </View>
+    </View>;
   );
 
 };
 
-export default voteList;
+export default mainPage;
