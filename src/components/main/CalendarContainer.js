@@ -4,8 +4,8 @@ import { View } from "react-native";
 import CommonCalendar from "../common/CommonCalendar";
 
 const CalenderContainer = () => {
-  return <View>
-    <CommonCalendar/>
+  return <View style={{flex: 1}}>
+    <CommonCalendar style={{flex: 1}}/>
   </View>;
 };
 
