@@ -4,6 +4,7 @@ import { View, Text, Image } from "react-native";
 import { Agenda, Calendar } from "react-native-calendars";
 import * as Progress from 'react-native-progress';
 
+// 예사 데이터들
 const todos = {
   // dummies
   "2022-05-22": [
