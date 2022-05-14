@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, ImageBackground, TouchableOpacity } from "react
 import ListType from '../../components/vote/listType';
 import SearchBar from '../../components/vote/searchBar';
 
-class VoteList extends Component {
+const VoteList = () => {
     render() {
         return(
             <View>
