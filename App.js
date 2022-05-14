@@ -4,7 +4,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //import VoteList from './src/screens/vote/voteList.js';
-import MainPage from './src/screens/main/MainPage';
+import MainPage from './src/screens/main/mainPage';
+import AddTodoPage from './src/screens/main/addTodoPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +16,7 @@ function App() {
     //     <Stack.Screen name="VoteList" component={VoteList} options={{headerShown: false}}/>
     //   </Stack.Navigator>
     // </NavigationContainer>
-    <MainPage/>
+    <AddTodoPage />
   );
 }
 export default App;
