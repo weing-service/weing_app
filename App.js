@@ -24,7 +24,7 @@ function App() {
     //     <Stack.Screen name="VoteList" component={VoteList} options={{headerShown: false}}/>
     //   </Stack.Navigator>
     // </NavigationContainer>
-    <AddTodoPage />
+//    <AddTodoPage />
   );
 }
 export default App;
