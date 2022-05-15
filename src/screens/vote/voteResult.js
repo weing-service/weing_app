@@ -1,9 +1,30 @@
 import React, {Component} from "react";
-import { StyleSheet, View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, ImageBackground, TouchableOpacity, ScrollView } from "react-native";
 import ListType from '../../components/vote/listType';
 import SearchBar from '../../components/vote/searchBar';
+import VoteCard from '../../components/vote/voteCard';
+import CardContainer from '../../components/vote/cardContainer';
 
 const VoteResult = () => {
+
+    const data1 = [
+        {
+            key : '1',
+            title : '기획 회의',
+            deadline : new Date(),
+        },
+        {
+            key : '2',
+            title : '기획 회의',
+            deadline : new Date(),
+        },
+        {
+            key : '3',
+            title : '기획 회의',
+            deadline : new Date(),
+        }
+    ]
+
     return(
         <View>
             <ImageBackground
@@ -17,6 +38,9 @@ const VoteResult = () => {
                 <ListType type={'완료된 투표'} clicked = {true} move = {'VoteResult'}/>
             </View>
             <SearchBar/>
+            <ScrollView>
+                <CardContainer state={2} data = {data1}/>
+            </ScrollView>
             </ImageBackground>
         </View>
     );
