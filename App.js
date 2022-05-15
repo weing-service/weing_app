@@ -9,6 +9,7 @@ import VoteDo from './src/screens/vote/voteDo';
 import VoteMake from './src/screens/vote/voteMake';
 import MainPage from './src/screens/main/mainPage';
 import AddTodoPage from './src/screens/main/addTodoPage';
+import { ModalPortal } from 'react-native-modals';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +29,10 @@ function App() {
     //     <Stack.Screen name="VoteList" component={VoteList} options={{headerShown: false}}/>
     //   </Stack.Navigator>
     // </NavigationContainer>
-//    <AddTodoPage />
+    <>
+      <ModalPortal/>
+      <AddTodoPage />
+    </>
   );
 }
 export default App;
