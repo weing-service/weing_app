@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a0e8b05-36db-4d0e-9e16-5cc1b4b6a3ce" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/screens/vote/voteDo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/vote/voteMake.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/projectBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/ProjectBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/schedules.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/Schedules.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/main/topBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main/TopBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/search.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/vote/modalEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/cardContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/vote/searchBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/searchBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/vote/voteCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/voteCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/vote/voteList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/vote/voteResult.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteResult.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
@@ -35,6 +40,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\N\Desktop\weing_app\src\components\vote" />
       <recent name="C:\Users\N\Desktop\weing_app\src\screens\vote" />
     </key>
   </component>

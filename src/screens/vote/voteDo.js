@@ -1,12 +1,11 @@
-// 수정 시 모달
 import React from "react";
 import { View } from "react-native";
 
-const ModalEdit = () => {
+const VoteDo = () => {
     return (
         <View>
         </View>
-    );
+    )
 };
 
-export default ModalEdit;
+export default VoteDo;

@@ -11,7 +11,7 @@ const SearchBar = (props) => {
                 placeholder = '찾는 투표를 검색해주세요'/>
             <TouchableOpacity>
             <Image
-                source={require('../../assets/search.png')}
+                source={require('../../assets/vote/search.png')}
                 style = {{width : 20, height : 20, marginLeft : 135}}/>
             </TouchableOpacity>
         </View>
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
         marginLeft : 16,
         paddingHorizontal: 10,
         paddingVertical: 7,
+        marginBottom : 3
     },
 });
 
