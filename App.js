@@ -11,12 +11,15 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-       <Stack.Navigator initialRouteName="VoteList">
-         <Stack.Screen name="VoteList" component={VoteList} options={{headerShown: false}}/>
-         <Stack.Screen name="VoteResult" component={VoteResult} options={{headerShown: false}}/>
-       </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //    <Stack.Navigator initialRouteName="VoteList">
+    //      <Stack.Screen name="VoteList" component={VoteList} options={{headerShown: false}}/>
+    //      <Stack.Screen name="VoteResult" component={VoteResult} options={{headerShown: false}}/>
+    //    </Stack.Navigator>
+    // </NavigationContainer>
+    <>
+      <AddTodoPage />
+    </>
   );
 }
 export default App;
