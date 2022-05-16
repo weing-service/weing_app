@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -9,7 +8,6 @@ import VoteDo from './src/screens/vote/voteDo';
 import VoteMake from './src/screens/vote/voteMake';
 import MainPage from './src/screens/main/mainPage';
 import AddTodoPage from './src/screens/main/addTodoPage';
-import { ModalPortal } from 'react-native-modals';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,15 +22,6 @@ function App() {
         <Stack.Screen name="MainPage" component={MainPage} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
-    // <NavigationContainer>
-    //   <Stack.Navigator initialRouteName="VoteList">
-    //     <Stack.Screen name="VoteList" component={VoteList} options={{headerShown: false}}/>
-    //   </Stack.Navigator>
-    // </NavigationContainer>
-    <>
-      <ModalPortal/>
-      <AddTodoPage />
-    </>
   );
 }
 export default App;
