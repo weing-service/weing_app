@@ -8,7 +8,6 @@ import VoteDo from './src/screens/vote/voteDo';
 import VoteMake from './src/screens/vote/voteMake';
 import MainPage from './src/screens/main/mainPage';
 import AddTodoPage from './src/screens/main/addTodoPage';
-import Test from './src/screens/vote/test';
 
 const Stack = createNativeStackNavigator();
 
@@ -17,7 +16,6 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="VoteList">
         <Stack.Screen name="VoteList" component={VoteList} options={{headerShown: false}}/>
-        <Stack.Screen name="Test" component={Test} options={{headerShown: false}}/>
         <Stack.Screen name="VoteResult" component={VoteResult} options={{headerShown: false}}/>
         <Stack.Screen name="VoteDo" component={VoteDo} options={{headerShown: false}}/>
         <Stack.Screen name="VoteMake" component={VoteMake} options={{headerShown: false}}/>
