@@ -20,7 +20,8 @@ const info = [
         {
             header : '완료된 투표',
             buttonTitle : '결과보기',
-            color : '#A5BC99'
+            color : '#A5BC99',
+            navigate : '1'
         }
     ]
 
