@@ -45,7 +45,7 @@ const VoteDo = () => {
                     style = {styles.title3}>
                     투표 마감시간 설정
                 </Text>
-                
+
                 </View>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21}}>
