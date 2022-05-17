@@ -1,6 +1,6 @@
 // 새 일정 추가 페이지
 import React, { useEffect, useMemo, useState } from "react";
-import { View, Text, Modal, TouchableOpacity, Image } from "react-native";
+import { View, Text, Modal, TouchableOpacity, Image, FlatList } from "react-native";
 
 import TodoName from "../../components/main/addTodo/TodoName";
 import TodoContent from "../../components/main/addTodo/TodoContent";
@@ -113,10 +113,11 @@ const addTodoPage = () => {
 
     <Modal 
       animationType={"slide"}
-      transparent={false}
+      transparent={true}
       visible={isPickerOpen}
       onRequestClose={() => setIsPickerOpen(false)}
     >
+      <View style={{flex:1, marginTop: 100, backgroundColor:'white'}}>
       <Text style={{flex: 1}}>일정 날짜와 시간을 선택해주세요.</Text>
       <View style={{flex: 3}}>
         <Calendar
@@ -126,6 +127,7 @@ const addTodoPage = () => {
           markedDates={marked}
         />
       </View>
+
       <View style={{flex: 2, flexDirection: 'row'}}>
         <View style={{flex: 1}}>
           <Text>시작 시간</Text>
@@ -140,10 +142,12 @@ const addTodoPage = () => {
         <Text>반복되는 일정</Text>
         <Switch/>
       </View>
+
       <View style={{flex: 1, alignItems: 'center'}}>
         <TouchableOpacity onPress={pickerOpener}>
           <Image source={require('../../assets/main/todo/btn_select_complete.png')} />
         </TouchableOpacity>
+      </View>
       </View>
     </Modal>
   </View>;
