@@ -29,6 +29,7 @@ const VoteDo = () => {
                 </View>
                 <VoteInput title = {'일정 이름*'} />
                 <VoteInput title = {'일정 설명'} />
+                <VoteInput title = {'일정 설명'} />
             </ScrollView>
             </ImageBackground>
         </View>
