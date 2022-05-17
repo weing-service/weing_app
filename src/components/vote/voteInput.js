@@ -11,8 +11,8 @@ const VoteInput  = (props) => {
         </Text>
         <TextInput
             style = {styles.box}
-            placeholder = {(props.title === '일정 이름*' ? '일정 이름을 입력해주세요.' : '일정 설명을 입력해주세요.')}
-            disabled = {true}/>
+            placeholder = {(props.title === '일정 이름*' ? '일정 이름을 입력해주세요.' : props.title === '투표 유형' ? '시간+장소 투표' : '일정 설명을 입력해주세요.')}
+            editable = {props.title !== '투표 유형' ? true : false}/>
         </View>
     );
 };
@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 15,
         color : '#404855',
-        fontWeight : 'bold',
         textAlign: 'left',
         marginLeft : 16
     },

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, ImageBackground, ScrollView, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, ImageBackground, ScrollView, Text, TouchableOpacity, Image, Checkbox } from "react-native";
 import VoteInput from '../../components/vote/voteInput';
 import { useNavigation } from '@react-navigation/native';
 
@@ -29,7 +29,38 @@ const VoteDo = () => {
                 </View>
                 <VoteInput title = {'일정 이름*'} />
                 <VoteInput title = {'일정 설명'} />
-                <VoteInput title = {'일정 설명'} />
+                <VoteInput title = {'투표 유형'} />
+                <Text
+                    style = {styles.title3}>
+                    투표 받을날짜 *
+                </Text>
+                <TouchableOpacity>
+                    <Image
+                        style = {{width: 70, height: 70, marginLeft : 16, marginTop: 21, marginBottom : 21}}
+                        source={require('../../assets/vote/1.png')}/>
+                </TouchableOpacity>
+                <View
+                    style = {{flexDirection : 'row', marginBottom : 21 }}>
+                <Text
+                    style = {styles.title3}>
+                    투표 마감시간 설정
+                </Text>
+                
+                </View>
+                <View
+                    style = {{flexDirection : 'row', marginBottom : 21}}>
+                <Text
+                    style = {styles.title3}>
+                    복수 선택
+                </Text>
+                </View>
+                <View
+                    style = {{flexDirection : 'row', marginBottom : 21}}>
+                <Text
+                    style = {styles.title3}>
+                    악명 선택
+                </Text>
+                </View>
             </ScrollView>
             </ImageBackground>
         </View>
@@ -51,6 +82,12 @@ const styles = StyleSheet.create({
         color : '#999999',
         marginTop: 35,
         marginBottom : 4,
+    },
+    title3: {
+        fontSize: 15,
+        color : '#404855',
+        textAlign: 'left',
+        marginLeft : 16
     },
 });
 
