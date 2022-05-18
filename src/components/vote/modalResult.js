@@ -4,13 +4,12 @@ import { StyleSheet, TouchableOpacity, View, Modal, Text } from "react-native";
 
 const ModalResult  = (props) => {
 
-    const [modalVisible, setModalVisible] = useState(props.show);
     return (
             <View>
             <Modal
             animationType="slide"
             transparent={true}
-            visible={false}>
+            visible={props.modalVisible}>
             <View style={styles.centeredView}>
             <View style={styles.modalView}>
                 <Text style={styles.modalText}>투표 결과</Text>
@@ -36,7 +35,7 @@ const ModalResult  = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                 style={styles.button}
-                onPress={() => setModalVisible(!props.show)}>
+                onPress={() => props.setModalVisible(!props.modalVisible)}>
                     <Text style={styles.textStyle}>캘린더에 연동하기</Text>
                 </TouchableOpacity>
             </View>

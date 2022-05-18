@@ -16,7 +16,7 @@ const VoteCard = (props) => {
 
     return (
         <View>
-            <ModalResult show = {modalVisible} data = {props.data}/>
+            <ModalResult modalVisible = {modalVisible} data = {props.data} setModalVisible = {setModalVisible}/>
             <Card
                 containerStyle = {styles.container}>
                 <TouchableOpacity
