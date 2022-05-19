@@ -9,23 +9,72 @@ const todos = {
   // dummies
   "2022-05-22": [
     {
-      name: "기획팀 스토리보드",
-      time: "13:00",
-      content: "스토리보드 추합",
-      place: "강남역 할리스",
-      check: false,
+      title: "기획팀 스토리보드",
+      info: "스토리보드 추합",
+      startDate: "2022-05-22",
+      // finishDate 꼭 넣어야 하나..?
+      category: "기획",
+      intoCal: true,
+      // db에 장소 안들어가있음
+      // 시간도 없음
+      place: "강남역 할리스"
     },
-    { name: "개발팀 스터디", time: "16:30", place: "비대면 Zoom" },
+    {
+      title: "개발팀 스터디",
+      info: "스토리보드 추합",
+      startDate: "2022-05-22",
+      category: "개발",
+      intoCal: false,
+      place: "비대면 Zoom"
+    },
   ],
   "2022-05-23": [
-    { name: "개발팀 스터디", time: "16:30", place: "비대면 Zoom" },
+    {
+      title: "디자인팀",
+      info: "스토리보드",
+      startDate: "2022-05-23",
+      // finishDate 꼭 넣어야 하나..?
+      category: "디자인",
+      intoCal: true,
+      // db에 장소 안들어가있음
+      place: "강남역 할리스"
+    },
   ],
 };
 
+// colors for dots
+const categories = [pd, dev, design];
+const pd = {key: '기획', color: '#FD9F9D'};
+const dev = {key: '개발', color: '#F9D83E', };
+const design = {key: '디자인', color: '#A0DDE0', };
+
 const CommonCalendar = () => {
   const [todoItems, setTodoItems] = useState(todos);
+  const [markTodos, setMarkTodos] = useState({});
 
-  // 오늘 날짜 가져와서 포맷대로 바꾸는 코드
+  // useEffect(() => {
+  //   setTodoItems(todos);
+  //   // for marked dates
+  //   // markedDates={{
+  //   //   // 나중에 state에서 받아와야 함
+  //   //   "2022-05-22": {dots: [pd, dev, design]},
+  //   // }}
+  //   const marks = {};
+  //   todoItems.map((todo) => {
+  //     const date = todo.startDate;
+  //     const mark = {};
+  //     mark[date] = {dots: []}
+  //     categories.map((category) => {
+  //       if(todo.category === category.key){
+  //         mark.date.dots.push(category);
+  //       }
+  //     });
+  //     marks.push(mark);
+  //   });
+  //   setMarkTodos(marks);
+  // }, []);
+
+  // 오늘 날짜 가져와서 포맷대로 바꾸는 코드 *
   const today = new Date();
   const year = today.getFullYear();
   const month = ("0" + (today.getMonth() + 1)).slice(-2);
@@ -35,7 +84,7 @@ const CommonCalendar = () => {
   // render todos
   const renderItem = (item) => {
     return (
-      <View
+      item.intoCal && <View
         style={{
           flex: 1,
           backgroundColor: "white",
@@ -46,8 +95,8 @@ const CommonCalendar = () => {
           alignItems: "left",
         }}
       >
-        <Text>{item.name}</Text>
-        <Text>{item.time}</Text>
+        <Text>{item.title}</Text>
+        <Text>{item.info}</Text>
         <Text>{item.place}</Text>
       </View>
     );
@@ -73,10 +122,11 @@ const CommonCalendar = () => {
   return (
     <View style={{ flex: 1, height: 800 }}>
       <Agenda
+        refreshing={true}
         items={todoItems}
+        markingType={'multi-dot'}
         markedDates={{
-          // 나중에 state에서 받아와야 함
-          "2022-05-22": { marked: true },
+          '2022-05-22': {dots: [pd, dev]}
         }}
         current={dateString}
         selected={dateString}
@@ -85,25 +135,15 @@ const CommonCalendar = () => {
         renderEmptyData={renderEmpty}
         // 손잡이 렌더링할 부분
         renderKnob={renderKnob}
-        // markingType="multi-period"
-        // markedDates={{
-        //   // todo dummies
-        //   '2022-05-18': {marked: true, dotColor: 'red', activeOpacity: 0},
-        //   '2022-05-20': {
-        //     periods: [
-        //       {startingDay: true, endingDay: true, color: '#5f9ea0'},
-        //       {startingDay: true, endingDay: true, color: '#ffa500'},
-        //       {startingDay: true, endingDay: false, color: '#f0e68c'}
-        //     ]
-        //   },
-        //   '2022-05-21': {
-        //     periods: [
-        //       {color: 'transparent'},
-        //       {color: 'transparent'},
-        //       {startingDay: false, endingDay: true, color: '#f0e68c'}
-        //     ]
-        //   }
-        // }}
+        showOnlySelectedDayItems
+        theme={{
+          selectedDotColor: '#89B6C2',
+          dotColor: '#89B6C2',
+          agendaTodayColor: '#89B6C2',
+          todayTextColor:'#89B6C2',
+          agendaDayTextColor: '#89B6C2',
+          selectedDayBackgroundColor: '#89B6C2',
+        }}
       />
     </View>
   );
