@@ -4,7 +4,6 @@ import LoginMethod from '../../components/login/loginMethod';
 import LoginButton from '../../components/login/loginButton';
 import LoginInput from '../../components/login/loginInput';
 import LoginCheck from '../../components/login/loginCheck';
-import RoundCheckbox from 'rn-round-checkbox';
 
 const Login = () => {
     return (

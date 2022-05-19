@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { StyleSheet, View, ImageBackground, ScrollView, Text, TouchableOpacity, Image, Checkbox } from "react-native";
 import VoteInput from '../../components/vote/voteInput';
 import { useNavigation } from '@react-navigation/native';
@@ -45,7 +45,6 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     투표 마감시간 설정
                 </Text>
-
                 </View>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21}}>
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
         color : 'black',
         marginTop: 34,
         marginBottom : 28,
-        alignSelf: 'center',
+        marginLeft : '39.4%'
     },
     title2: {
         fontSize: 15,
@@ -82,6 +81,7 @@ const styles = StyleSheet.create({
         color : '#999999',
         marginTop: 35,
         marginBottom : 4,
+        marginRight : '4%'
     },
     title3: {
         fontSize: 15,
