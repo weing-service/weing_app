@@ -1,10 +1,17 @@
 import React, {useState} from "react";
-import { StyleSheet, View, ImageBackground, ScrollView, Text, TouchableOpacity, Image, Checkbox } from "react-native";
+import { Button, StyleSheet, View, ImageBackground, ScrollView, Text, TouchableOpacity, Image, Checkbox } from "react-native";
 import VoteInput from '../../components/vote/voteInput';
 import { useNavigation } from '@react-navigation/native';
+import CircleCheckBox from 'react-native-circle-checkbox';
+import Date from '../../components/vote/datePicker';
+import SlideModal from '../../components/vote/slideModal';
 
 const VoteMake = () => {
 
+    const [deadlineChecked, setDeadlineChecked] = useState(false);
+    const [doubleChecked, setDoubleChecked] = useState(false);
+    const [anonChecked, setAnonChecked] = useState(false);
+    const [open, setOpen] = useState(false);
     const navigation = useNavigation();
 
     return (
@@ -12,7 +19,7 @@ const VoteMake = () => {
             <ImageBackground
                 style = {{width: '100%', height: '100%'}}
                 source={require('../../assets/background/vote.png')}>
-            <ScrollView>
+            <View>
                 <View
                     style = {{flexDirection: 'row', justifyContent : 'space-between'}}>
                 <Text
@@ -34,33 +41,59 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     투표 받을날짜 *
                 </Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => setOpen(!open)} >
                     <Image
                         style = {{width: 70, height: 70, marginLeft : 16, marginTop: 21, marginBottom : 21}}
                         source={require('../../assets/vote/1.png')}/>
                 </TouchableOpacity>
+                <SlideModal open = {open} setOpen = {setOpen}/>
                 <View
-                    style = {{flexDirection : 'row', marginBottom : 21 }}>
+                    style = {{flexDirection : 'row', marginBottom : 21, justifyContent : 'space-between' }}>
                 <Text
                     style = {styles.title3}>
                     투표 마감시간 설정
                 </Text>
+                <CircleCheckBox
+                    styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
+                    onToggle={() => setDeadlineChecked(!deadlineChecked)}
+                    checked = {deadlineChecked}
+                    outerSize = {22}
+                    innerSize = {10}
+                    outerColor = {'#C4C4C4'}
+                    innerColor = {'#89B6C2'}/>
                 </View>
                 <View
-                    style = {{flexDirection : 'row', marginBottom : 21}}>
+                    style = {{flexDirection : 'row', marginBottom : 21, alignItems: 'center', justifyContent : 'space-between'}}>
                 <Text
                     style = {styles.title3}>
                     복수 선택
                 </Text>
+                <CircleCheckBox
+                    styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
+                    onToggle={() => setDoubleChecked(!doubleChecked)}
+                    checked = {doubleChecked}
+                    outerSize = {22}
+                    innerSize = {10}
+                    outerColor = {'#C4C4C4'}
+                    innerColor = {'#89B6C2'}/>
                 </View>
                 <View
-                    style = {{flexDirection : 'row', marginBottom : 21}}>
+                    style = {{flexDirection : 'row', marginBottom : 21, justifyContent : 'space-between'}}>
                 <Text
                     style = {styles.title3}>
-                    악명 선택
+                    익명 선택
                 </Text>
+                <CircleCheckBox
+                    styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
+                    onToggle={() => setAnonChecked(!anonChecked)}
+                    checked = {anonChecked}
+                    outerSize = {22}
+                    innerSize = {10}
+                    outerColor = {'#C4C4C4'}
+                    innerColor = {'#89B6C2'}/>
                 </View>
-            </ScrollView>
+            </View>
             </ImageBackground>
         </View>
     )
