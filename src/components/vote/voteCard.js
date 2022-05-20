@@ -1,14 +1,22 @@
-import React from "react";
-import { View,StyleSheet,Text,TouchableOpacity } from "react-native";
+import React, { useState } from "react";
+import { View,StyleSheet,Text,TouchableOpacity, Modal } from "react-native";
 import { Card } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import ModalResult from './modalResult';
 
 const VoteCard = (props) => {
 
+    let [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation();
+
+    const visibleChange = () => {
+        modalVisible = !modalVisible;
+        console.log(modalVisible);
+    }
 
     return (
         <View>
+            <ModalResult modalVisible = {modalVisible} data = {props.data} setModalVisible = {setModalVisible}/>
             <Card
                 containerStyle = {styles.container}>
                 <TouchableOpacity
@@ -31,13 +39,14 @@ const VoteCard = (props) => {
                     </Text>
                     <TouchableOpacity
                         style = {{ width: 112, height: 32, borderRadius : 10, backgroundColor : props.style.color}}
-                        onPress={() => navigation.navigate(props.style.navigate)}>
+                        onPress={() => {props.style.navigate === '1' ? setModalVisible(true): navigation.navigate(props.style.navigate)}}>
                         <Text
                             style = {{color: 'white', fontSize : 13, fontWeight : 'bold', alignSelf : 'center', marginTop : 6}}>
                             {props.style.buttonTitle}
                         </Text>
                     </TouchableOpacity>
                 </View>
+
             </Card>
         </View>
     )
