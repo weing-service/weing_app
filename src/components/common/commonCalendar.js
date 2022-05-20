@@ -1,35 +1,42 @@
 // 공용 컴포넌트 - 달력
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity, Button } from "react-native";
 import { Agenda, Calendar } from "react-native-calendars";
-import * as Progress from 'react-native-progress';
+import { StyleSheet } from "react-native";
+import DateToString from "../common/DateToString";
+import Slider from "react-native-slider";
 
 // 예사 데이터들
 const todos = {
   // dummies
-  "2022-05-22": [
+  "2022-05-20": [
     {
-      title: "기획팀 스토리보드",
+      id: 1,
+      title: "기획팀 스토리보드 회의",
       info: "스토리보드 추합",
-      startDate: "2022-05-22",
+      startDate: "2022-05-20",
       // finishDate 꼭 넣어야 하나..?
       category: "기획",
       intoCal: true,
       // db에 장소 안들어가있음
       // 시간도 없음
+      // 참여자
+      // cateogry 컬러
       place: "강남역 할리스"
     },
     {
+      id: 2,
       title: "개발팀 스터디",
       info: "스토리보드 추합",
-      startDate: "2022-05-22",
+      startDate: "2022-05-20",
       category: "개발",
-      intoCal: false,
+      intoCal: true,
       place: "비대면 Zoom"
     },
   ],
   "2022-05-23": [
     {
+      id: 3,
       title: "디자인팀",
       info: "스토리보드",
       startDate: "2022-05-23",
@@ -49,31 +56,6 @@ const dev = {key: '개발', color: '#F9D83E', };
 const design = {key: '디자인', color: '#A0DDE0', };
 
 const CommonCalendar = () => {
-  const [todoItems, setTodoItems] = useState(todos);
-  const [markTodos, setMarkTodos] = useState({});
-
-  // useEffect(() => {
-  //   setTodoItems(todos);
-  //   // for marked dates
-  //   // markedDates={{
-  //   //   // 나중에 state에서 받아와야 함
-  //   //   "2022-05-22": {dots: [pd, dev, design]},
-  //   // }}
-  //   const marks = {};
-  //   todoItems.map((todo) => {
-  //     const date = todo.startDate;
-  //     const mark = {};
-  //     mark[date] = {dots: []}
-  //     categories.map((category) => {
-  //       if(todo.category === category.key){
-  //         mark.date.dots.push(category);
-  //       }
-  //     });
-  //     marks.push(mark);
-  //   });
-  //   setMarkTodos(marks);
-  // }, []);
-
   // 오늘 날짜 가져와서 포맷대로 바꾸는 코드 *
   const today = new Date();
   const year = today.getFullYear();
@@ -81,23 +63,71 @@ const CommonCalendar = () => {
   const day = ("0" + today.getDate()).slice(-2);
   const dateString = year + "-" + month + "-" + day;
 
+  // states
+  const [todoItems, setTodoItems] = useState(todos);
+  const [markTodos, setMarkTodos] = useState({});
+  const [todayTodo, setTodayTodo] = useState(todos[dateString]); // 오늘 해야할 일
+  const [doneCount, setDoneCount] = useState(0);
+
+  const doneHandler = () => {
+
+  }
+
+  const onPressDone =(event) => {
+    console.log(event.target._children);
+    const newItem = todayTodo;
+    newItem.isDone = !todayTodo.isDone;
+    if(newItem.isDone === false && doneCount > 0){
+      setDoneCount(doneCount - 1);
+    } else if(typeof(newItem.isDone) === undefined || newItem.isDone === true && doneCount < todayTodo.length) {
+      setDoneCount(doneCount + 1);
+    }
+  }
+
+  useEffect(() => {
+    const newTodo = todos[dateString];
+    for(let i=0; i<newTodo.length; i++){
+      Object.assign(newTodo[i], {isDone: false});
+    }
+    setTodayTodo(newTodo);
+    todos[dateString].map((todo) => {
+      if(todo.isDone){
+        setDoneCount(doneCount + 1);
+      }
+    })
+  }, [])
+
   // render todos
   const renderItem = (item) => {
     return (
       item.intoCal && <View
-        style={{
-          flex: 1,
-          backgroundColor: "white",
-          margin: 5,
-          padding: 10,
-          borderRadius: 15,
-          justifyContent: "center",
-          alignItems: "left",
-        }}
+        style={itemStyle.box}
       >
-        <Text>{item.title}</Text>
+        <View style={itemStyle.titleContainer}>
+          <Slider 
+          style={{width: 0, marginRight: 20, top: -10}} 
+          thumbStyle={itemStyle.thumb}
+          />
+          <Text style={itemStyle.title}>{item.title}</Text>
+          <TouchableOpacity>
+            <Image source={require('../../assets/main/btn_menu.png')}/>
+          </TouchableOpacity>
+        </View>
         <Text>{item.info}</Text>
-        <Text>{item.place}</Text>
+        <View style={{flex: 1, flexDirection: 'row'}}>
+          <Image source={require("../../assets/main/btn_location.png")}/>
+          <Text>{item.place}</Text>
+        </View>
+        <View style={{alignItems: 'flex-end'}}>
+          <TouchableOpacity 
+            style={{margin: 10}}
+            onPress={(event) => onPressDone(event)}
+          >
+            <Image source={
+              require('../../assets/main/todo_logo_empty.png')
+            }/>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -112,10 +142,34 @@ const CommonCalendar = () => {
   // 오늘의 위잉
   const renderKnob = () => {
     return <View style={{ flex: 1, flexDirection: 'row'}}>
-      <Image source={require('../../assets/main/todo_logo_empty.png')}/>
-      <Text>오늘의 위잉</Text>
-      <Progress.Bar width={200} />
-      <Text>0/0</Text>
+      {
+        todayTodo.length === doneCount ?
+        <Image 
+          style={{top: -5, marginRight: 10}}
+          source={
+            require('../../assets/main/todo_logo_fill.png')
+          }
+        /> : 
+        <Image 
+          style={{top: -5, marginRight: 10}}
+          source={
+            require('../../assets/main/todo_logo_empty.png')
+          }
+        />
+      }
+      <Text style={{marginRight: 10}}>오늘의 위잉</Text>
+      <Slider
+        value={doneCount}
+        step={1}
+        disabled={true}
+        style={{width: 220, top: -10, marginRight: 10}}
+        trackStyle={sliderStyle.track}
+        thumbStyle={sliderStyle.thumb}
+        minimumValue={0}
+        maximumValue={todayTodo.length}
+        minimumTrackTintColor="#89B6C27F"
+      />
+      <Text>{doneCount}/{todayTodo.length}</Text>
     </View>;
   };
 
@@ -126,7 +180,7 @@ const CommonCalendar = () => {
         items={todoItems}
         markingType={'multi-dot'}
         markedDates={{
-          '2022-05-22': {dots: [pd, dev]}
+          '2022-05-20': {dots: [pd, dev]}
         }}
         current={dateString}
         selected={dateString}
@@ -148,5 +202,63 @@ const CommonCalendar = () => {
     </View>
   );
 };
+
+const itemStyle = StyleSheet.create({
+  box: {
+    flex: 1,
+    backgroundColor: "white",
+    margin: 5,
+    padding: 10,
+    borderRadius: 15,
+  },
+  titleContainer : {
+    flex: 1,
+    margin: 5,
+    flexDirection: 'row'
+  },
+  thumb: {
+    flex: 1,
+    width: 10,
+    height: 10,
+    backgroundColor: '#FFFFFF',
+    borderColor: '#FD9F9D',
+    borderWidth: 3,
+  },
+  title: {
+    flex: 1,
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  info: {
+
+  },
+  place: {
+
+  }
+})
+
+const sliderStyle = StyleSheet.create({
+  track: {
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: 'transparent',
+    borderWidth: 0.2,
+    borderColor: 'white',
+    shadowColor: 'black',
+    overflow: 'hidden',
+    shadowOffset: {width: 1, height: 3},
+    shadowRadius: 2,
+    shadowOpacity: 0.2,
+  },
+  thumb: {
+    width: 20,
+    height: 20,
+    backgroundColor: '#FFFFFF',
+    borderColor: '#89B6C2',
+    borderWidth: 5,
+    borderRadius: 10,
+    shadowColor: 'black',
+  }
+});
 
 export default CommonCalendar;

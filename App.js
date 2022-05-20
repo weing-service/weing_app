@@ -23,7 +23,7 @@ function App() {
     //   </Stack.Navigator>
     // </NavigationContainer>
     <>
-      <MainPage />
+      <MainPage/>
     </>
   );
 }
