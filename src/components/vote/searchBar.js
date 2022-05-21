@@ -32,7 +32,8 @@ const SearchBar = (props) => {
             </View>
         ) :
         (
-            <TouchableOpacity>
+            <TouchableOpacity
+                onPress onPress={() => props.setPlace(!props.place)}>
             <View
                 style = {{
                     flexDirection : 'row',

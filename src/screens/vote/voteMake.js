@@ -13,6 +13,7 @@ const VoteMake = () => {
     const [doubleChecked, setDoubleChecked] = useState(false);
     const [anonChecked, setAnonChecked] = useState(false);
     const [open, setOpen] = useState(false);
+    const [markedDates, setMarkedDates] = useState({});
     const navigation = useNavigation();
 
     return (
@@ -42,13 +43,25 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     투표 받을날짜 *
                 </Text>
-                <TouchableOpacity
-                    onPress={() => setOpen(!open)} >
-                    <Image
-                        style = {{width: 70, height: 70, marginLeft : 16, marginTop: 21, marginBottom : 21}}
-                        source={require('../../assets/vote/1.png')}/>
-                </TouchableOpacity>
-                <SlideModal open = {open} setOpen = {setOpen}/>
+                { Object.keys(markedDates).length === 0 ? (
+                    <TouchableOpacity
+                        onPress={() => setOpen(!open)} >
+                        <Image
+                            style = {{width: 70, height: 70, marginLeft : 16, marginTop: 21, marginBottom : 21}}
+                            source={require('../../assets/vote/1.png')}/>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity
+                        style ={{backgroundColor : 'white', width : 120, height : 50, alignItems : 'center', justifyContent : 'center',
+                        borderRadius:10, marginLeft: 16, marginTop: 21, marginBottom : 21}}
+                        disabled = {true}>
+                        <Text
+                            style = {{fontSize : 15, color : '#999999', alignSelf : 'center'}}>
+                            {Object.keys(markedDates)[0].substring(5,10)}~{Object.keys(markedDates)[Object.keys(markedDates).length-1].substring(5,10)}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+                <SlideModal open = {open} setOpen = {setOpen} markedDates = {markedDates} setMarkedDates = {setMarkedDates}/>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21, justifyContent : 'space-between' }}>
                 <Text

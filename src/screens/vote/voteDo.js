@@ -3,9 +3,11 @@ import { StyleSheet, View, ImageBackground, Text, TouchableOpacity, Image, Check
 import VoteInfo from '../../components/vote/voteInfo';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '../../components/vote/searchBar';
+import PlaceFind from '../../components/vote/placeFind';
 
 const VoteDo = (props) => {
 
+    const [place, setPlace] = useState(false);
     const navigation = useNavigation();
 
     return (
@@ -35,7 +37,8 @@ const VoteDo = (props) => {
                     style = {{fontSize: 15, color : '#404855', textAlign: 'left', marginLeft : 16}}>
                     내 위치 투표
                 </Text>
-                <SearchBar/>
+                <SearchBar place = {place} setPlace={setPlace}/>
+                <PlaceFind open = {place} setPlace = {setPlace}/>
             </View>
             </ImageBackground>
         </View>
