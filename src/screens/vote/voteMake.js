@@ -6,6 +6,7 @@ import CircleCheckBox from 'react-native-circle-checkbox';
 import Date from '../../components/vote/datePicker';
 import SlideModal from '../../components/vote/slideModal';
 import RoundCheck from '../../components/vote/roundCheck';
+import DatePicker from '../../components/vote/datePicker';
 
 const VoteMake = () => {
 
@@ -68,7 +69,7 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     투표 마감시간 설정
                 </Text>
-                <RoundCheck doubleChecked = {deadlineChecked} setDoubleChecked = {deadlineChecked}/>
+                <RoundCheck checked = {deadlineChecked} setChecked = {setDeadlineChecked}/>
                 </View>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21, alignItems: 'center', justifyContent : 'space-between'}}>
@@ -76,7 +77,7 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     복수 선택
                 </Text>
-                <RoundCheck doubleChecked = {doubleChecked} setDoubleChecked = {setDoubleChecked}/>
+                <RoundCheck checked = {doubleChecked} setChecked = {setDoubleChecked}/>
                 </View>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21, justifyContent : 'space-between'}}>
@@ -84,7 +85,7 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     익명 선택
                 </Text>
-                <RoundCheck doubleChecked = {anonChecked} setDoubleChecked = {setAnonChecked}/>
+                <RoundCheck checked = {anonChecked} setChecked = {setAnonChecked}/>
                 </View>
             </View>
             </ImageBackground>
