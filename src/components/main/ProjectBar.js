@@ -24,7 +24,7 @@ const ProjectBar = () => {
   }
 
   return <View style={styles.container}>
-    <Image source={require('../../assets/main/project_img.png')}/>
+    <Image style={{width: 50, height: 50}} source={require('../../assets/main/project_img.png')}/>
     <View>
       <View style={styles.projectName}>
         <Text style={{fontSize: '18px', fontWeight: 'bold'}}>{projectInfo.name}</Text>
@@ -41,7 +41,8 @@ const ProjectBar = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    left: 15
+    left: 15,
+    padding: 10,
   },
   projectName: {
     flexDirection: 'row',
