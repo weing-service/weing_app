@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import CircleCheckBox from 'react-native-circle-checkbox';
 import Date from '../../components/vote/datePicker';
 import SlideModal from '../../components/vote/slideModal';
+import RoundCheck from '../../components/vote/roundCheck';
 
 const VoteMake = () => {
 
@@ -54,14 +55,7 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     투표 마감시간 설정
                 </Text>
-                <CircleCheckBox
-                    styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
-                    onToggle={() => setDeadlineChecked(!deadlineChecked)}
-                    checked = {deadlineChecked}
-                    outerSize = {22}
-                    innerSize = {10}
-                    outerColor = {'#C4C4C4'}
-                    innerColor = {'#89B6C2'}/>
+                <RoundCheck doubleChecked = {deadlineChecked} setDoubleChecked = {deadlineChecked}/>
                 </View>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21, alignItems: 'center', justifyContent : 'space-between'}}>
@@ -69,14 +63,7 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     복수 선택
                 </Text>
-                <CircleCheckBox
-                    styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
-                    onToggle={() => setDoubleChecked(!doubleChecked)}
-                    checked = {doubleChecked}
-                    outerSize = {22}
-                    innerSize = {10}
-                    outerColor = {'#C4C4C4'}
-                    innerColor = {'#89B6C2'}/>
+                <RoundCheck doubleChecked = {doubleChecked} setDoubleChecked = {setDoubleChecked}/>
                 </View>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21, justifyContent : 'space-between'}}>
@@ -84,14 +71,7 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     익명 선택
                 </Text>
-                <CircleCheckBox
-                    styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
-                    onToggle={() => setAnonChecked(!anonChecked)}
-                    checked = {anonChecked}
-                    outerSize = {22}
-                    innerSize = {10}
-                    outerColor = {'#C4C4C4'}
-                    innerColor = {'#89B6C2'}/>
+                <RoundCheck doubleChecked = {anonChecked} setDoubleChecked = {setAnonChecked}/>
                 </View>
             </View>
             </ImageBackground>

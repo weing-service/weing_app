@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import { View, Text } from 'react-native'
-import DatePicker from 'react-native-date-picker'
 import Modal from 'react-native-modalbox';
+import { Agenda, Calendar } from "react-native-calendars";
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const SlideModal = (props) => {
+
+    const [date, setDate] = useState(new Date(1598051730000));
+    const [mode, setMode] = useState('time');
+    const [show, setShow] = useState(false);
 
     return (
         <Modal
@@ -16,6 +21,7 @@ const SlideModal = (props) => {
             swipeArea = {500}
             swipeThreshold = {0}
             position = {'bottom'}>
+            <Calendar />
         </Modal>
     );
 };
