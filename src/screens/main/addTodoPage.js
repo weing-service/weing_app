@@ -13,7 +13,7 @@ import { DateToString } from "../../components/common/DateToString";
 import { Picker } from "@react-native-picker/picker";
 import { Switch } from "react-native";
 
-const addTodoPage = () => {
+const AddTodoPage = () => {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [pickedDate, setPickedDate] = useState();
   const [pickStartT, setPickStartT] = useState(); // 시작 시간
@@ -149,4 +149,4 @@ const addTodoPage = () => {
   </View>;
 };
 
-export default addTodoPage;
+export default AddTodoPage;
