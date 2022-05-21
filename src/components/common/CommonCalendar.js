@@ -9,7 +9,7 @@ import Slider from "react-native-slider";
 // 예사 데이터들
 const todos = {
   // dummies
-  "2022-05-20": [
+  "2022-05-21": [
     {
       id: 1,
       title: "기획팀 스토리보드 회의",
@@ -18,10 +18,9 @@ const todos = {
       // finishDate 꼭 넣어야 하나..?
       category: "기획",
       intoCal: true,
-      // db에 장소 안들어가있음
-      // 시간도 없음
-      // 참여자
+      // 시간도 없음 --> 날짜랑 같이 date 형식으로 보낼것
       // cateogry 컬러
+      // 프로젝트명도 같이 보낼것
       place: "강남역 할리스"
     },
     {
@@ -69,18 +68,23 @@ const CommonCalendar = () => {
   const [todayTodo, setTodayTodo] = useState(todos[dateString]); // 오늘 해야할 일
   const [doneCount, setDoneCount] = useState(0);
 
-  const doneHandler = () => {
-
-  }
-
   const onPressDone =(event) => {
-    console.log(event.target._children);
-    const newItem = todayTodo;
-    newItem.isDone = !todayTodo.isDone;
-    if(newItem.isDone === false && doneCount > 0){
+    console.log(event.target.isDone);
+    const newTodo = todayTodo;
+    newTodo.isDone = !todayTodo.isDone;
+    setTodayTodo(newTodo);
+    if(typeof(event.target.isDone) == undefined)
+      Object.assign(event.target, {isDone: true});
+    else
+      event.target.isDone = !event.target.isDone;
+
+    // done handler
+    if(event.target.isDone === false && doneCount > 0){
       setDoneCount(doneCount - 1);
-    } else if(typeof(newItem.isDone) === undefined || newItem.isDone === true && doneCount < todayTodo.length) {
+      console.log(doneCount);
+    } else if(event.target.isDone === true && doneCount < todayTodo.length + 1) {
       setDoneCount(doneCount + 1);
+      console.log(doneCount);
     }
   }
 
@@ -90,6 +94,7 @@ const CommonCalendar = () => {
       Object.assign(newTodo[i], {isDone: false});
     }
     setTodayTodo(newTodo);
+
     todos[dateString].map((todo) => {
       if(todo.isDone){
         setDoneCount(doneCount + 1);
@@ -123,9 +128,13 @@ const CommonCalendar = () => {
             style={{margin: 10}}
             onPress={(event) => onPressDone(event)}
           >
-            <Image source={
-              require('../../assets/main/todo_logo_empty.png')
-            }/>
+            { item.isDone ?
+              <Image source={
+                require('../../assets/main/todo_logo_fill.png')} /> :
+              <Image source={
+                require('../../assets/main/todo_logo_empty.png')
+              }/>
+            }
           </TouchableOpacity>
         </View>
       </View>

@@ -10,6 +10,7 @@ import VoteDate from './src/screens/vote/voteDate';
 import Login from './src/screens/login/login';
 import MainPage from './src/screens/main/mainPage';
 import AddTodoPage from './src/screens/main/addTodoPage';
+import AddProjectPage from './src/screens/main/AddProjectPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,8 +24,9 @@ function App() {
         <Stack.Screen name="VoteDo" component={VoteDo} options={{headerShown: false}}/>
         <Stack.Screen name="VoteMake" component={VoteMake} options={{headerShown: false}}/>
         <Stack.Screen name="VoteDate" component={VoteDate} options={{headerShown: false}}/>
-        <Stack.Screen name="AddTodoPage" component={AddTodoPage} options={{headerShown: false}}/>
+        <Stack.Screen name="AddProjectPage" component={AddProjectPage} options={{headerShown: false}}/>
         <Stack.Screen name="MainPage" component={MainPage} options={{headerShown: false}}/>
+        <Stack.Screen name="AddTodoPage" component={AddTodoPage} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

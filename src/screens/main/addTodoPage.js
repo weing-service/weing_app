@@ -138,10 +138,6 @@ const AddTodoPage = () => {
           <TimePicker time={"end"}/>
         </View>
       </View>
-      <View style={{flex: 1, flexDirection: 'row'}}>
-        <Text>반복되는 일정</Text>
-        <Switch/>
-      </View>
 
       <View style={{flex: 1, alignItems: 'center'}}>
         <TouchableOpacity onPress={pickerOpener}>
