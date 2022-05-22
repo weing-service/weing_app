@@ -1,10 +1,13 @@
-import React from "react";
-import { StyleSheet, View, ImageBackground, ScrollView, Text, TouchableOpacity, Image, Checkbox } from "react-native";
-import VoteInput from '../../components/vote/voteInput';
+import React, {useState} from "react";
+import { StyleSheet, View, ImageBackground, Text, TouchableOpacity, Image, Checkbox } from "react-native";
+import VoteInfo from '../../components/vote/voteInfo';
 import { useNavigation } from '@react-navigation/native';
+import SearchBar from '../../components/vote/searchBar';
+import PlaceFind from '../../components/vote/placeFind';
 
-const VoteDo = () => {
+const VoteDo = (props) => {
 
+    const [place, setPlace] = useState(false);
     const navigation = useNavigation();
 
     return (
@@ -12,56 +15,31 @@ const VoteDo = () => {
             <ImageBackground
                 style = {{width: '100%', height: '100%'}}
                 source={require('../../assets/background/vote.png')}>
-            <ScrollView>
+            <View>
                 <View
                     style = {{flexDirection: 'row', justifyContent : 'space-between'}}>
                 <Text
                     style = {styles.title}>
-                    투표 생성
+                    시간/장소 투표
                 </Text>
                 <TouchableOpacity
                     onPress={() => navigation.navigate('VoteList')}>
                     <Text
                         style = {styles.title2}>
-                        완료
+                        투표 완료
                     </Text>
                 </TouchableOpacity>
                 </View>
-                <VoteInput title = {'일정 이름*'} />
-                <VoteInput title = {'일정 설명'} />
-                <VoteInput title = {'투표 유형'} />
+                <VoteInfo title = {'일정 이름'} data = {'기획 회의'} touch = {false}/>
+                <VoteInfo title = {'일정 설명'} data = {'와이어 프레임 제작'} touch = {false}/>
+                <VoteInfo title = {'가능한 날짜/시간 투표'} touch = {true}/>
                 <Text
-                    style = {styles.title3}>
-                    투표 받을날짜 *
+                    style = {{fontSize: 15, color : '#404855', textAlign: 'left', marginLeft : 16}}>
+                    내 위치 투표
                 </Text>
-                <TouchableOpacity>
-                    <Image
-                        style = {{width: 70, height: 70, marginLeft : 16, marginTop: 21, marginBottom : 21}}
-                        source={require('../../assets/vote/1.png')}/>
-                </TouchableOpacity>
-                <View
-                    style = {{flexDirection : 'row', marginBottom : 21 }}>
-                <Text
-                    style = {styles.title3}>
-                    투표 마감시간 설정
-                </Text>
-
-                </View>
-                <View
-                    style = {{flexDirection : 'row', marginBottom : 21}}>
-                <Text
-                    style = {styles.title3}>
-                    복수 선택
-                </Text>
-                </View>
-                <View
-                    style = {{flexDirection : 'row', marginBottom : 21}}>
-                <Text
-                    style = {styles.title3}>
-                    악명 선택
-                </Text>
-                </View>
-            </ScrollView>
+                <SearchBar place = {place} setPlace={setPlace}/>
+                <PlaceFind open = {place} setPlace = {setPlace}/>
+            </View>
             </ImageBackground>
         </View>
     )
@@ -74,7 +52,7 @@ const styles = StyleSheet.create({
         color : 'black',
         marginTop: 34,
         marginBottom : 28,
-        alignSelf: 'center',
+        marginLeft : '32%'
     },
     title2: {
         fontSize: 15,
@@ -82,6 +60,7 @@ const styles = StyleSheet.create({
         color : '#999999',
         marginTop: 35,
         marginBottom : 4,
+        marginRight : '4%'
     },
     title3: {
         fontSize: 15,

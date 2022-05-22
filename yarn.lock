@@ -36,7 +36,7 @@
   "resolved" "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.17.10.tgz"
   "version" "7.17.10"
 
-"@babel/core@*", "@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.1.6", "@babel/core@^7.12.0", "@babel/core@^7.12.9", "@babel/core@^7.13.0", "@babel/core@^7.4.0-0":
+"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.1.6", "@babel/core@^7.12.0", "@babel/core@^7.12.9", "@babel/core@^7.13.0", "@babel/core@^7.4.0-0":
   "integrity" "sha512-liKoppandF3ZcBnIYFjfSDHZLKdLHGJRkoWtG8zQyGJBQfIYobpnVGI5+pLBNtS6psFLDzyq8+h5HiVljW9PNA=="
   "resolved" "https://registry.npmjs.org/@babel/core/-/core-7.17.10.tgz"
   "version" "7.17.10"
@@ -1054,6 +1054,14 @@
     "@babel/helper-validator-identifier" "^7.16.7"
     "to-fast-properties" "^2.0.0"
 
+"@callstack/react-theme-provider@^3.0.7":
+  "integrity" "sha512-Ab6rbD2w4u9W3yf7LQQ8evx9m8fZNsoWxt+MFm3AyZnyKQNCJf4K7ip9tHHZgSs+HTdoj38lEqPehvFOVQKvAg=="
+  "resolved" "https://registry.npmjs.org/@callstack/react-theme-provider/-/react-theme-provider-3.0.7.tgz"
+  "version" "3.0.7"
+  dependencies:
+    "deepmerge" "^3.2.0"
+    "hoist-non-react-statics" "^3.3.0"
+
 "@cnakazawa/watch@^1.0.3":
   "integrity" "sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ=="
   "resolved" "https://registry.npmjs.org/@cnakazawa/watch/-/watch-1.0.4.tgz"
@@ -1869,6 +1877,13 @@
     "sudo-prompt" "^9.0.0"
     "wcwidth" "^1.0.1"
 
+"@react-native-community/datetimepicker@^6.1.3":
+  "integrity" "sha512-3e20BPQy8QiQeIGJL4zoJaRsGWB31hl9i7oTZECWxnK6nVUeqGt/G+JRJlJinmqL6z4WePHC6RSUMgpC64OOwg=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/datetimepicker/-/datetimepicker-6.1.3.tgz"
+  "version" "6.1.3"
+  dependencies:
+    "invariant" "^2.2.4"
+
 "@react-native-picker/picker@^2.4.1":
   "integrity" "sha512-1XWy3IQgwr7MWd30KdY1iUh2gQZD+JiotN1ifj/ptFUYKon/0UFwngKQaWCO/CP/FdLl20/huSSLwKedYrdMMA=="
   "resolved" "https://registry.npmjs.org/@react-native-picker/picker/-/picker-2.4.1.tgz"
@@ -1893,6 +1908,15 @@
   "integrity" "sha512-0jbp4RxjYopTsIdLl+/Fy2TiwVYHy4mgeu07DG4b/LyM0OS/+lPP5c9sbnt/AMlnF6qz2JRZpPpGw1eMNS6A4w=="
   "resolved" "https://registry.npmjs.org/@react-native/polyfills/-/polyfills-1.0.0.tgz"
   "version" "1.0.0"
+
+"@react-navigation/bottom-tabs@^6.3.1":
+  "integrity" "sha512-sL9F4WMhhR6I9bE7bpsPVHnK1cN9doaFHAuy5YmD+Sw6OyO0TAmNgQFx4xZWqboA5ZwSkN0tWcRCr6wGXaRRag=="
+  "resolved" "https://registry.npmjs.org/@react-navigation/bottom-tabs/-/bottom-tabs-6.3.1.tgz"
+  "version" "6.3.1"
+  dependencies:
+    "@react-navigation/elements" "^1.3.3"
+    "color" "^3.1.3"
+    "warn-once" "^0.1.0"
 
 "@react-navigation/core@^3.7.9":
   "integrity" "sha512-EknbzM8OI9A5alRxXtQRV5Awle68B+z1QAxNty5DxmlS3BNfmduWNGnim159ROyqxkuDffK9L/U/Tbd45mx+Jg=="
@@ -5635,7 +5659,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@^15.5.10", "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2":
+"prop-types@^15.5.10", "prop-types@^15.5.6", "prop-types@^15.6.0", "prop-types@^15.6.2", "prop-types@^15.7.2", "prop-types@latest":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -5688,6 +5712,11 @@
   "integrity" "sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A=="
   "resolved" "https://registry.npmjs.org/queue-microtask/-/queue-microtask-1.2.3.tgz"
   "version" "1.2.3"
+
+"radio-buttons-react-native@^1.0.4":
+  "integrity" "sha512-5AKM/p3a9mykQ1BCIbBnHrDwXZZ6iJuDEDFaiNb2Pa2Nx9EgUMgU5owcrU9g9eaK7didA5rJ3yAUKGnyfhBqcw=="
+  "resolved" "https://registry.npmjs.org/radio-buttons-react-native/-/radio-buttons-react-native-1.0.4.tgz"
+  "version" "1.0.4"
 
 "range-parser@~1.2.1":
   "integrity" "sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg=="
@@ -5743,6 +5772,13 @@
   optionalDependencies:
     "moment" "^2.24.0"
 
+"react-native-circle-checkbox@^0.1.6":
+  "integrity" "sha512-64H+pD6RZyKJVK3QAIqBYbIlD8rFuH9u5qTG8eIMMdjwfuWvSg/a5ysONVnqcFpSb3RdOVfEfuWHvNyU4aSrHA=="
+  "resolved" "https://registry.npmjs.org/react-native-circle-checkbox/-/react-native-circle-checkbox-0.1.6.tgz"
+  "version" "0.1.6"
+  dependencies:
+    "prop-types" "latest"
+
 "react-native-codegen@^0.0.6":
   "integrity" "sha512-cMvrUelD81wiPitEPiwE/TCNscIVauXxmt4NTGcy18HrUd0WRWXfYzAQGXm0eI87u3NMudNhqFj2NISJenxQHg=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.6.tgz"
@@ -5751,6 +5787,11 @@
     "flow-parser" "^0.121.0"
     "jscodeshift" "^0.11.0"
     "nullthrows" "^1.1.1"
+
+"react-native-date-picker@^4.2.1":
+  "integrity" "sha512-buJkmVkyJIQwqeV1/1YYLVmBj9ah1L9AFJVFad20aObJuyxPSqJZClmuwDjVH1kf9jqXICDHJEH3bbagtr6Hfg=="
+  "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.1.tgz"
+  "version" "4.2.1"
 
 "react-native-elements@^3.4.2":
   "integrity" "sha512-m0eAWOn7JuR1wNTNY0WHuaqst4LI/gFE4N5Bbyfsc4DiryWsMST7aAg5w/Gos4IexWIzhLKCIkPxthND1m/8Xg=="
@@ -5777,7 +5818,7 @@
     "lodash" "^4.17.21"
     "prop-types" "^15.7.2"
 
-"react-native-iphone-x-helper@^1.0.3":
+"react-native-iphone-x-helper@^1.0.3", "react-native-iphone-x-helper@^1.3.1":
   "integrity" "sha512-HOf0jzRnq2/aFUcdCJ9w9JGzN3gdEg0zFE4FyYlp4jtidqU03D5X7ZegGKfT1EWteR0gPBGp9ye5T5FvSWi9Yg=="
   "resolved" "https://registry.npmjs.org/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.3.1.tgz"
   "version" "1.3.1"
@@ -5789,6 +5830,22 @@
   dependencies:
     "prop-types" "^15.6.2"
     "react-native-iphone-x-helper" "^1.0.3"
+
+"react-native-modalbox@^2.0.2":
+  "integrity" "sha512-uSuoZ+siPPNqWGyw8NXhA/Aots7mOx2+qijFoeovequY0kczZEPZDd0ARHbzg+1cE3H3AATJEwGdkVA8lUxs0g=="
+  "resolved" "https://registry.npmjs.org/react-native-modalbox/-/react-native-modalbox-2.0.2.tgz"
+  "version" "2.0.2"
+  dependencies:
+    "prop-types" "^15.5.10"
+
+"react-native-paper@^4.12.1":
+  "integrity" "sha512-xvAkwtRatsDcB/eSBUwoThBAT5Yy32SgKwrfHRUXi/9s5lR2SEuPZwmsZyAaq+bsxtAH1CaIT4CDeVLSaArzyg=="
+  "resolved" "https://registry.npmjs.org/react-native-paper/-/react-native-paper-4.12.1.tgz"
+  "version" "4.12.1"
+  dependencies:
+    "@callstack/react-theme-provider" "^3.0.7"
+    "color" "^3.1.2"
+    "react-native-iphone-x-helper" "^1.3.1"
 
 "react-native-progress@^5.0.0":
   "integrity" "sha512-KjnGIt3r9i5Kn2biOD9fXLJocf0bwxPRxOyAgXEnZTJQU2O+HyzgGFRCbM5h3izm9kKIkSc1txh8aGmMafCD9A=="
@@ -5837,10 +5894,27 @@
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
 
+"react-native-simple-radio-button@^2.7.4":
+  "integrity" "sha512-QOZNmJUn0ViBGU+at7wAG/uGzd5PfXi0kMHr9lfTCLXknW/f9f2fOVjxjdHvOCdf/zA/eMJBjGjtusSDzQf1+w=="
+  "resolved" "https://registry.npmjs.org/react-native-simple-radio-button/-/react-native-simple-radio-button-2.7.4.tgz"
+  "version" "2.7.4"
+
 "react-native-size-matters@^0.3.1":
   "integrity" "sha512-mKOfBLIBFBcs9br1rlZDvxD5+mAl8Gfr5CounwJtxI6Z82rGrMO+Kgl9EIg3RMVf3G855a85YVqHJL2f5EDRlw=="
   "resolved" "https://registry.npmjs.org/react-native-size-matters/-/react-native-size-matters-0.3.1.tgz"
   "version" "0.3.1"
+
+"react-native-slider@^0.11.0":
+  "integrity" "sha512-jV9K87eu9uWr0uJIyrSpBLnCKvVlOySC2wynq9TFCdV9oGgjt7Niq8Q1A8R8v+5GHsuBw/s8vEj1AAkkUi+u+w=="
+  "resolved" "https://registry.npmjs.org/react-native-slider/-/react-native-slider-0.11.0.tgz"
+  "version" "0.11.0"
+  dependencies:
+    "prop-types" "^15.5.6"
+
+"react-native-splash-screen@^3.3.0":
+  "integrity" "sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA=="
+  "resolved" "https://registry.npmjs.org/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz"
+  "version" "3.3.0"
 
 "react-native-svg@*":
   "integrity" "sha512-ESG1g1j7/WLD7X3XRFTQHVv0r6DpbHNNcdusngAODIxG88wpTWUZkhcM3A2HJTb+BbXTFDamHv7FwtRKWQ/ALg=="
@@ -5855,7 +5929,7 @@
   "resolved" "https://registry.npmjs.org/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz"
   "version" "1.0.5"
 
-"react-native-vector-icons@>7.0.0":
+"react-native-vector-icons@*", "react-native-vector-icons@>7.0.0":
   "integrity" "sha512-2AHZ/h9d/+rC0odz+OwbGNlc1Lik/pHhSixn4HfC8RtQ8CxfSBZ6gg7bTLcZhdSvZN+ZEGi30Fj+ZnOSQy+smg=="
   "resolved" "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-9.1.0.tgz"
   "version" "9.1.0"
@@ -5876,7 +5950,7 @@
     "normalize-css-color" "^1.0.2"
     "prop-types" "^15.6.0"
 
-"react-native@*", "react-native@>= 0.30.0", "react-native@>=0.42.0", "react-native@>=0.48.4", "react-native@>=0.50.0", "react-native@>=0.57", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.64.3":
+"react-native@*", "react-native@>= 0.30.0", "react-native@>=0.42.0", "react-native@>=0.48.4", "react-native@>=0.50.0", "react-native@>=0.52.1", "react-native@>=0.57", "react-native@>=0.57.0", "react-native@>=0.64.0-rc.0 || 0.0.0-*", "react-native@0.64.3":
   "integrity" "sha512-2OEU74U0Ek1/WeBzPbg6XDsCfjF/9fhrNX/5TFgEiBKd5mNc9LOZ/OlMmkb7iues/ZZ/oc51SbEfLRQdcW0fVw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.64.3.tgz"
   "version" "0.64.3"
@@ -5927,7 +6001,7 @@
   "resolved" "https://registry.npmjs.org/react-refresh/-/react-refresh-0.4.3.tgz"
   "version" "0.4.3"
 
-"react@*", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@^17.0.0", "react@>= 15.2.1", "react@>=17.0.1", "react@16 || 17", "react@17.0.1":
+"react@*", "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0-rc.1", "react@^17.0.0", "react@>= 15.2.1", "react@>=16.2.0", "react@>=16.3.0", "react@>=17.0.1", "react@16 || 17", "react@17.0.1":
   "integrity" "sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.1.tgz"
   "version" "17.0.1"
@@ -6130,6 +6204,11 @@
   "version" "2.6.3"
   dependencies:
     "glob" "^7.1.3"
+
+"rn-round-checkbox@^1.0.0":
+  "integrity" "sha512-Ej57Vo3L99efUMDDxne+uWqCyyuoWzb6Iqre/3jZ6C16gGe7fuNtRs8icS8BSCcPZRuZXAtR1iCEBks2Z89URA=="
+  "resolved" "https://registry.npmjs.org/rn-round-checkbox/-/rn-round-checkbox-1.0.0.tgz"
+  "version" "1.0.0"
 
 "rsvp@^4.8.4":
   "integrity" "sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA=="
