@@ -32,8 +32,6 @@ const SearchBar = (props) => {
             </View>
         ) :
         (
-            <TouchableOpacity
-                onPress onPress={() => props.setPlace(!props.place)}>
             <View
                 style = {{
                     flexDirection : 'row',
@@ -48,15 +46,13 @@ const SearchBar = (props) => {
                     paddingVertical: 8,
                     paddingLeft: 15,
                     marginBottom : 3 }}>
-                <Text
-                    style = {{fontSize: 13, color : '#999999'}}>
-                    위치 검색하기
-                </Text>
+                <TextInput
+                    styles = {{width : 250}}
+                    placeholder = {'위치 입력하기'}/>
                 <Image
                     source={require('../../assets/vote/search.png')}
                     style = {{width : 20, height : 20}}/>
             </View>
-            </TouchableOpacity>
         )}
         </View>
     );

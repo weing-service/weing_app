@@ -38,7 +38,20 @@ const VoteDo = (props) => {
                     내 위치 투표
                 </Text>
                 <SearchBar place = {place} setPlace={setPlace}/>
-                <PlaceFind open = {place} setPlace = {setPlace}/>
+                <View
+                    style ={{flexDirection: 'row', alignItems : 'center', marginTop : 5}}>
+                        <TouchableOpacity>
+                        <Image
+                            style = {{width: 11, height: 11, marginLeft : 17}}
+                            source={require('../../assets/vote/place.png')}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                        <Text
+                            style = {{fontSize : 12, color : '#404855', marginLeft : 5}}>
+                            현재 위치로 설정
+                        </Text>
+                        </TouchableOpacity>
+                </View>
             </View>
             </ImageBackground>
         </View>
