@@ -9,7 +9,12 @@ const RoundCheck = (props) => {
     return (
         <CircleCheckBox
             styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
-            onToggle={() => {props.setChecked(!props.checked), props.setOpen(true)}}
+            onToggle={() => {
+                if (props.type === 0) {
+                props.setChecked(!props.checked), props.setOpen(true)
+                } else {
+                props.setChecked(!props.checked)}}
+                }
             checked = {props.checked}
             outerSize = {22}
             innerSize = {10}

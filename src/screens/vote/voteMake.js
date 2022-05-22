@@ -71,7 +71,7 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     투표 마감시간 설정
                 </Text>
-                <RoundCheck checked = {deadlineChecked} setChecked = {setDeadlineChecked} open={open2} setOpen = {setOpen2}/>
+                <RoundCheck checked = {deadlineChecked} setChecked = {setDeadlineChecked} type = {0} open={open2} setOpen = {setOpen2}/>
                 </View>
                 { Object.keys(checkedDate).length === 0 ? null : (
                     <TouchableOpacity
@@ -80,7 +80,7 @@ const VoteMake = () => {
                         disabled = {true}>
                         <Text
                             style = {{fontSize : 15, color : '#999999', alignSelf : 'center'}}>
-                            {Object.keys(markedDates)[0]}
+                            {Object.keys(checkedDate)[0]}
                         </Text>
                     </TouchableOpacity>
                 )}
