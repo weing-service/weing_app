@@ -17,7 +17,13 @@ const SlideModal = (props) => {
     }
 
     const handleDayPress = (day) => {
-        if (Object.keys(props.markedDates).length===0) {
+        if (props.type === 0) {
+            props.setMarkedDates({
+            [day.dateString] : {
+            color : '#89B6C2'
+            }
+            })
+        } else if (Object.keys(props.markedDates).length===0) {
             props.setMarkedDates({
             [day.dateString]: {
             startingDay: true,color: '#89B6C2'
