@@ -31,12 +31,12 @@ const CardContainer = (props) => {
     const [data] = useState(props.data);
 
     const mapToComponent = () => {
-          return data.map((element) => {
+        return data.map((element) => {
             return (
                 <VoteCard
                     key = {element.key} data = {element} style = {projectInfo[props.state]}/>
-            );
-          });
+                );
+            });
         };
 
     return (

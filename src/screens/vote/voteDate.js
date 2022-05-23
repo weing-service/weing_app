@@ -2,22 +2,19 @@ import React, {useState} from "react";
 import { StyleSheet, View, ImageBackground, ScrollView, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import BottomNavigator from '../../components/common/bottomNavigator';
+import DateCardContainer from '../../components/vote/dateCardContainer';
+import TimeZone from '../../components/vote/timeZone';
+import TimeTouchView from '../../components/vote/timeTouchView';
 
 const VoteDo = () => {
 
     const navigation = useNavigation();
+    const time = [
+                '09:00','10:00','11:00','12:00','13:00','14:00',
+                '15:00','16:00','17:00','18:00','19:00','20:00',
+                '21:00','22:00','23:00','24:00']
 
     const data = ['2022-05-15','2022-05-16','2022-05-17','2022-05-18','2022-05-19','2022-05-20','2022-05-21','2022-05-22'];
-
-    const mapToComponent = () => {
-          return data.map((element) => {
-            return (
-                <VoteCard
-                    key = {element.key} data = {element} style = {projectInfo[props.state]}/>
-            );
-          });
-        };
-
 
     return (
         <View>
@@ -47,14 +44,30 @@ const VoteDo = () => {
                         style = {{color : '#404855', marginLeft : 16, marginTop : 12}}>
                         날짜 선택
                     </Text>
+                    <DateCardContainer data = {data}/>
                 </View>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('VoteDo')}>
+                <View
+                    style = {{flexDirection : 'row', marginTop : 36, justifyContent : 'space-between'}}>
                     <Text
-                        style = {{marginTop : 50, marginLeft : 50}}>
-                        투표 완료
+                        style = {{marginLeft : 16, fontSize : 15}}>
+                        시간 선택
                     </Text>
-                </TouchableOpacity>
+                    <Text
+                        style = {{marginRight : 16, fontSize : 12, color : '#999999'}}>
+                        가능한 시간대를 모두 드래그하세요.
+                    </Text>
+                </View>
+                <ScrollView
+                    style = {{marginTop : 22}}>
+                    <View
+                        style = {{flexDirection : 'row'}}>
+                        <TimeZone />
+                        <TimeTouchView data = {time}/>
+                    </View>
+                </ScrollView>
+                <View
+                    style = {{height : 100}}>
+                </View>
             <View style = {styles.fixed2}>
                 <BottomNavigator type = {0}/>
             </View>
