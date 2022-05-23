@@ -20,7 +20,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Loading">
-        <Stack.Screen name="Loading" component={Loading} options={{headerShown: false}}/>
+        {/* <Stack.Screen name="Loading" component={Loading} options={{headerShown: false}}/>
         <Stack.Screen name="Login" component={Login} options={{headerShown: false}}/>
         <Stack.Screen name="VoteList" component={VoteList} options={{headerShown: false}}/>
         <Stack.Screen name="VoteResult" component={VoteResult} options={{headerShown: false}}/>
@@ -28,7 +28,7 @@ function App() {
         <Stack.Screen name="VoteMake" component={VoteMake} options={{headerShown: false}}/>
         <Stack.Screen name="VoteDate" component={VoteDate} options={{headerShown: false}}/>
         <Stack.Screen name="AddProjectPage" component={AddProjectPage} options={{headerShown: false}}/>
-        <Stack.Screen name="MainPage" component={MainPage} options={{headerShown: false}}/>
+        <Stack.Screen name="MainPage" component={MainPage} options={{headerShown: false}}/> */}
         <Stack.Screen name="AddTodoPage" component={AddTodoPage} options={{headerShown: false}}/>
         <Stack.Screen name="Map" component={Map} options={{headerShown: false}}/>
       </Stack.Navigator>

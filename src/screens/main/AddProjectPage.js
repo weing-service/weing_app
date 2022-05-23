@@ -33,7 +33,6 @@ const AddProjectPage = () => {
         setFinishDate(day);
         let bt = day.timestamp - startDate.timestamp;
         let btDay = bt / (1000*60*60*24);
-        console.log(btDay);
         for(let i=0; i<btDay; i++){
             if(i == 0)
                 newMark[startDate.dateString] = {startingDay: true, dotColor: "#89B6C2", color: "#89B6C2"};
@@ -42,7 +41,6 @@ const AddProjectPage = () => {
         }
         newMark[day.dateString] = {endingDay: true, dotColor: "#89B6C2", color: "#89B6C2"};
     }
-    console.log(newMark);
     setMarker(newMark);
     setCount(count + 1);
   }

@@ -9,12 +9,12 @@ import Slider from "react-native-slider";
 // 예사 데이터들
 const todos = {
   // dummies
-  "2022-05-21": [
+  "2022-05-24": [
     {
       id: 1,
       title: "기획팀 스토리보드 회의",
       info: "스토리보드 추합",
-      startDate: "2022-05-20",
+      startDate: "2022-05-24",
       // finishDate 꼭 넣어야 하나..?
       category: "기획",
       intoCal: true,
@@ -27,7 +27,7 @@ const todos = {
       id: 2,
       title: "개발팀 스터디",
       info: "스토리보드 추합",
-      startDate: "2022-05-20",
+      startDate: "2022-05-24",
       category: "개발",
       intoCal: true,
       place: "비대면 Zoom"
@@ -189,7 +189,7 @@ const CommonCalendar = () => {
         items={todoItems}
         markingType={'multi-dot'}
         markedDates={{
-          '2022-05-20': {dots: [pd, dev]}
+          '2022-05-24': {dots: [pd, dev]}
         }}
         current={dateString}
         selected={dateString}
