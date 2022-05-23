@@ -37,7 +37,7 @@ const VoteResult = () => {
                 <ListType type={'진행중인 투표'} clicked = {false}  move = {'VoteList'}/>
                 <ListType type={'완료된 투표'} clicked = {true} move = {'VoteResult'}/>
             </View>
-            <SearchBar/>
+            <SearchBar type={0}/>
             <ScrollView>
                 <CardContainer state={2} data = {data1}/>
             </ScrollView>

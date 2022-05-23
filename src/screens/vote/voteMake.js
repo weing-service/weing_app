@@ -14,7 +14,9 @@ const VoteMake = () => {
     const [doubleChecked, setDoubleChecked] = useState(false);
     const [anonChecked, setAnonChecked] = useState(false);
     const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
     const [markedDates, setMarkedDates] = useState({});
+    const [checkedDate, setCheckedDate] = useState({});
     const navigation = useNavigation();
 
     return (
@@ -69,8 +71,20 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     투표 마감시간 설정
                 </Text>
-                <RoundCheck checked = {deadlineChecked} setChecked = {setDeadlineChecked}/>
+                <RoundCheck checked = {deadlineChecked} setChecked = {setDeadlineChecked} type = {0} open={open2} setOpen = {setOpen2}/>
                 </View>
+                { Object.keys(checkedDate).length === 0 ? null : (
+                    <TouchableOpacity
+                        style ={{backgroundColor : 'white', width : 120, height : 50, alignItems : 'center', justifyContent : 'center',
+                        borderRadius:10, marginLeft: 16, marginBottom : 21}}
+                        disabled = {true}>
+                        <Text
+                            style = {{fontSize : 15, color : '#999999', alignSelf : 'center'}}>
+                            {Object.keys(checkedDate)[0]}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+                <SlideModal open = {open2} setOpen = {setOpen2} markedDates = {checkedDate} setMarkedDates = {setCheckedDate} type = {0}/>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21, alignItems: 'center', justifyContent : 'space-between'}}>
                 <Text
