@@ -31,7 +31,7 @@ const BottomNavigator = (props) => {
                 style = {{backgroundColor : 'white'}}
                 onPress={() => props.type === 1 ? null : navigation.navigate('MainPage')}>
                 <Image
-                    style = {{width: 64, height: 64}}
+                    style = {{width: 80, height: 80}}
                     source={require('../../assets/navigate/main.png')}/>
             </TouchableOpacity>
             <TouchableOpacity
