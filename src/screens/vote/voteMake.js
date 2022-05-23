@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import CircleCheckBox from 'react-native-circle-checkbox';
 import Date from '../../components/vote/datePicker';
 import SlideModal from '../../components/vote/slideModal';
+import RoundCheck from '../../components/vote/roundCheck';
+import DatePicker from '../../components/vote/datePicker';
 
 const VoteMake = () => {
 
@@ -12,6 +14,9 @@ const VoteMake = () => {
     const [doubleChecked, setDoubleChecked] = useState(false);
     const [anonChecked, setAnonChecked] = useState(false);
     const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
+    const [markedDates, setMarkedDates] = useState({});
+    const [checkedDate, setCheckedDate] = useState({});
     const navigation = useNavigation();
 
     return (
@@ -41,42 +46,52 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     투표 받을날짜 *
                 </Text>
-                <TouchableOpacity
-                    onPress={() => setOpen(!open)} >
-                    <Image
-                        style = {{width: 70, height: 70, marginLeft : 16, marginTop: 21, marginBottom : 21}}
-                        source={require('../../assets/vote/1.png')}/>
-                </TouchableOpacity>
-                <SlideModal open = {open} setOpen = {setOpen}/>
+                { Object.keys(markedDates).length === 0 ? (
+                    <TouchableOpacity
+                        onPress={() => setOpen(!open)} >
+                        <Image
+                            style = {{width: 70, height: 70, marginLeft : 16, marginTop: 21, marginBottom : 21}}
+                            source={require('../../assets/vote/1.png')}/>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity
+                        style ={{backgroundColor : 'white', width : 120, height : 50, alignItems : 'center', justifyContent : 'center',
+                        borderRadius:10, marginLeft: 16, marginTop: 21, marginBottom : 21}}
+                        disabled = {true}>
+                        <Text
+                            style = {{fontSize : 15, color : '#999999', alignSelf : 'center'}}>
+                            {Object.keys(markedDates)[0].substring(5,10)}~{Object.keys(markedDates)[Object.keys(markedDates).length-1].substring(5,10)}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+                <SlideModal open = {open} setOpen = {setOpen} markedDates = {markedDates} setMarkedDates = {setMarkedDates}/>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21, justifyContent : 'space-between' }}>
                 <Text
                     style = {styles.title3}>
                     투표 마감시간 설정
                 </Text>
-                <CircleCheckBox
-                    styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
-                    onToggle={() => setDeadlineChecked(!deadlineChecked)}
-                    checked = {deadlineChecked}
-                    outerSize = {22}
-                    innerSize = {10}
-                    outerColor = {'#C4C4C4'}
-                    innerColor = {'#89B6C2'}/>
+                <RoundCheck checked = {deadlineChecked} setChecked = {setDeadlineChecked} type = {0} open={open2} setOpen = {setOpen2}/>
                 </View>
+                { Object.keys(checkedDate).length === 0 ? null : (
+                    <TouchableOpacity
+                        style ={{backgroundColor : 'white', width : 120, height : 50, alignItems : 'center', justifyContent : 'center',
+                        borderRadius:10, marginLeft: 16, marginBottom : 21}}
+                        disabled = {true}>
+                        <Text
+                            style = {{fontSize : 15, color : '#999999', alignSelf : 'center'}}>
+                            {Object.keys(checkedDate)[0]}
+                        </Text>
+                    </TouchableOpacity>
+                )}
+                <SlideModal open = {open2} setOpen = {setOpen2} markedDates = {checkedDate} setMarkedDates = {setCheckedDate} type = {0}/>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21, alignItems: 'center', justifyContent : 'space-between'}}>
                 <Text
                     style = {styles.title3}>
                     복수 선택
                 </Text>
-                <CircleCheckBox
-                    styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
-                    onToggle={() => setDoubleChecked(!doubleChecked)}
-                    checked = {doubleChecked}
-                    outerSize = {22}
-                    innerSize = {10}
-                    outerColor = {'#C4C4C4'}
-                    innerColor = {'#89B6C2'}/>
+                <RoundCheck checked = {doubleChecked} setChecked = {setDoubleChecked}/>
                 </View>
                 <View
                     style = {{flexDirection : 'row', marginBottom : 21, justifyContent : 'space-between'}}>
@@ -84,14 +99,7 @@ const VoteMake = () => {
                     style = {styles.title3}>
                     익명 선택
                 </Text>
-                <CircleCheckBox
-                    styleCheckboxContainer = {{marginRight : 16, marginBottom : 3}}
-                    onToggle={() => setAnonChecked(!anonChecked)}
-                    checked = {anonChecked}
-                    outerSize = {22}
-                    innerSize = {10}
-                    outerColor = {'#C4C4C4'}
-                    innerColor = {'#89B6C2'}/>
+                <RoundCheck checked = {anonChecked} setChecked = {setAnonChecked}/>
                 </View>
             </View>
             </ImageBackground>
