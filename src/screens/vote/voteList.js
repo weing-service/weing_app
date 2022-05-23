@@ -4,6 +4,7 @@ import ListType from '../../components/vote/listType';
 import SearchBar from '../../components/vote/searchBar';
 import CardContainer from '../../components/vote/cardContainer';
 import { useNavigation } from '@react-navigation/native';
+import BottomNavigator from '../../components/common/bottomNavigator';
 
 const VoteList = () => {
 
@@ -69,6 +70,9 @@ const VoteList = () => {
                         source={require('../../assets/vote/add.png')}/>
                 </TouchableOpacity>
             </View>
+            <View style = {styles.fixed2}>
+                <BottomNavigator type = {0}/>
+            </View>
             </ImageBackground>
         </View>
     );
@@ -84,10 +88,15 @@ const styles = StyleSheet.create({
     },
     fixed: {
         position: 'absolute',
-        bottom: 80,
+        bottom: 110,
         left: 300,
         right: 0,
-    }
+    },
+    fixed2: {
+        position: 'absolute',
+        top : 690,
+        width : '100%'
+    },
 });
 
 export default VoteList;

@@ -3,7 +3,7 @@ import { StyleSheet, View, ImageBackground, Text, TouchableOpacity, Image, Check
 import VoteInfo from '../../components/vote/voteInfo';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '../../components/vote/searchBar';
-import PlaceFind from '../../components/vote/placeFind';
+import BottomNavigator from '../../components/common/bottomNavigator';
 
 const VoteDo = (props) => {
 
@@ -53,6 +53,9 @@ const VoteDo = (props) => {
                         </TouchableOpacity>
                 </View>
             </View>
+            <View style = {styles.fixed2}>
+                <BottomNavigator type = {0}/>
+            </View>
             </ImageBackground>
         </View>
     )
@@ -80,6 +83,11 @@ const styles = StyleSheet.create({
         color : '#404855',
         textAlign: 'left',
         marginLeft : 16
+    },
+    fixed2: {
+        position: 'absolute',
+        top : 690,
+        width : '100%'
     },
 });
 

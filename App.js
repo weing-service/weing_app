@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import VoteList from './src/screens/vote/voteList';
 import VoteResult from './src/screens/vote/voteResult';
@@ -16,20 +15,6 @@ import AddProjectPage from './src/screens/main/AddProjectPage';
 import Map from './src/screens/map/map';
 
 const Stack = createNativeStackNavigator();
-const Tab = createBottomTabNavigator();
-
-function MyTabs() {
-  return (
-    <NavigationContainer>
-        <Tab.Navigator
-            initialRouteName = "MainPage">
-          <Tab.Screen name="VoteList" component={VoteList} options={{ headerShown: false, tabBarShowLabel : false }} />
-          <Tab.Screen name="MainPage" component={MainPage} options={{ headerShown: false, tabBarShowLabel : false }} />
-          <Tab.Screen name="Map" component={Map} options={{ headerShown: false, tabBarShowLabel : false }} />
-        </Tab.Navigator>
-    </NavigationContainer>
-  );
-}
 
 function App() {
   return (
@@ -46,7 +31,6 @@ function App() {
         <Stack.Screen name="MainPage" component={MainPage} options={{headerShown: false}}/>
         <Stack.Screen name="AddTodoPage" component={AddTodoPage} options={{headerShown: false}}/>
         <Stack.Screen name="Map" component={Map} options={{headerShown: false}}/>
-        <Stack.Screen name="MyTabs" component={MyTabs} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
