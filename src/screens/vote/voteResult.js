@@ -4,6 +4,7 @@ import ListType from '../../components/vote/listType';
 import SearchBar from '../../components/vote/searchBar';
 import VoteCard from '../../components/vote/voteCard';
 import CardContainer from '../../components/vote/cardContainer';
+import BottomNavigator from '../../components/common/bottomNavigator';
 
 const VoteResult = () => {
 
@@ -41,6 +42,9 @@ const VoteResult = () => {
             <ScrollView>
                 <CardContainer state={2} data = {data1}/>
             </ScrollView>
+            <View style = {styles.fixed2}>
+                <BottomNavigator type = {0}/>
+            </View>
             </ImageBackground>
         </View>
     );
@@ -52,6 +56,11 @@ const styles = StyleSheet.create({
         color : 'black',
         marginTop: 34,
         alignSelf: 'center'
+    },
+    fixed2: {
+        position: 'absolute',
+        top : 690,
+        width : '100%'
     },
 });
 export default VoteResult;

@@ -2,11 +2,10 @@ import React, {useState} from "react";
 import { Button, StyleSheet, View, ImageBackground, ScrollView, Text, TouchableOpacity, Image, Checkbox } from "react-native";
 import VoteInput from '../../components/vote/voteInput';
 import { useNavigation } from '@react-navigation/native';
-import CircleCheckBox from 'react-native-circle-checkbox';
 import Date from '../../components/vote/datePicker';
 import SlideModal from '../../components/vote/slideModal';
 import RoundCheck from '../../components/vote/roundCheck';
-import DatePicker from '../../components/vote/datePicker';
+import BottomNavigator from '../../components/common/bottomNavigator';
 
 const VoteMake = () => {
 
@@ -102,6 +101,9 @@ const VoteMake = () => {
                 <RoundCheck checked = {anonChecked} setChecked = {setAnonChecked}/>
                 </View>
             </View>
+            <View style = {styles.fixed2}>
+                <BottomNavigator type = {0}/>
+            </View>
             </ImageBackground>
         </View>
     )
@@ -129,6 +131,11 @@ const styles = StyleSheet.create({
         color : '#404855',
         textAlign: 'left',
         marginLeft : 16
+    },
+    fixed2: {
+        position: 'absolute',
+        top : 690,
+        width : '100%'
     },
 });
 

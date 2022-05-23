@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { StyleSheet, View, ImageBackground, ScrollView, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-
+import BottomNavigator from '../../components/common/bottomNavigator';
 
 const VoteDo = () => {
 
@@ -55,6 +55,9 @@ const VoteDo = () => {
                         투표 완료
                     </Text>
                 </TouchableOpacity>
+            <View style = {styles.fixed2}>
+                <BottomNavigator type = {0}/>
+            </View>
             </ImageBackground>
         </View>
     )
@@ -76,6 +79,11 @@ const styles = StyleSheet.create({
         marginTop: 35,
         marginBottom : 4,
         marginRight : '4%'
+    },
+    fixed2: {
+        position: 'absolute',
+        top : 690,
+        width : '100%'
     },
 });
 
