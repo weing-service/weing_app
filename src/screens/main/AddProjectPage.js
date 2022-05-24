@@ -126,7 +126,9 @@ const AddProjectPage = () => {
       visible={picker}
       onRequestClose={() => setIsPickerOpen(false)}
     >
-      <View style={{flex:1, marginTop: 350, backgroundColor:'white', borderTopLeftRadius: 20, borderTopRightRadius: 20}}>
+        <View style={{flex: 1, backgroundColor: 'black', opacity: 0.4}}>
+        </View>
+      <View style={{flex: 1.5, backgroundColor:'white', borderTopLeftRadius: 20, borderTopRightRadius: 20}}>
         <View style={{flex: 1}}>
             <TouchableOpacity style={{flex: 1, alignItems:'center', paddingTop: 20}}>
                 <Image 

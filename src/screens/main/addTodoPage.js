@@ -168,7 +168,6 @@ const AddTodoPage = () => {
         <View style={{flex: 4}}>
             <Calendar
             enableSwipeMonths
-            //selected={pickedDate}
             onDayPress={day => onPressDate(day)}
             markingType={'period'}
             markedDates={marker}
