@@ -6,6 +6,8 @@ import { StyleSheet } from "react-native";
 import DateToString from "../common/DateToString";
 import Slider from "react-native-slider";
 
+const API_URL = 'http://localhost:8080';
+
 // 예사 데이터들
 const todos = {
   // dummies
@@ -14,9 +16,10 @@ const todos = {
       id: 1,
       title: "기획팀 스토리보드 회의",
       info: "스토리보드 추합",
-      startDate: "2022-05-24",
-      // finishDate 꼭 넣어야 하나..?
+      startDate: new Date(),
+      finishDate: new Date(),
       category: "기획",
+      // color 받아야 함
       intoCal: true,
       // 시간도 없음 --> 날짜랑 같이 date 형식으로 보낼것
       // cateogry 컬러
@@ -27,7 +30,8 @@ const todos = {
       id: 2,
       title: "개발팀 스터디",
       info: "스토리보드 추합",
-      startDate: "2022-05-24",
+      startDate: new Date(),
+      finishDate: new Date(),
       category: "개발",
       intoCal: true,
       place: "비대면 Zoom"
@@ -68,8 +72,40 @@ const CommonCalendar = () => {
   const [todayTodo, setTodayTodo] = useState(todos[dateString]); // 오늘 해야할 일
   const [doneCount, setDoneCount] = useState(0);
 
+  useEffect(() => {
+    fetch(`${API_URL}/schedule/`, {
+      method: 'GET'
+    }).then(async (res) => {
+      let jsonRes = await res.json();
+      jsonRes = [{
+        "_id": "6280a2eb18654e00dd933414",
+        "title": "title",
+        "info": "내용 수정",
+        "startDate": new Date(),
+        "finishDate": new Date(),
+        "category": "기획",
+        "intoCal": true,
+        "repeated": false,
+        "__v": 0
+    },
+    {
+        "_id": "6280b005600bf6fb7c3e664a",
+        "title": "title",
+        "info": "info",
+        "startDate": new Date(),
+        "finishDate": new Date(),
+        "category": "개발",
+        "intoCal": true,
+        "repeated": false,
+        "__v": 0
+    }];
+      Object.keys(jsonRes).map((json) => {
+        //console.log(json);
+      })
+    })
+  })
+
   const onPressDone =(event) => {
-    console.log(event.target.isDone);
     const newTodo = todayTodo;
     newTodo.isDone = !todayTodo.isDone;
     setTodayTodo(newTodo);
@@ -81,10 +117,8 @@ const CommonCalendar = () => {
     // done handler
     if(event.target.isDone === false && doneCount > 0){
       setDoneCount(doneCount - 1);
-      console.log(doneCount);
     } else if(event.target.isDone === true && doneCount < todayTodo.length + 1) {
       setDoneCount(doneCount + 1);
-      console.log(doneCount);
     }
   }
 
