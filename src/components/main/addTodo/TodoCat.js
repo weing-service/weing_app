@@ -82,11 +82,13 @@ const TodoCat = ({category, setCategory}) => {
   }
   // if category added
   const onPressAdd = () => {
-    const newCats = categories.push({
+    const newCats = categories.concat([{
+      id: categories.length + 1,
       name: newName,
       color: newColor
-    });
+    }]);
     setCategories(newCats);
+    console.log(categories[3]);
     setModalOpen(false);
   }
   // if category selected
@@ -96,7 +98,12 @@ const TodoCat = ({category, setCategory}) => {
     let newCats = categories;
     newCats = newCats.filter((cat) => cat.name === item.name).concat(categories.filter((cat) => cat.name !== item.name));
     setCategories(newCats);
-    console.log(categories);
+  }
+
+  const onChangeName = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setNewName(event.nativeEvent.text);
   }
 
   // 새 카테고리 추가 모달
@@ -107,11 +114,13 @@ const TodoCat = ({category, setCategory}) => {
       transparent={true}
       visible={modalOpen}
     >
-      <View style={{flex:1, marginTop: 300, backgroundColor: 'white'}}>
-        <View>
-          <Text style={{textAlign: 'center'}}>새 카테고리 추가</Text>
+      <View style={{flex: 1, backgroundColor: "black", opacity: 0.4}}>
+      </View>
+      <View style={{flex: 2, backgroundColor: 'white'}}>
+        <View style={modalStyle.topView}>
+          <Text style={modalStyle.title}>새 카테고리 추가</Text>
           <TouchableOpacity 
-            style={{position: 'absolute', right: 20}}
+            style={modalStyle.add}
             onPress={onPressAdd}
           >
             <Text style={{opacity: 0.4}}>
@@ -120,19 +129,35 @@ const TodoCat = ({category, setCategory}) => {
           </TouchableOpacity>
         </View>
 
-        <View>
-          <Text>카테고리 이름</Text>
+        <View style={{flex: 1, top: 50, left: 20, right: 20}}>
+          <Text style={modalStyle.text}>카테고리 이름</Text>
           <TextInput
+            defaultValue={newName}
+            style={modalStyle.input}
             placeholder="카테고리 이름을 입력해주세요."
+            placeholderTextColor={"#999999"}
             value={newName}
-            onChange={(value) => setNewName(value)}
+            onChangeText={text => setNewName(text)}
           />
 
           <TouchableOpacity
-            style={{backgroundColor: newColor, borderRadius: '9px'}}
+            style={{
+              backgroundColor: newColor, 
+              borderRadius: 20,
+              marginTop: 10,
+              width: 60,
+              height: 22,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
             onPress={pickerOpener}
           >
-            <Text>컬러</Text>
+            <Text style={{color: 'white', fontSize: 12, marginRight: 5}}>컬러</Text>
+            <Image 
+            source={require('../../../assets/main/todo/arrow_bottom.png')}
+            style={{width: 7, height: 7}}
+            />
           </TouchableOpacity>
 
         </View>
@@ -147,85 +172,89 @@ const TodoCat = ({category, setCategory}) => {
         transparent={true}
         visible={pickerOpen}
       >
-        <View style={{flex:1, marginTop: 600}}>
-          <Text>Color Picker</Text>
-          <View style={{flex: 1, flexDirection: 'row'}}>
+        <View style={{flex: 3, backgroundColor: "black", opacity: 0.4}}>
+        </View>
+        <View style={{flex: 1.5, backgroundColor: 'white'}}>
+          <View style={pickerStyle.container}>
+          <View style={pickerStyle.row}>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#DFDD6C")}
             >
               <Image source={require("../../../assets/main/cat-colors/DFDD6C.png")} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#F8D941")}
             >
               <Image source={require("../../../assets/main/cat-colors/F8D941.png")} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#FDC453")}
             >
               <Image source={require("../../../assets/main/cat-colors/FDC453.png")} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#FE8D6F")}
             >
               <Image source={require("../../../assets/main/cat-colors/FE8D6F.png")} />
             </TouchableOpacity>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={pickerStyle.row}>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#A0DDE0")}
             >
               <Image source={require("../../../assets/main/cat-colors/A0DDE0.png")} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#CBD6C8")}
             >
               <Image source={require("../../../assets/main/cat-colors/CBD6C8.png")} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#F886A8")}
             >
               <Image source={require("../../../assets/main/cat-colors/F886A8.png")} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#FE7748")}
             >
               <Image source={require("../../../assets/main/cat-colors/FE7748.png")} />
             </TouchableOpacity>
           </View>
-          <View style={{flex: 1, flexDirection: 'row'}}>
+          <View style={pickerStyle.row}>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#89B6C2")}
             >
               <Image source={require("../../../assets/main/cat-colors/89B6C2.png")} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#9ADBC5")}
             >
               <Image source={require("../../../assets/main/cat-colors/9ADBC5.png")} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#FD9F9D")}
             >
               <Image source={require("../../../assets/main/cat-colors/FD9F9D.png")} />
             </TouchableOpacity>
             <TouchableOpacity
-              style={{flex: 1, margin: 10}}
+              style={pickerStyle.color}
               onPress={() => modalOpener("#FF4141")}
             >
               <Image source={require("../../../assets/main/cat-colors/FF4141.png")} />
             </TouchableOpacity>
+          </View>
+
           </View>
         </View>
       </Modal>
@@ -335,5 +364,49 @@ const catStyles = StyleSheet.create({
     borderWidth: 3,
   },
 });
+
+const modalStyle = StyleSheet.create({
+  topView: {
+    top: 30,
+  },
+  title: {
+    textAlign: 'center',
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  add : {
+    position: 'absolute', 
+    right: 20,
+    fontSize: 15
+  },
+  text: {
+    fontSize: 15,
+  },
+  input: {
+      backgroundColor: '#F1F1F5',
+      borderRadius: 10,
+      marginTop: 10,
+      height: 50,
+      width: 380,
+      padding: 10,
+  }
+})
+
+const pickerStyle = StyleSheet.create({
+  container: {
+    flex: 1, 
+    top: 20,
+    marginBottom: 80,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  row: {
+    flex: 1, 
+    flexDirection: 'row',
+  },
+  color: {
+    margin: 10,
+  }
+})
 
 export default TodoCat;

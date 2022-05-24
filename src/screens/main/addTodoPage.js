@@ -163,7 +163,7 @@ const AddTodoPage = () => {
                     source={require('../../assets/main/modal_knob.png')}
                 />
             </TouchableOpacity>
-            <Text style={{flex: 1, left: 20, color: "#404855"}}>프로젝트 시작일과 마감일을 설정해주세요.</Text>
+            <Text style={{flex: 1, left: 20, color: "#404855"}}>일정 시작일과 마감일을 설정해주세요.</Text>
         </View>
         <View style={{flex: 4}}>
             <Calendar
