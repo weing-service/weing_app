@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 const AddBtn = () => {
   const navigation = useNavigation();
   
-  return <View style={{position: 'absolute', right: 20, bottom: 100}}>
+  return <View style={{position: 'absolute', right: 20, bottom: 140}}>
     <TouchableOpacity 
       style={{ alignItems:"flex-end" }}
       onPress={() => {
