@@ -37,7 +37,7 @@ const VoteInfo  = (props) => {
             </Text>
         </TouchableOpacity>
         </View>
-    ); 
+    );
 };
 
 const styles = StyleSheet.create({

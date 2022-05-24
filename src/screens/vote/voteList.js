@@ -70,6 +70,9 @@ const VoteList = () => {
                         source={require('../../assets/vote/add.png')}/>
                 </TouchableOpacity>
             </View>
+            <View
+                style = {{height : 110}}>
+            </View>
             <View style = {styles.fixed2}>
                 <BottomNavigator type = {0}/>
             </View>
