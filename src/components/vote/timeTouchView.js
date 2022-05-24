@@ -7,7 +7,6 @@ const TimeTouchView  = (props) => {
     const newData = [...props.data, ...props.data];
     newData.pop();
     newData.pop();
-    console.log(newData.length)
 
     const mapToComponent = () => {
         return newData.map((element) => {
