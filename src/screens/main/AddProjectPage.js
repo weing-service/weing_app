@@ -50,7 +50,15 @@ const AddProjectPage = () => {
     <Text style={{fontSize: 20, textAlign: 'center'}}>새 프로젝트 생성</Text>
     <TouchableOpacity 
         style={{position: 'absolute', right: 20, top: 55}}
-        //onPress={navigation.navigate('MainPage')}
+        onPress={() => {
+            console.log({
+                title: title,
+                info: info,
+                startDate: startDate,
+                finishDate: finishDate
+            })
+            //navigation.navigate('MainPage')
+        }}
     >
         <Text style={{fontWeight: 'bold', fontSize: 15,color: 'white'}}>생성</Text>
     </TouchableOpacity>
@@ -87,7 +95,7 @@ const AddProjectPage = () => {
                 style={styles.input}
                 placeholderTextColor={"#999999"}
                 value={title}
-                onChange={value => setTitle(value)}
+                onChangeText={text => setTitle(text)}
             />
         </View>
         <View style={styles.inputView}>
@@ -97,7 +105,7 @@ const AddProjectPage = () => {
                 placeholder="프로젝트 설명을 입력해주세요."
                 placeholderTextColor={"#999999"}
                 value={info}
-                onChange={value => setTitle(value)}
+                onChangeText={text => setInfo(text)}
             />
         </View>
         <View style={styles.inputView}>
@@ -118,7 +126,9 @@ const AddProjectPage = () => {
       visible={picker}
       onRequestClose={() => setIsPickerOpen(false)}
     >
-      <View style={{flex:1, marginTop: 350, backgroundColor:'white', borderTopLeftRadius: 20, borderTopRightRadius: 20}}>
+        <View style={{flex: 1, backgroundColor: 'black', opacity: 0.4}}>
+        </View>
+      <View style={{flex: 1.5, backgroundColor:'white', borderTopLeftRadius: 20, borderTopRightRadius: 20}}>
         <View style={{flex: 1}}>
             <TouchableOpacity style={{flex: 1, alignItems:'center', paddingTop: 20}}>
                 <Image 

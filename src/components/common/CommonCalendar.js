@@ -11,7 +11,7 @@ const API_URL = 'http://localhost:8080';
 // 예사 데이터들
 const todos = {
   // dummies
-  "2022-05-24": [
+  "2022-05-25": [
     {
       id: 1,
       title: "기획팀 스토리보드 회의",
@@ -70,6 +70,7 @@ const CommonCalendar = () => {
   const [todoItems, setTodoItems] = useState(todos);
   const [markTodos, setMarkTodos] = useState({});
   const [todayTodo, setTodayTodo] = useState(todos[dateString]); // 오늘 해야할 일
+  const [done, setDone] = useState({});
   const [doneCount, setDoneCount] = useState(0);
 
   useEffect(() => {
@@ -103,37 +104,31 @@ const CommonCalendar = () => {
         //console.log(json);
       })
     })
-  })
+  },[])
+
+  useEffect(() => {
+    setDone(done);
+  }, [done])
 
   const onPressDone =(event) => {
-    const newTodo = todayTodo;
-    newTodo.isDone = !todayTodo.isDone;
-    setTodayTodo(newTodo);
-    if(typeof(event.target.isDone) == undefined)
-      Object.assign(event.target, {isDone: true});
-    else
-      event.target.isDone = !event.target.isDone;
+    const id = event.nativeEvent.target;
+    const obj = {
+      ...done,
+      [id] : !Object.keys(done).includes(id) && done[id] === true ? false : true,
+    };
+    // 배열에 요소 추가되면 앞 요소 삭제되는 오류 있음
+    setDone(obj);
 
     // done handler
-    if(event.target.isDone === false && doneCount > 0){
+    if(done[id] === false && doneCount > 0){
       setDoneCount(doneCount - 1);
-    } else if(event.target.isDone === true && doneCount < todayTodo.length + 1) {
+    } else if(done[id] === true && doneCount < todayTodo.length + 1) {
       setDoneCount(doneCount + 1);
     }
   }
 
   useEffect(() => {
     const newTodo = todos[dateString];
-    for(let i=0; i<newTodo.length; i++){
-      Object.assign(newTodo[i], {isDone: false});
-    }
-    setTodayTodo(newTodo);
-
-    todos[dateString].map((todo) => {
-      if(todo.isDone){
-        setDoneCount(doneCount + 1);
-      }
-    })
   }, [])
 
   // render todos
@@ -217,8 +212,9 @@ const CommonCalendar = () => {
   };
 
   return (
-    <View style={{ flex: 1, height: 800 }}>
+    <View style={{ flex: 1 }}>
       <Agenda
+        style={{borderTopRightRadius: 40, top: 10}}
         refreshing={true}
         items={todoItems}
         markingType={'multi-dot'}
@@ -253,11 +249,14 @@ const itemStyle = StyleSheet.create({
     margin: 5,
     padding: 10,
     borderRadius: 15,
+    paddingLeft: 20,
+    marginTop: 10,
+    right: 10
   },
   titleContainer : {
     flex: 1,
     margin: 5,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   thumb: {
     flex: 1,
@@ -273,7 +272,7 @@ const itemStyle = StyleSheet.create({
     fontWeight: 'bold'
   },
   info: {
-
+    left: 20
   },
   place: {
 
@@ -282,7 +281,7 @@ const itemStyle = StyleSheet.create({
 
 const sliderStyle = StyleSheet.create({
   track: {
-    height: 20,
+    height: 15,
     borderRadius: 10,
     backgroundColor: 'transparent',
     borderWidth: 0.2,

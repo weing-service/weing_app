@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   switch: {
     marginTop: 40,
     flex: 1,
-    left: 20,
+    left: 30,
   }
 })
 
