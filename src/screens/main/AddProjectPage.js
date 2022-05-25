@@ -57,7 +57,7 @@ const AddProjectPage = () => {
                 startDate: startDate,
                 finishDate: finishDate
             })
-            //navigation.navigate('MainPage')
+            navigation.navigate('MainPage')
         }}
     >
         <Text style={{fontWeight: 'bold', fontSize: 15,color: 'white'}}>생성</Text>
