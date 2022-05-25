@@ -12,14 +12,14 @@ const DateList  = (props) => {
         }
 
     const mapToComponent = () => {
-            return Object.keys(props.data).map((element) => {
+            return Object.keys(props.data).sort().map((element) => {
                 return (
                     <TouchableOpacity
                         key = {element}
                         style = {{backgroundColor : props.selectedDate === element ? '#89B6C2' : '#DBDBDB',
                                     height : 26, width : 88, alignItems : 'center', justifyContent : 'center',
                                     borderRadius : 9}}
-                        onPress = {() => {props.setSelectedDate(element), console.log(element)}}>
+                        onPress = {() => {props.setSelectedDate(element)}}>
                         <Text
                             style = {{color : 'white', fontSize : 12}}>
                             {element.substring(5,6) === '0' ? element.substring(6,7)+"월 " : element.substring(5,7)+"월 "}
@@ -40,7 +40,7 @@ const DateList  = (props) => {
                     가능한 날짜/시간
                 </Text>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('VoteDate', props.data)}>
+                    onPress={() => navigation.navigate('VoteDate',props.data)}>
                     <Text
                         style = {{marginRight : 16, color : '#999999', fontSize : 12}}>
                         수정

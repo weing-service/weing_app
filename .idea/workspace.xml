@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6a0e8b05-36db-4d0e-9e16-5cc1b4b6a3ce" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/vote/dateCardContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/dateCardContainer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/vote/dateList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/dateList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/vote/timeTouchView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/timeTouchView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/vote/voteDate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteDate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/vote/voteDo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteDo.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

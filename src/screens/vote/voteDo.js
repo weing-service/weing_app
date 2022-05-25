@@ -16,9 +16,15 @@ const VoteDo = (props) => {
                     '2022-05-18' : [],
                     '2022-05-19' : []};
 
-    const [data, setData] = useState(data1);
-    const [selectedDate, setSelectedDate] = useState(Object.keys(data)[0]);
-    const length = Object.values(data).map((x)=>x.length).reduce((x,y) => x+y);
+    let getData;
+    if (!props.route.params){
+        getData = data1;
+    } else {
+        getData = props.route.params;
+    }
+
+    const [selectedDate, setSelectedDate] = useState(Object.keys(getData)[0]);
+    const length = Object.values(getData).map((x)=>x.length).reduce((x,y) => x+y);
 
     return (
         <View>
@@ -44,9 +50,9 @@ const VoteDo = (props) => {
                 <VoteInfo title = {'일정 설명'} text = {'와이어 프레임 제작'} touch = {false}/>
                 {length === 0 ?
                 (
-                    <VoteInfo title = {'가능한 날짜/시간 투표'} data = {data} touch = {true}/>
+                    <VoteInfo title = {'가능한 날짜/시간 투표'} data = {getData} touch = {true}/>
                 ) : (
-                    <DateList data = {data} selectedDate = {selectedDate} setSelectedDate = {setSelectedDate}/>
+                    <DateList data = {getData} selectedDate = {selectedDate} setSelectedDate = {setSelectedDate}/>
                 )}
                 <Text
                     style = {{fontSize: 15, color : '#404855', textAlign: 'left', marginLeft : 16}}>
