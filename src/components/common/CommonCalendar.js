@@ -16,13 +16,14 @@ const todos = {
       id: 1,
       title: "기획팀 스토리보드 회의",
       info: "스토리보드 추합",
-      startDate: new Date(),
-      finishDate: new Date(),
+      startDate: "2022-05-25",
+      finishDate: "2022-05-25",
       category: "기획",
       // color 받아야 함
       intoCal: true,
       // 시간도 없음 --> 날짜랑 같이 date 형식으로 보낼것
       // cateogry 컬러
+      color: "#FD9F9D",
       // 프로젝트명도 같이 보낼것
       place: "강남역 할리스"
     },
@@ -30,10 +31,11 @@ const todos = {
       id: 2,
       title: "개발팀 스터디",
       info: "스토리보드 추합",
-      startDate: new Date(),
-      finishDate: new Date(),
+      startDate: "2022-05-25",
+      finishDate: "2022-05-25",
       category: "개발",
       intoCal: true,
+      color: "#F9D83E",
       place: "비대면 Zoom"
     },
   ],
@@ -47,6 +49,7 @@ const todos = {
       category: "디자인",
       intoCal: true,
       // db에 장소 안들어가있음
+      color:"#A0DDE0",
       place: "강남역 할리스"
     },
   ],
@@ -72,6 +75,7 @@ const CommonCalendar = () => {
   const [todayTodo, setTodayTodo] = useState(todos[dateString]); // 오늘 해야할 일
   const [done, setDone] = useState({});
   const [doneCount, setDoneCount] = useState(0);
+  const [id, setId] = useState();
 
   useEffect(() => {
     fetch(`${API_URL}/schedule/`, {
@@ -106,33 +110,43 @@ const CommonCalendar = () => {
     })
   },[])
 
+  // 캘린더에 일정 마킹
   useEffect(() => {
-    setDone(done);
+    console.log(todayTodo);
+    let marks = {};
+    todayTodo.map(todo => {
+      if(todo.startDate in marks)
+        // 이미 그 날짜에 마킹되어있으면
+        marks[todo.startDate].dots.push({color: todo.color})
+      else
+        Object.assign(marks, {
+          [todo.startDate] : {dots: [{color: todo.color}]}
+        });
+    })
+    setMarkTodos(marks);
+  }, [todayTodo]);
+
+  // done handler
+  useEffect(() => {
+    if(done[id] === false && doneCount > 0){
+      setDoneCount(doneCount - 1);
+    } else if(done[id] === true && doneCount < todayTodo.length ) {
+      setDoneCount(doneCount + 1);
+    }
   }, [done])
 
   const onPressDone =(event) => {
     const id = event.nativeEvent.target;
     const obj = {
       ...done,
-      [id] : !Object.keys(done).includes(id) && done[id] === true ? false : true,
+      [id] : !Object.keys(done).includes(id) ? !done[id] : true,
     };
     // 배열에 요소 추가되면 앞 요소 삭제되는 오류 있음
     setDone(obj);
-
-    // done handler
-    if(done[id] === false && doneCount > 0){
-      setDoneCount(doneCount - 1);
-    } else if(done[id] === true && doneCount < todayTodo.length + 1) {
-      setDoneCount(doneCount + 1);
-    }
   }
 
-  useEffect(() => {
-    const newTodo = todos[dateString];
-  }, [])
-
   // render todos
-  const renderItem = (item) => {
+  const renderItem = (item, isFirst) => {
     return (
       item.intoCal && <View
         style={itemStyle.box}
@@ -140,27 +154,42 @@ const CommonCalendar = () => {
         <View style={itemStyle.titleContainer}>
           <Slider 
           style={{width: 0, marginRight: 20, top: -10}} 
-          thumbStyle={itemStyle.thumb}
+          thumbStyle={
+            {
+              flex: 1,
+              width: 10,
+              height: 10,
+              backgroundColor: '#FFFFFF',
+              borderColor: item.color,
+              borderWidth: 3,
+            }}
           />
           <Text style={itemStyle.title}>{item.title}</Text>
           <TouchableOpacity>
             <Image source={require('../../assets/main/btn_menu.png')}/>
           </TouchableOpacity>
         </View>
-        <Text>{item.info}</Text>
-        <View style={{flex: 1, flexDirection: 'row'}}>
+        <Text style={itemStyle.info}>{item.info}</Text>
+        <View style={{flex: 1, flexDirection: 'row', top: 10}}>
           <Image source={require("../../assets/main/btn_location.png")}/>
-          <Text>{item.place}</Text>
+          <Text style={itemStyle.place}>{item.place}</Text>
         </View>
         <View style={{alignItems: 'flex-end'}}>
           <TouchableOpacity 
             style={{margin: 10}}
-            onPress={(event) => onPressDone(event)}
+            onPress={(event) => {
+              onPressDone(event);
+              setId(event.nativeEvent.target)
+            }}
           >
-            { item.isDone ?
-              <Image source={
+            { done[id] ?
+              <Image 
+              style={{height: 25, width: 25}}
+              source={
                 require('../../assets/main/todo_logo_fill.png')} /> :
-              <Image source={
+              <Image 
+              style={{height: 25, width: 25}}
+              source={
                 require('../../assets/main/todo_logo_empty.png')
               }/>
             }
@@ -179,17 +208,17 @@ const CommonCalendar = () => {
   };
   // 오늘의 위잉
   const renderKnob = () => {
-    return <View style={{ flex: 1, flexDirection: 'row'}}>
+    return <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
       {
         todayTodo.length === doneCount ?
         <Image 
-          style={{top: -5, marginRight: 10}}
+          style={{top: -5, marginRight: 10, width: 25, height: 25}}
           source={
             require('../../assets/main/todo_logo_fill.png')
           }
         /> : 
         <Image 
-          style={{top: -5, marginRight: 10}}
+          style={{top: -5, marginRight: 10, width: 25, height: 25}}
           source={
             require('../../assets/main/todo_logo_empty.png')
           }
@@ -200,7 +229,7 @@ const CommonCalendar = () => {
         value={doneCount}
         step={1}
         disabled={true}
-        style={{width: 220, top: -10, marginRight: 10}}
+        style={{width: 220, marginRight: 10}}
         trackStyle={sliderStyle.track}
         thumbStyle={sliderStyle.thumb}
         minimumValue={0}
@@ -218,9 +247,7 @@ const CommonCalendar = () => {
         refreshing={true}
         items={todoItems}
         markingType={'multi-dot'}
-        markedDates={{
-          '2022-05-24': {dots: [pd, dev]}
-        }}
+        markedDates={markTodos}
         current={dateString}
         selected={dateString}
         // todos 렌더링할 부분
@@ -272,10 +299,15 @@ const itemStyle = StyleSheet.create({
     fontWeight: 'bold'
   },
   info: {
-    left: 20
+    flex: 1,
+    fontSize: 14,
+    opacity: 0.8,
   },
   place: {
-
+    flex: 1,
+    fontSize: 14,
+    opacity: 0.8,
+    left: 5
   }
 })
 
