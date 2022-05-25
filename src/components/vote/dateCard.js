@@ -10,7 +10,6 @@ const DateCard = (props) => {
         return day
     }
 
-
     return (
             <TouchableOpacity
                 onPress = {() => props.setSelectedDate(props.data)}

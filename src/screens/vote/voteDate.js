@@ -6,15 +6,19 @@ import DateCardContainer from '../../components/vote/dateCardContainer';
 import TimeZone from '../../components/vote/timeZone';
 import TimeTouchView from '../../components/vote/timeTouchView';
 
-const VoteDo = () => {
+const VoteDo = (props) => {
 
     const navigation = useNavigation();
     const time = [
                 '09:00','10:00','11:00','12:00','13:00','14:00',
                 '15:00','16:00','17:00','18:00','19:00','20:00',
                 '21:00','22:00','23:00','24:00']
+    const data2 = props.route.params
 
-    const data = ['2022-05-15','2022-05-16','2022-05-17','2022-05-18','2022-05-19','2022-05-20','2022-05-21','2022-05-22'];
+    const [selectedDate, setSelectedDate] = useState(Object.keys(data2)[0]);
+
+    const [data3, setData] = useState(props.route.params);
+    const [times, setTime] = useState(data2[selectedDate]);
 
     return (
         <View>
@@ -30,7 +34,7 @@ const VoteDo = () => {
                             날짜/시간 선택
                         </Text>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate('VoteDo')}>
+                            onPress={() => navigation.navigate('VoteDo', )}>
                             <Text
                                 style = {styles.title2}>
                                 완료
@@ -44,7 +48,8 @@ const VoteDo = () => {
                         style = {{color : '#404855', marginLeft : 16, marginTop : 12}}>
                         날짜 선택
                     </Text>
-                    <DateCardContainer data = {data}/>
+                    <DateCardContainer selectedDate = {selectedDate} setSelectedDate = {setSelectedDate}
+                                        data2 = {data2}/>
                 </View>
                 <View
                     style = {{flexDirection : 'row', marginTop : 36, justifyContent : 'space-between'}}>
@@ -62,7 +67,7 @@ const VoteDo = () => {
                     <View
                         style = {{flexDirection : 'row'}}>
                         <TimeZone />
-                        <TimeTouchView data = {time}/>
+                        <TimeTouchView selectedDate = {selectedDate} data3 = {data3} setData = {setData}/>
                     </View>
                 </ScrollView>
                 <View

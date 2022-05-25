@@ -4,13 +4,11 @@ import DateCard from './dateCard'
 
 const DateCardContainer = (props) => {
 
-    const [selectedDate, setSelectedDate] = useState(props.data[0]);
-
     const mapToComponent = () => {
-        return props.data.map((element) => {
+        return Object.keys(props.data2).map((element) => {
             return (
                 <DateCard key = {element} touch = {true} data = {element}
-                    selectedDate = {selectedDate} setSelectedDate = {setSelectedDate}/>
+                    selectedDate = {props.selectedDate} setSelectedDate = {props.setSelectedDate}/>
                 );
             });
         };
