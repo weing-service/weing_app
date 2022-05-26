@@ -14,7 +14,7 @@ const AddBtn = () => {
         navigation.navigate('AddTodoPage')
       }}
     >
-      <Image source={require('../../assets/main/btn_add.png')}/>
+      <Image style={{width: 60, height: 60}} source={require('../../assets/main/btn_add.png')}/>
     </TouchableOpacity>
   </View>;
 };

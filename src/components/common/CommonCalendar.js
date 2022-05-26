@@ -11,13 +11,13 @@ const API_URL = 'http://localhost:8080';
 // 예사 데이터들
 const todos = {
   // dummies
-  "2022-05-25": [
+  "2022-05-26": [
     {
       id: 1,
       title: "기획팀 스토리보드 회의",
       info: "스토리보드 추합",
-      startDate: "2022-05-25",
-      finishDate: "2022-05-25",
+      startDate: "2022-05-26",
+      finishDate: "2022-05-26",
       category: "기획",
       // color 받아야 함
       intoCal: true,
@@ -31,8 +31,8 @@ const todos = {
       id: 2,
       title: "개발팀 스터디",
       info: "스토리보드 추합",
-      startDate: "2022-05-25",
-      finishDate: "2022-05-25",
+      startDate: "2022-05-26",
+      finishDate: "2022-05-26",
       category: "개발",
       intoCal: true,
       color: "#F9D83E",
@@ -141,12 +141,14 @@ const CommonCalendar = () => {
           />
           <Text style={itemStyle.title}>{item.title}</Text>
           <TouchableOpacity>
-            <Image source={require('../../assets/main/btn_menu.png')}/>
+            <Image 
+            style={{width: 2.5, height: 16, right: 16}}
+            source={require('../../assets/main/btn_menu.png')}/>
           </TouchableOpacity>
         </View>
         <Text style={itemStyle.info}>{item.info}</Text>
-        <View style={{flex: 1, flexDirection: 'row', top: 10}}>
-          <Image source={require("../../assets/main/btn_location.png")}/>
+        <View style={{flexDirection: 'row', top: 10}}>
+          <Image style={itemStyle.location} source={require("../../assets/main/btn_location.png")}/>
           <Text style={itemStyle.place}>{item.place}</Text>
         </View>
         <View style={{alignItems: 'flex-end'}}>
@@ -211,7 +213,7 @@ const CommonCalendar = () => {
         maximumValue={todayTodo.length}
         minimumTrackTintColor="#89B6C27F"
       />
-      <Text>{doneCount}/{todayTodo.length}</Text>
+      <Text style={{color: "#999999"}}>{doneCount}/{todayTodo.length}</Text>
     </View>;
   };
 
@@ -250,14 +252,14 @@ const itemStyle = StyleSheet.create({
     backgroundColor: "white",
     margin: 5,
     padding: 10,
+    paddingLeft: 25,
     borderRadius: 15,
-    paddingLeft: 20,
     marginTop: 10,
-    right: 10
+    right: 10,
   },
   titleContainer : {
     flex: 1,
-    margin: 5,
+    top: 16,
     flexDirection: 'row',
   },
   thumb: {
@@ -277,12 +279,19 @@ const itemStyle = StyleSheet.create({
     flex: 1,
     fontSize: 14,
     opacity: 0.8,
+    top: 10
   },
   place: {
     flex: 1,
     fontSize: 14,
     opacity: 0.8,
-    left: 5
+    left: 5,
+    top: 10
+  },
+  location: {
+    top: 10,
+    width: 11,
+    height: 13
   }
 })
 

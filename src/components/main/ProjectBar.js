@@ -41,17 +41,18 @@ const ProjectBar = () => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    left: 15,
-    padding: 10,
+    left: 20,
+    top: 10,
+    paddingBottom: 20
   },
   projectName: {
     flexDirection: 'row',
-    left: 10,
+    left: 15,
     top: 5
   },
   deadline: {
     flexDirection: 'row',
-    left: 10,
+    left: 15,
     top: 10
   }
 })
