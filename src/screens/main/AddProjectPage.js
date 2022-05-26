@@ -23,9 +23,9 @@ const AddProjectPage = () => {
   // 제목 입력되었는지 여부
   const [isTitle, setIsTitle] = useState(true);
 
-    useEffect(() => {
-        setStartDate(startDate);
-    }, [startDate]);
+useEffect(() => {
+    setStartDate(startDate);
+}, [startDate]);
 
   // 날짜 선택 캘린더 클릭시
   const onPressDate = (day) => {
@@ -59,7 +59,7 @@ const AddProjectPage = () => {
         coverImg : coverImg
     }
     if(title) {
-        isTitle(true);
+        setIsTitle(true);
         fetch(`${API_URL}/project/project`, {
             method: 'POST',
             headers: {
@@ -71,7 +71,7 @@ const AddProjectPage = () => {
             console.log(json)
         })
     } else {
-        isTitle(false);
+        setIsTitle(false);
     }
     navigation.navigate('MainPage')
   }
