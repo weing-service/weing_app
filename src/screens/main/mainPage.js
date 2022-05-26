@@ -36,7 +36,7 @@ const MainPage = () => {
     {project ? <View style={{ flex: 1}}>
       <View style={styles.topView}>
         <TopBar/>
-        <ProjectBar/>
+        <ProjectBar project={project}/>
       </View>
       <CalenderContainer style={{flex: 3}} project={project}/>
       <AddBtn style={{flex: 1}}/>

@@ -2,16 +2,10 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
-// 데이터 예시
-const project = {
-  name: '도개걸육조',
-  deadline: new Date(2022, 5, 30)
-};
-
-const ProjectBar = () => {
+const ProjectBar = ({project}) => {
   const [projectInfo, setProjectInfo] = useState({
-    name: '도개걸육조',
-    deadline: new Date(2022, 5, 30)
+    name: project.title,
+    deadline: project.finishDate
   });
 
   // 디데이 계산
