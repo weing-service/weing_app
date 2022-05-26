@@ -27,10 +27,6 @@ const AddTodoPage = () => {
   const [marker, setMarker] = useState({});
   const [count, setCount] = useState(0);
 
-  const [pickedDate, setPickedDate] = useState();
-  const [pickStartT, setPickStartT] = useState(); // 시작 시간
-  const [pickEndT, setPickEndT] = useState();     // 종료 시간
-
   useEffect(() => {
     const today = new Date();
     setPickedDate(DateToString(today));
@@ -70,65 +66,6 @@ const AddTodoPage = () => {
 
   const pickerOpener = () => {
     setPicker(!picker);
-  }
-
-  // Time Picker Component
-  const TimePicker = (time) => {
-    let hours = [];
-    for(let i=1; i<=12; i++){
-      hours.push(i.toString());
-    }
-    let minutes = [];
-    for(let i=0; i<= 59; i++){
-      minutes.push(i.toString());
-    }
-    const amOrPm = ['AM', 'PM'];
-
-    return(
-      <View style={{flex: 1, flexDirection: 'row'}}>
-        <Picker 
-          selectedValue={time == "start" ? pickStartT.hour:pickEndT.hour} 
-          onValueChange={(itemValue, itemIndex) => time == "start" ? 
-            setPickStartT({hour: itemValue, min: time.min, apm: time.apm}) :
-            setPickEndT({hour: itemValue, min: time.min, apm: time.apm})}
-          style={{flex: 1}} 
-          itemStyle={{fontSize: 14}}
-        >
-        {
-          // Hour Picker
-          hours.map((hour, key) => (
-              <Picker.Item label={hour} value={hour} />
-          ))
-        }
-        </Picker>
-        <Picker 
-          selectedValue={time == "start" ? pickStartT.min:pickEndT.min} 
-          onValueChange={(itemValue, itemIndex) => time == "start" ? 
-            setPickStartT({hour: time.hour, min: itemValue, apm: time.apm}) : 
-            setPickEndT({hour: time.hour, min: itemValue, apm: time.apm})}
-          style={{flex: 1}} 
-          itemStyle={{fontSize: 14}}
-        >
-        {
-          // Minutes Picker
-          minutes.map((minute, key) => (
-              <Picker.Item label={minute} value={minute} />
-          ))
-        }
-        </Picker>
-        <Picker 
-          selectedValue={time == "start" ? pickStartT.apm:pickEndT.apm}
-          onValueChange={(itemValue, itemIndex) => time == "start" ?
-            setPickStartT({hour: time.hour, min: time.min, apm: itemValue}) :
-            setPickEndT({hour: time.hour, min: time.min, apm: itemValue})}
-          style={{flex: 1}} 
-          itemStyle={{width: 80, fontSize: 14}}
-        >
-          <Picker.Item label="AM" value="am"/>
-          <Picker.Item label="PM" value="pm"/>
-        </Picker>
-      </View>
-    );
   }
 
   return <View style={{flex: 1}}>
