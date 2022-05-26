@@ -82,31 +82,6 @@ const CommonCalendar = () => {
       method: 'GET'
     }).then(async (res) => {
       let jsonRes = await res.json();
-      jsonRes = [{
-        "_id": "6280a2eb18654e00dd933414",
-        "title": "title",
-        "info": "내용 수정",
-        "startDate": new Date(),
-        "finishDate": new Date(),
-        "category": "기획",
-        "intoCal": true,
-        "repeated": false,
-        "__v": 0
-    },
-    {
-        "_id": "6280b005600bf6fb7c3e664a",
-        "title": "title",
-        "info": "info",
-        "startDate": new Date(),
-        "finishDate": new Date(),
-        "category": "개발",
-        "intoCal": true,
-        "repeated": false,
-        "__v": 0
-    }];
-      Object.keys(jsonRes).map((json) => {
-        //console.log(json);
-      })
     })
   },[])
 

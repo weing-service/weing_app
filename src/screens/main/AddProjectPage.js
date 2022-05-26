@@ -5,10 +5,12 @@ import { Calendar } from "react-native-calendars";
 import { DateToString } from "../../components/common/DateToString";
 import { useNavigation } from '@react-navigation/native';
 
+const API_URL = 'http://localhost:8080';
+
 const AddProjectPage = () => {
   const navigation = useNavigation();
     // 이미지 등록 미완
-  const [coverImg, setCoverImg] = useState("");
+  const [coverImg, setCoverImg] = useState({});
   const [projectImg, setProjectImg] = useState("");
   const [title, setTitle] = useState("");
   const [info, setInfo] = useState("");
@@ -17,11 +19,14 @@ const AddProjectPage = () => {
   const [marker, setMarker] = useState({});
   const [picker, setPicker] = useState(false);
   const [count, setCount] = useState(0);
+  // 제목 입력되었는지 여부
+  const [isTitle, setIsTitle] = useState(true);
 
     useEffect(() => {
         setStartDate(startDate);
     }, [startDate]);
 
+  // 날짜 선택 캘린더 클릭시
   const onPressDate = (day) => {
     let newMark = {};
     if(count % 2 == 0){
@@ -44,21 +49,38 @@ const AddProjectPage = () => {
     setMarker(newMark);
     setCount(count + 1);
   }
+  
+  // 프로젝트 생성 버튼 클릭시
+  const onPressGenerate = () => {
+    const postData = {
+        title: title,
+        info: info,
+        coverImg : coverImg
+    }
+    if(title) {
+        isTitle(true);
+        fetch(`${API_URL}/project/project`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postData)
+        }).then(async (res) => {
+            const json = await res.json();
+            console.log(json)
+        })
+    } else {
+        isTitle(false);
+    }
+    navigation.navigate('MainPage')
+  }
 
   return <View>
     <View style={styles.topView}>
     <Text style={{fontSize: 20, textAlign: 'center'}}>새 프로젝트 생성</Text>
     <TouchableOpacity 
         style={{position: 'absolute', right: 20, top: 55}}
-        onPress={() => {
-            console.log({
-                title: title,
-                info: info,
-                startDate: startDate,
-                finishDate: finishDate
-            })
-            navigation.navigate('MainPage')
-        }}
+        onPress={onPressGenerate}
     >
         <Text style={{fontWeight: 'bold', fontSize: 15,color: 'white'}}>생성</Text>
     </TouchableOpacity>
@@ -95,8 +117,12 @@ const AddProjectPage = () => {
                 style={styles.input}
                 placeholderTextColor={"#999999"}
                 value={title}
-                onChangeText={text => setTitle(text)}
+                onChangeText={text => {
+                    setTitle(text)
+                    setIsTitle(true)
+                }}
             />
+            {!isTitle && <Text style={{color: 'red'}}>! 필수 입력사항입니다</Text>}
         </View>
         <View style={styles.inputView}>
             <Text style={styles.text}>프로젝트 설명</Text>
