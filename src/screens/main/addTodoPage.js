@@ -10,9 +10,9 @@ import TodoCat from "../../components/main/addTodo/TodoCat";
 
 import { Calendar } from "react-native-calendars";
 import { DateToString } from "../../components/common/DateToString";
-import { Picker } from "@react-native-picker/picker";
-import { Switch } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+
+const API_URL = 'http://localhost:8080';
 
 const AddTodoPage = () => {
   const navigation = useNavigation();
@@ -26,22 +26,6 @@ const AddTodoPage = () => {
   const [picker, setPicker] = useState(false);
   const [marker, setMarker] = useState({});
   const [count, setCount] = useState(0);
-
-  const [pickedDate, setPickedDate] = useState();
-  const [pickStartT, setPickStartT] = useState(); // 시작 시간
-  const [pickEndT, setPickEndT] = useState();     // 종료 시간
-
-  useEffect(() => {
-    const today = new Date();
-    setPickedDate(DateToString(today));
-    const time = {
-      hour: today.getHours.toString(),
-      min: today.getMinutes.toString(),
-      apm: today.getHours < 12? "am" : "pm"
-    };
-    setPickStartT(time);
-    setPickEndT(time);
-  }, [])
 
   // AddProjectPafe Modal과 중복 --> Refactoring 필요
   const onPressDate = (day) => {
@@ -72,63 +56,29 @@ const AddTodoPage = () => {
     setPicker(!picker);
   }
 
-  // Time Picker Component
-  const TimePicker = (time) => {
-    let hours = [];
-    for(let i=1; i<=12; i++){
-      hours.push(i.toString());
-    }
-    let minutes = [];
-    for(let i=0; i<= 59; i++){
-      minutes.push(i.toString());
-    }
-    const amOrPm = ['AM', 'PM'];
+  // 일정 data POST
+  const onPressComplete = () => {
+    const postData = {
+      title: title,
+      info: info,
+      startDate: startDate,
+      finishDate: finishDate,
+      category: category,
+      intoCal: intoCal,
+      repeated: false
+    };
+    fetch(`${API_URL}/schedule`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postData)
+    }).then(async(res) => {
+      const jsonRes = await res.json();
+      console.log('응답: ', jsonRes);
+    })
 
-    return(
-      <View style={{flex: 1, flexDirection: 'row'}}>
-        <Picker 
-          selectedValue={time == "start" ? pickStartT.hour:pickEndT.hour} 
-          onValueChange={(itemValue, itemIndex) => time == "start" ? 
-            setPickStartT({hour: itemValue, min: time.min, apm: time.apm}) :
-            setPickEndT({hour: itemValue, min: time.min, apm: time.apm})}
-          style={{flex: 1}} 
-          itemStyle={{fontSize: 14}}
-        >
-        {
-          // Hour Picker
-          hours.map((hour, key) => (
-              <Picker.Item label={hour} value={hour} />
-          ))
-        }
-        </Picker>
-        <Picker 
-          selectedValue={time == "start" ? pickStartT.min:pickEndT.min} 
-          onValueChange={(itemValue, itemIndex) => time == "start" ? 
-            setPickStartT({hour: time.hour, min: itemValue, apm: time.apm}) : 
-            setPickEndT({hour: time.hour, min: itemValue, apm: time.apm})}
-          style={{flex: 1}} 
-          itemStyle={{fontSize: 14}}
-        >
-        {
-          // Minutes Picker
-          minutes.map((minute, key) => (
-              <Picker.Item label={minute} value={minute} />
-          ))
-        }
-        </Picker>
-        <Picker 
-          selectedValue={time == "start" ? pickStartT.apm:pickEndT.apm}
-          onValueChange={(itemValue, itemIndex) => time == "start" ?
-            setPickStartT({hour: time.hour, min: time.min, apm: itemValue}) :
-            setPickEndT({hour: time.hour, min: time.min, apm: itemValue})}
-          style={{flex: 1}} 
-          itemStyle={{width: 80, fontSize: 14}}
-        >
-          <Picker.Item label="AM" value="am"/>
-          <Picker.Item label="PM" value="pm"/>
-        </Picker>
-      </View>
-    );
+    navigation.navigate('MainPage');
   }
 
   return <View style={{flex: 1}}>
@@ -136,7 +86,7 @@ const AddTodoPage = () => {
       <Text style={styles.topTitle}>새 일정 추가</Text>
       <TouchableOpacity 
           style={{position: 'absolute', right: 20, top: 55}}
-          onPress={() => navigation.navigate('MainPage')}
+          onPress={onPressComplete}
       >
           <Text style={{fontWeight: 'bold', fontSize: 15,color: '#999999'}}>완료</Text>
       </TouchableOpacity>

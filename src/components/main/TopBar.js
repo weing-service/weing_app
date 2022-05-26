@@ -9,7 +9,11 @@ const TopBar = () => {
     source={require('../../assets/main/top/btn_profile.png')}/>
   </TouchableOpacity>
     <TouchableOpacity style={styles.container}>
-      <Image style={styles.image}
+      <Image style={{
+        width: 18,
+        height: 23,
+        marginRight: 20
+      }}
       source={require('../../assets/main/top/btn_alert.png')}/>
     </TouchableOpacity>
     <TouchableOpacity style={styles.container}>
@@ -22,14 +26,15 @@ const TopBar = () => {
 const styles = StyleSheet.create({
   view: {
     flexDirection: 'row-reverse',
+    height: 25
   },
   container: {
-    
+    top: 10
   },
   image: {
-    width: 22,
+    width: 21,
     height: 22,
-    marginRight: 10
+    marginRight: 20
   }
 })
 
