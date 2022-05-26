@@ -4,12 +4,11 @@ import DateCard from './dateCard'
 
 const DateCardContainer = (props) => {
 
-    const [data] = useState(props.data);
-
     const mapToComponent = () => {
-        return data.map((element) => {
+        return Object.keys(props.data2).sort().map((element) => {
             return (
-                <DateCard key = {element.index} touch = {true} data = {element}/>
+                <DateCard key = {element} touch = {true} data = {element}
+                    selectedDate = {props.selectedDate} setSelectedDate = {props.setSelectedDate}/>
                 );
             });
         };

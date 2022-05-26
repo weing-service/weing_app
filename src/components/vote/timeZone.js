@@ -14,7 +14,7 @@ const TimeZone  = () => {
             return (
                 <Text
                     style = {{marginLeft : 16, marginBottom: 28.6, fontSize : 14, color : '#999999'}}
-                    key = {element.index}>
+                    key = {element}>
                     {element}
                 </Text>
             );

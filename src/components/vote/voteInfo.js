@@ -27,17 +27,17 @@ const VoteInfo  = (props) => {
                 padding : 13,
             }}
             disabled = {!props.touch ? true : false}
-            onPress={() => navigation.navigate('VoteDate')}>
+            onPress={() => navigation.navigate('VoteDate', props.data)}>
             <Text
                 style = {{
                     fontSize: 15,
                     color : !props.touch ? '#89B6C2' : '#FFFFFF',
-                    alignSelf : !props.data ? 'center' : 'flex-start'}}>
-                {!props.data ? '날짜/시간 선택 >' : props.data }
+                    alignSelf : props.touch ? 'center' : 'flex-start'}}>
+                {!props.text ? '날짜/시간 선택 >' : props.text }
             </Text>
         </TouchableOpacity>
         </View>
-    ); 
+    );
 };
 
 const styles = StyleSheet.create({

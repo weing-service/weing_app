@@ -4,17 +4,26 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 
 const TimeTouchView  = (props) => {
 
-    const newData = [...props.data, ...props.data];
-    newData.pop();
-    newData.pop();
-    console.log(newData.length)
+    const array = [];
+    for (let i=0; i<30;i++){
+        array.push(i)
+    }
+
+    console.log(props.data3)
 
     const mapToComponent = () => {
-        return newData.map((element) => {
+        return array.map((element) => {
             return (
                 <TouchableOpacity
-                    style = {{width : 70, height : 24, marginLeft : 52, backgroundColor : 'white', borderWidth : 1, borderColor : '#89B6C2'}}
-                    key = {element.index}/>
+                    style = {{backgroundColor : props.data3[props.selectedDate].includes(element) ? '#D2DFCB':'white',
+                            marginLeft : 52,borderWidth : 1, borderColor : '#89B6C2', width : 70, height : 24,}}
+                    key = {element}
+                    onPress = {() => {
+                        if (props.data3[props.selectedDate].includes(element)){
+                            props.setData({...props.data3, [props.selectedDate] : props.data3[props.selectedDate].filter((x) => x!==element)})
+                        } else {
+                            props.setData({...props.data3, [props.selectedDate] : [...props.data3[props.selectedDate], element]});
+                        }}}/>
             );
         })
     }
