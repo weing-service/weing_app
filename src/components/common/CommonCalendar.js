@@ -51,6 +51,7 @@ const todos = {
 
 const CommonCalendar = ({project}) => {
   // states
+  const [today, setToday] = useState(""); // 오늘 날짜 yyyy-mm-dd
   const [todoItems, setTodoItems] = useState(todos);  // 프로젝트 -> 그 안의 모든 일정
   const [todayTodo, setTodayTodo] = useState(todos[dateString]); // 오늘 해야할 일
   const [markTodos, setMarkTodos] = useState({});
@@ -58,7 +59,7 @@ const CommonCalendar = ({project}) => {
   const [doneCount, setDoneCount] = useState(0);
   const [id, setId] = useState();
 
-  // 프로젝트 하나 불러오기
+  // 오늘 날짜 설정하기
   useEffect(() => {
     // 오늘 날짜 가져와서 포맷대로 바꾸는 코드 *
     const today = new Date();
@@ -67,6 +68,12 @@ const CommonCalendar = ({project}) => {
     const day = ("0" + today.getDate()).slice(-2);
     const dateString = year + "-" + month + "-" + day;
 
+    setToday(dateString);
+  }, [])
+
+  // 프로젝트 하나 불러오기
+  useEffect(() => {
+    // setTodoItems
     fetch(`${API_URL}/project/one`, {
       method: 'POST',
       headers: {
@@ -76,10 +83,15 @@ const CommonCalendar = ({project}) => {
     }).then(async (res) => {
       const jsonRes = await res.json();
       setTodoItems({
-        [dateString] : jsonRes.schedules
+        [today] : jsonRes.schedules
       });
     });
-  }, [])
+  }, [today])
+
+  // 오늘 일정 설정하기
+  useEffect(() => {
+    setTodayTodo(todoItems[today]);
+  }, [todoItems])
 
   // 캘린더에 일정 마킹
   useEffect(() => {
