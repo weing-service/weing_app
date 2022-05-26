@@ -52,8 +52,8 @@ const todos = {
 const CommonCalendar = ({project}) => {
   // states
   const [today, setToday] = useState(""); // 오늘 날짜 yyyy-mm-dd
-  const [todoItems, setTodoItems] = useState(todos);  // 프로젝트 -> 그 안의 모든 일정
-  const [todayTodo, setTodayTodo] = useState(todos[dateString]); // 오늘 해야할 일
+  const [todoItems, setTodoItems] = useState();  // 프로젝트 -> 그 안의 모든 일정
+  const [todayTodo, setTodayTodo] = useState(); // 오늘 해야할 일
   const [markTodos, setMarkTodos] = useState({});
   const [done, setDone] = useState({});
   const [doneCount, setDoneCount] = useState(0);
