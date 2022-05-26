@@ -10,9 +10,9 @@ import TodoCat from "../../components/main/addTodo/TodoCat";
 
 import { Calendar } from "react-native-calendars";
 import { DateToString } from "../../components/common/DateToString";
-import { Picker } from "@react-native-picker/picker";
-import { Switch } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+
+const API_URL = 'http://localhost:8080';
 
 const AddTodoPage = () => {
   const navigation = useNavigation();
@@ -26,18 +26,6 @@ const AddTodoPage = () => {
   const [picker, setPicker] = useState(false);
   const [marker, setMarker] = useState({});
   const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    const today = new Date();
-    setPickedDate(DateToString(today));
-    const time = {
-      hour: today.getHours.toString(),
-      min: today.getMinutes.toString(),
-      apm: today.getHours < 12? "am" : "pm"
-    };
-    setPickStartT(time);
-    setPickEndT(time);
-  }, [])
 
   // AddProjectPafe Modal과 중복 --> Refactoring 필요
   const onPressDate = (day) => {
@@ -68,12 +56,37 @@ const AddTodoPage = () => {
     setPicker(!picker);
   }
 
+  // 일정 data POST
+  const onPressComplete = () => {
+    const postData = {
+      title: title,
+      info: info,
+      startDate: startDate,
+      finishDate: finishDate,
+      category: category,
+      intoCal: intoCal,
+      repeated: false
+    };
+    fetch(`${API_URL}/schedule`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postData)
+    }).then(async(res) => {
+      const jsonRes = await res.json();
+      console.log('응답: ', jsonRes);
+    })
+
+    navigation.navigate('MainPage');
+  }
+
   return <View style={{flex: 1}}>
     <View style={styles.topView}>
       <Text style={styles.topTitle}>새 일정 추가</Text>
       <TouchableOpacity 
           style={{position: 'absolute', right: 20, top: 55}}
-          onPress={() => navigation.navigate('MainPage')}
+          onPress={onPressComplete}
       >
           <Text style={{fontWeight: 'bold', fontSize: 15,color: '#999999'}}>완료</Text>
       </TouchableOpacity>
