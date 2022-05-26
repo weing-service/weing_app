@@ -1,16 +1,17 @@
 // 새 프로젝트 생성 페이지
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal, ImageBackground } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { DateToString } from "../../components/common/DateToString";
 import { useNavigation } from '@react-navigation/native';
+import * as ImagePicker from 'expo-image-picker';
 
 const API_URL = 'http://localhost:8080';
 
 const AddProjectPage = () => {
   const navigation = useNavigation();
     // 이미지 등록 미완
-  const [coverImg, setCoverImg] = useState({});
+  const [coverImg, setCoverImg] = useState("");
   const [projectImg, setProjectImg] = useState("");
   const [title, setTitle] = useState("");
   const [info, setInfo] = useState("");
@@ -75,8 +76,38 @@ const AddProjectPage = () => {
     navigation.navigate('MainPage')
   }
 
+  // post Image
+  useEffect(() => {
+      console.log(coverImg);
+    const formData = new FormData();
+    formData.append('image', coverImg);
+    fetch(`${API_URL}/project/coverImg`, {
+        method: 'POST',
+        body: formData,
+    }).then(async(res) => {
+        const jsonRes = await res.json();
+        setCoverImg(jsonRes.originalFilename);
+    })
+  }, [coverImg])
+
+  // 이미지 선택
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      }) 
+    if (!result.cancelled) {
+        setCoverImg(result.uri);
+    }
+  }
+
   return <View>
     <View style={styles.topView}>
+        {/* {coverImg && <ImageBackground source={{uri: coverImg}} resizeMode="cover" style={{width: 100}}>
+
+        </ImageBackground>} */}
     <Text style={{fontSize: 20, textAlign: 'center'}}>새 프로젝트 생성</Text>
     <TouchableOpacity 
         style={{position: 'absolute', right: 20, top: 55}}
@@ -85,13 +116,20 @@ const AddProjectPage = () => {
         <Text style={{fontWeight: 'bold', fontSize: 15,color: 'white'}}>생성</Text>
     </TouchableOpacity>
     <TouchableOpacity
+        onPress={pickImage}
         style={{justifyContent: 'center', alignItems: 'center', top: 60, flexDirection: 'row'}}
     >
-        <Image 
-        style={{width: 20, height: 20, marginRight: 10}}
-        source={require('../../assets/main/btn_camera_bold.png')}
-        />
-        <Text style={{color: 'white', fontSize: 18}}>커버 이미지 등록</Text>
+        {coverImg? 
+            <View>
+                <Image source={{ uri: coverImg }}/>
+            </View> : <View>
+            <Image 
+            style={{width: 20, height: 20, marginRight: 10}}
+            source={require('../../assets/main/btn_camera_bold.png')}
+            />
+            <Text style={{color: 'white', fontSize: 18}}>커버 이미지 등록</Text>
+          </View>
+        }
     </TouchableOpacity>
     <TouchableOpacity
         style={{position: 'absolute', top: 200, left: 150}}
