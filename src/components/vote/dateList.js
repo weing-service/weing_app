@@ -2,6 +2,7 @@
 import React from "react";
 import { StyleSheet, ScrollView, View,Text, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+import TimeCardContainer from './timeCardContainer';
 
 const DateList  = (props) => {
     const navigation = useNavigation();
@@ -53,6 +54,7 @@ const DateList  = (props) => {
                 horizontal = {true}>
                 {mapToComponent()}
             </ScrollView>
+            {props.data[props.selectedDate].length===0 ? null : (<TimeCardContainer time = {props.data[props.selectedDate]}/>)}
         </View>
     );
 };

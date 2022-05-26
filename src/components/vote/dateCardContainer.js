@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native";
-import DateCard from './dateCard'
+import DateCard from './dateCard';
+import TimeCardContainer from './timeCardContainer';
 
 const DateCardContainer = (props) => {
 

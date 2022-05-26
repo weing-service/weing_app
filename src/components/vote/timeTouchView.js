@@ -9,8 +9,6 @@ const TimeTouchView  = (props) => {
         array.push(i)
     }
 
-    console.log(props.data3)
-
     const mapToComponent = () => {
         return array.map((element) => {
             return (
