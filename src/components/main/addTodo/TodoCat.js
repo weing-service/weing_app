@@ -95,11 +95,6 @@ const TodoCat = ({category, setCategory}) => {
     setModalOpen(false);
   }
 
-  // 카테고리 설정 리렌더링
-  useEffect(() => {
-
-  }, [categories])
-
   // if category selected
   const onPressCat = (item) => {
     setCategory(item.name);

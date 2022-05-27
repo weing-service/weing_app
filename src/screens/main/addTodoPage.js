@@ -98,7 +98,7 @@ const AddTodoPage = () => {
 
     <TodoName  title={title} setTitle={setTitle}/>
     <TodoContent content={info} setInfo={setInfo}/>
-    <TodoDate pickerOpener={pickerOpener}/>
+    <TodoDate pickerOpener={pickerOpener} finishDate={finishDate && finishDate.dateString}/>
     <TodoSwitch intoCal={intoCal} setIntoCal={setIntoCal}/>
     <TodoCat 
       category={category} setCategory={setCategory}
