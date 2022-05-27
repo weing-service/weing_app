@@ -1,12 +1,13 @@
 // 메인페이지 모든 컴포넌트를 렌더링할 화면
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Dimensions, Image, Text, TouchableOpacity, Modal } from "react-native";
+import { View, StyleSheet, Dimensions, Image, Text, TouchableOpacity } from "react-native";
 import TopBar from "../../components/main/TopBar";
 import ProjectBar from "../../components/main/ProjectBar";
 import CalenderContainer from "../../components/main/CalendarContainer";
 import AddBtn from "../../components/main/AddBtn";
 import BottomNavigator from "../../components/common/bottomNavigator";
 import { useNavigation } from '@react-navigation/native';
+import Modal from "react-native-modalbox";
 
 const API_URL = 'http://localhost:8080';
 
@@ -139,13 +140,13 @@ const MainPage = () => {
       <TouchableOpacity>
         <View style={styles.topView}>
           <TopBar/>
-          <ProjectBar project={project} modalOpen={modalOpen} setModalOpen={setModalOpen}/>
+          <ProjectBar project={project}/>
         </View>
       </TouchableOpacity>
       <CalenderContainer style={{flex: 3}} project={project}/>
       <AddBtn style={{flex: 1}}/>
       <View style = {styles.fixed2}>
-        <BottomNavigator type = {1}/>
+        <BottomNavigator type = {1} modal={modalOpen} setModal={setModalOpen}/>
       </View>
     </View> 
     : <View style={styles.noView}>
@@ -167,14 +168,16 @@ const MainPage = () => {
 
     {/* 프로젝트 선택 모달 */}
     <Modal
-      animationType={"slide"}
-      transparent={true}
-      visible={modalOpen}
-    >
-      <TouchableOpacity 
-      onPress={() => (setModalOpen(false))}
-      style={{flex: 2,backgroundColor: "black", opacity: 0.4}}>
-      </TouchableOpacity>
+        style = {{height : 400, width : '100%', marginTop: 300,borderTopLeftRadius: 10, borderTopRightRadius: 10}}
+        animationType={"slide"}
+        transparent={false}
+        isOpen={modalOpen}
+        entry = {'bottom'}
+        swipeToClose = {true}
+        swipeArea = {600}
+        swipeThreshold = {0}
+        position = {'bottom'}
+      >
       <View style={{flex: 1.5, backgroundColor:'#F8F8FA', borderTopLeftRadius: 20}}>
         <View style={{flex: 1}}>
             <TouchableOpacity style={{alignItems:'center', paddingTop: 20, marginBottom: 20}}>

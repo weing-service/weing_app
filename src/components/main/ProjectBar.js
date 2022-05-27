@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const ProjectBar = ({project, modalOpen, setModalOpen}) => {
+const ProjectBar = ({project}) => {
   const [projectInfo, setProjectInfo] = useState({
     name: project.title,
     deadline: project.finishDate
@@ -19,8 +19,7 @@ const ProjectBar = ({project, modalOpen, setModalOpen}) => {
     setDday(result)
   }, [projectInfo])
 
-  return <TouchableOpacity 
-  onPress={() => setModalOpen(true)}
+  return <View
   style={styles.container}>
     <Image style={{width: 50, height: 50}} source={require('../../assets/main/project_img.png')}/>
     <View>
@@ -33,7 +32,7 @@ const ProjectBar = ({project, modalOpen, setModalOpen}) => {
         <Text style={{color: '#999999', fontSize: '12px'}}> 프로젝트 마감일</Text>
       </View>
     </View>
-  </TouchableOpacity>;
+  </View>;
 };
 
 const styles = StyleSheet.create({

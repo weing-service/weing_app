@@ -29,7 +29,10 @@ const BottomNavigator = (props) => {
             </TouchableOpacity>
             <TouchableOpacity
                 style = {{backgroundColor : 'white'}}
-                onPress={() => props.type === 1 ? null : navigation.navigate('MainPage')}>
+                onPress={() => {
+                    props.type === 1 ? 
+                    props.setModal(true)
+                    : navigation.navigate('MainPage')}}>
                 <Image
                     style = {{width: 80, height: 80}}
                     source={require('../../assets/navigate/main.png')}/>
