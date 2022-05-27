@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     },
     fixed2: {
         position: 'absolute',
-        top : Dimensions.get('window').height - 100,
+        top : Dimensions.get('window').height - 60,
         width : '100%'
     },
 });
