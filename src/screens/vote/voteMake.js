@@ -65,7 +65,7 @@ const VoteMake = () => {
                 )}
                 <SlideModal open = {open} setOpen = {setOpen} markedDates = {markedDates} setMarkedDates = {setMarkedDates}/>
                 <View
-                    style = {{flexDirection : 'row', marginBottom : 21, justifyContent : 'space-between' }}>
+                    style = {{flexDirection : 'row', marginBottom : 10, justifyContent : 'space-between' }}>
                 <Text
                     style = {styles.title3}>
                     투표 마감시간 설정
@@ -75,7 +75,7 @@ const VoteMake = () => {
                 { Object.keys(checkedDate).length === 0 ? null : (
                     <TouchableOpacity
                         style ={{backgroundColor : 'white', width : 120, height : 50, alignItems : 'center', justifyContent : 'center',
-                        borderRadius:10, marginLeft: 16, marginBottom : 21}}
+                        borderRadius:10, marginLeft: 16, marginBottom : 10}}
                         disabled = {true}>
                         <Text
                             style = {{fontSize : 15, color : '#999999', alignSelf : 'center'}}>
@@ -101,6 +101,7 @@ const VoteMake = () => {
                 <RoundCheck checked = {anonChecked} setChecked = {setAnonChecked}/>
                 </View>
             </View>
+
             <View style = {styles.fixed2}>
                 <BottomNavigator type = {0}/>
             </View>

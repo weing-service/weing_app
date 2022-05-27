@@ -6,7 +6,7 @@ import ModalResult from './modalResult';
 
 const VoteCard = (props) => {
 
-    let [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation();
 
     const visibleChange = () => {

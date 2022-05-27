@@ -4,11 +4,27 @@ import VoteInfo from '../../components/vote/voteInfo';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '../../components/vote/searchBar';
 import BottomNavigator from '../../components/common/bottomNavigator';
+import DateList from '../../components/vote/dateList';
 
 const VoteDo = (props) => {
 
     const [place, setPlace] = useState(false);
     const navigation = useNavigation();
+    const data1 = {'2022-05-15' : [],
+                    '2022-05-16' : [],
+                    '2022-05-17' : [],
+                    '2022-05-18' : [],
+                    '2022-05-19' : []};
+
+    let getData;
+    if (!props.route.params){
+        getData = data1;
+    } else {
+        getData = props.route.params;
+    }
+
+    const [selectedDate, setSelectedDate] = useState(Object.keys(getData)[0]);
+    const length = Object.values(getData).map((x)=>x.length).reduce((x,y) => x+y);
 
     return (
         <View>
@@ -30,9 +46,14 @@ const VoteDo = (props) => {
                     </Text>
                 </TouchableOpacity>
                 </View>
-                <VoteInfo title = {'일정 이름'} data = {'기획 회의'} touch = {false}/>
-                <VoteInfo title = {'일정 설명'} data = {'와이어 프레임 제작'} touch = {false}/>
-                <VoteInfo title = {'가능한 날짜/시간 투표'} touch = {true}/>
+                <VoteInfo title = {'일정 이름'} text = {'기획 회의'} touch = {false}/>
+                <VoteInfo title = {'일정 설명'} text = {'와이어 프레임 제작'} touch = {false}/>
+                {length === 0 ?
+                (
+                    <VoteInfo title = {'가능한 날짜/시간 투표'} data = {getData} touch = {true}/>
+                ) : (
+                    <DateList data = {getData} selectedDate = {selectedDate} setSelectedDate = {setSelectedDate}/>
+                )}
                 <Text
                     style = {{fontSize: 15, color : '#404855', textAlign: 'left', marginLeft : 16}}>
                     내 위치 투표
