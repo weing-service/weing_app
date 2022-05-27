@@ -10,7 +10,7 @@ const TodoContent = ({info, setInfo}) => {
         style={styles.input}
         placeholderTextColor={"#999999"}
         value={info}
-        onChange={value => setInfo(value)}
+        onChangeText={text => setInfo(text)}
     />
   </View>;
 };

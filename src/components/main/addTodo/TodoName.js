@@ -10,7 +10,7 @@ const TodoName = ({title, setTitle}) => {
         style={styles.input}
         placeholderTextColor={"#999999"}
         value={title}
-        onChange={value => setTitle(value)}
+        onChangeText={text => setTitle(text)}
     />
   </View>;
 };
