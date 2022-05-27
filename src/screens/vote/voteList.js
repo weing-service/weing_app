@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 import { Image, StyleSheet, View, Text, ImageBackground, TouchableOpacity, ScrollView } from "react-native";
 import ListType from '../../components/vote/listType';
 import SearchBar from '../../components/vote/searchBar';
@@ -6,68 +6,33 @@ import CardContainer from '../../components/vote/cardContainer';
 import { useNavigation } from '@react-navigation/native';
 import BottomNavigator from '../../components/common/bottomNavigator';
 
+const API_URL = 'http://54.180.145.205:8080';
 
-const getAll = async() => {
-    await fetch("https://142d-106-243-247-152.jp.ngrok.io/vote/doingVotes",{
-        method : "POST",
-        headers: {
-            'Content-Type' : 'application/json'
-        },
-        body: JSON.stringify({ project_title: "도오개걸",
-                               userId: 2243399485 })
-    })
-        .then((response) => response.json())
-        .then((responseJson) => {
-        console.log(responseJson);
-        if (responseJson.status == 200) {
-            return response
-        } else {
-        }
+
+const VoteList = (props) => {
+    const userId = 2243399485;
+    const [progress, setProgress] = useState([]);
+    const [finished, setFinished] = useState([]);
+
+    useEffect(() => {
+        fetch(`${API_URL}/vote/doingVotes`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({userId: userId, project_title: "도오개걸"}),
+        }).then(async (res) => {
+            const jsonRes = await res.json();
+            setProgress(jsonRes.doingList);
+            setFinished(jsonRes.doneList);
+
+        }).catch((error) => {
+            console.log(error);
         })
-        .catch((error) => {
-        console.error(error);
-        });
-    };
+    }, [])
 
-const VoteList = () => {
-    const res = getAll();
-    console.log(res)
     const navigation = useNavigation();
-    const data1 = [
-        {
-            key : '1',
-            title : '기획 회의',
-            deadline : new Date(),
-        },
-        {
-            key : '2',
-            title : '기획 회의',
-            deadline : new Date(),
-        },
-        {
-            key : '3',
-            title : '기획 회의',
-            deadline : new Date(),
-        }
-    ]
 
-    const data2 = [
-        {
-            key : '1',
-            title : '기획 회의',
-            deadline : new Date(),
-        },
-        {
-            key : '2',
-            title : '기획 회의',
-            deadline : new Date(),
-        },
-        {
-            key : '3',
-            title : '기획 회의',
-            deadline : new Date(),
-        }
-    ]
     return(
         <View
             style = {{position : 'relative'}}>
@@ -82,9 +47,10 @@ const VoteList = () => {
                 <ListType type={'완료된 투표'} clicked = {false} move = {'VoteResult'}/>
             </View>
             <SearchBar type = {0}/>
-            <ScrollView>
-                <CardContainer state={0} data = {data1}/>
-                <CardContainer state={1} data = {data2}/>
+            <ScrollView
+                style = {{marginBottom : 10}}>
+                <CardContainer state={0} data = {progress}/>
+                <CardContainer state={1} data = {finished}/>
             </ScrollView>
             <View style={styles.fixed}>
                 <TouchableOpacity
@@ -95,7 +61,7 @@ const VoteList = () => {
                 </TouchableOpacity>
             </View>
             <View
-                style = {{height : 70}}>
+                style = {{height : 100}}>
             </View>
             <View style = {styles.fixed2}>
                 <BottomNavigator type = {0}/>

@@ -13,7 +13,7 @@ const info = [
         },
         {
             header : '완료한 투표',
-            buttonTitle : '재투표하기',
+            buttonTitle : '투표완료',
             color : '#DBDBDB',
             navigate : 'VoteDo'
         },
@@ -28,10 +28,9 @@ const info = [
 const CardContainer = (props) => {
 
     const [projectInfo] = useState(info);
-    const [data] = useState(props.data);
 
     const mapToComponent = () => {
-        return data.map((element) => {
+        return props.data.map((element) => {
             return (
                 <VoteCard
                     key = {element.key} data = {element} style = {projectInfo[props.state]}/>

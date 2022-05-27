@@ -15,7 +15,6 @@ const TimeCardContainer = (props) => {
         '23:00','23:30'];
 
     const newTime = props.time.sort();
-    console.log(newTime)
 
     const mapToComponent = () => {
         return props.time.sort().map((element) => {

@@ -256,7 +256,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#FFFFFF',
         height: 45,
-        width: 375,
+        width: 330,
         borderRadius: 20,
         marginTop: 10,
         paddingLeft: 20,
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     },
     fixed2: {
         position: 'absolute',
-        top : Dimensions.get('window').height - 60,
+        top : Dimensions.get('window').height - 100,
         width : '100%'
     },
 });

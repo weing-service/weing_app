@@ -20,10 +20,10 @@ const VoteCard = (props) => {
             <Card
                 containerStyle = {styles.container}>
                 <TouchableOpacity
-                    style = {{ width: 71, height: 20, borderRadius : 20, backgroundColor : props.style.color, marginLeft : 7}}
+                    style = {{ width: 71, height: 20, borderRadius : 20, backgroundColor : props.style.navigate === '1' ? '#EEF1F4' : props.style.color, marginLeft : 7}}
                     disabled={true}>
                 <Text
-                    style = {{fontSize : 10, color : 'white', alignSelf : 'center', fontWeight : 'bold', marginTop : 2 }}>
+                    style = {{fontSize : 10, color : props.style.navigate === '1' ? 'black' : 'white', alignSelf : 'center', fontWeight : 'bold', marginTop : 2 }}>
                     시간+장소
                 </Text>
                 </TouchableOpacity>
@@ -35,11 +35,12 @@ const VoteCard = (props) => {
                     style = {{flexDirection: "row", alignItems : 'center', justifyContent: 'space-between'}}>
                     <Text
                         style = {{marginLeft : 9, color : '#999999', fontSize: 12}}>
-                        {props.data.deadline.toLocaleDateString('en-Us')}
+                        {props.style.navigate === '1'  ? '마감' : props.data.deadLine}
                     </Text>
                     <TouchableOpacity
                         style = {{ width: 112, height: 32, borderRadius : 10, backgroundColor : props.style.color}}
-                        onPress={() => {props.style.navigate === '1' ? setModalVisible(true): navigation.navigate(props.style.navigate)}}>
+                        disabled = {props.style.buttonTitle==='투표완료'?true:false}
+                        onPress={() => {props.style.navigate === '1' ? setModalVisible(true): navigation.navigate(props.style.navigate, props.data)}}>
                         <Text
                             style = {{color: 'white', fontSize : 13, fontWeight : 'bold', alignSelf : 'center', marginTop : 6}}>
                             {props.style.buttonTitle}
