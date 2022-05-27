@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import DateModal from "../../components/common/DateModal";
 import MemberModal from "../../components/common/MemberModal";
 
-const API_URL = 'https://ad50-106-243-247-152.jp.ngrok.io';
+const API_URL = 'https://7dcd-14-32-12-211.jp.ngrok.io';
 
 const AddTodoPage = (props) => {
   const navigation = useNavigation();

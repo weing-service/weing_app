@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import MemberModal from "../../components/common/MemberModal";
 
-const API_URL = 'https://ad50-106-243-247-152.jp.ngrok.io';
+const API_URL = 'https://7dcd-14-32-12-211.jp.ngrok.io';
 
 const AddProjectPage = () => {
   const navigation = useNavigation();
@@ -31,31 +31,11 @@ const AddProjectPage = () => {
         method: 'GET',
       }).then(async (res) => {
         const jsonRes = await res.json();
+        console.log(jsonRes.allUsers);
         setUsers(jsonRes.allUsers);
-      });
-
-    setUsers([
-        {
-            "_id": "6288798b47229a0d324fcfdb",
-            "id": 2247764663,
-            "username": "정재희",
-            "displayName": "정재희",
-            "provider": "kakao",
-            "profile_image": "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_640x640.jpg",
-            "thumbnail_image": "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_110x110.jpg",
-            "__v": 0
-        },
-        {
-            "_id": "62887bbbe70b757d50f04efb",
-            "id": 2243399485,
-            "username": "김민지",
-            "displayName": "김민지",
-            "provider": "kakao",
-            "profile_image": "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_640x640.jpg",
-            "thumbnail_image": "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_110x110.jpg",
-            "__v": 0
-        }
-    ]);
+      }).catch((error) => {
+          console.log(error);
+      })
   }, [])
 
     useEffect(() => {
@@ -85,35 +65,35 @@ const AddProjectPage = () => {
             console.log("json: " + json)
         })
     }
-    //navigation.navigate('MainPage')
+    navigation.navigate('MainPage')
   }
 
-  // post Image
-  useEffect(() => {
-      console.log(coverImg);
-    const formData = new FormData();
-    formData.append('image', coverImg);
-    fetch(`${API_URL}/project/coverImg`, {
-        method: 'POST',
-        body: formData,
-    }).then(async(res) => {
-        const jsonRes = await res.json();
-        setCoverImg(jsonRes.originalFilename);
-    })
-  }, [coverImg])
+//   // post Image
+//   useEffect(() => {
+//       console.log(coverImg);
+//     const formData = new FormData();
+//     formData.append('image', coverImg);
+//     fetch(`${API_URL}/project/coverImg`, {
+//         method: 'POST',
+//         body: formData,
+//     }).then(async(res) => {
+//         const jsonRes = await res.json();
+//         setCoverImg(jsonRes.originalFilename);
+//     })
+//   }, [coverImg])
 
-  // 이미지 선택
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      }) 
-    if (!result.cancelled) {
-        setCoverImg(result.uri);
-    }
-  }
+//   // 이미지 선택
+//   const pickImage = async () => {
+//     let result = await ImagePicker.launchImageLibraryAsync({
+//         mediaTypes: ImagePicker.MediaTypeOptions.Images,
+//         allowsEditing: true,
+//         aspect: [4, 3],
+//         quality: 1,
+//       }) 
+//     if (!result.cancelled) {
+//         setCoverImg(result.uri);
+//     }
+//   }
 
   return <View>
     <View style={styles.topView}>
@@ -128,7 +108,7 @@ const AddProjectPage = () => {
         <Text style={{fontWeight: 'bold', fontSize: 15,color: 'white'}}>생성</Text>
     </TouchableOpacity>
     <TouchableOpacity
-        onPress={pickImage}
+        //onPress={pickImage}
         style={{justifyContent: 'center', alignItems: 'center', top: 60, flexDirection: 'row'}}
     >
         {coverImg? 
@@ -185,7 +165,7 @@ const AddProjectPage = () => {
         </View>
         <View style={styles.inputView}>
             <Text style={styles.text}>프로젝트 시작일 및 마감일 설정*</Text>
-            {finishDate && finishDate.dateString ? <TouchableOpacity onPress={() => setPicker(true)}>
+            {finishDate && finishDate.dateString ? <TouchableOpacity onPress={() => setDateModal(true)}>
                 <View style={{backgroundColor: 'white', width: 200, height: 50, borderRadius: 10, justifyContent: 'center', alignItems: 'center', margin: 20, marginBottom: 0}}>
                     <Text style={{color: '#999999'}}>
                     {startDate.dateString} ~ {finishDate.dateString}
