@@ -27,7 +27,7 @@ function App() {
         <Stack.Screen name="VoteDo" component={VoteDo} options={{headerShown: false}}/>
         <Stack.Screen name="VoteMake" component={VoteMake} options={{headerShown: false}}/>
         <Stack.Screen name="VoteDate" component={VoteDate} options={{headerShown: false}}/> */}
-        {/* <Stack.Screen name="MainPage" component={MainPage} options={{headerShown: false}}/> */}
+        <Stack.Screen name="MainPage" component={MainPage} options={{headerShown: false}}/>
         <Stack.Screen name="AddProjectPage" component={AddProjectPage} options={{headerShown: false}}/>
         <Stack.Screen name="AddTodoPage" component={AddTodoPage} options={{headerShown: false}}/>
         <Stack.Screen name="Map" component={Map} options={{headerShown: false}}/>

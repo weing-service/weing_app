@@ -1,8 +1,8 @@
 // 프로젝트 이름을 표시할 컴포넌트
 import React, { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const ProjectBar = ({project}) => {
+const ProjectBar = ({project, modalOpen, setModalOpen}) => {
   const [projectInfo, setProjectInfo] = useState({
     name: project.title,
     deadline: project.finishDate
@@ -19,7 +19,9 @@ const ProjectBar = ({project}) => {
     setDday(result)
   }, [projectInfo])
 
-  return <View style={styles.container}>
+  return <TouchableOpacity 
+  onPress={() => setModalOpen(true)}
+  style={styles.container}>
     <Image style={{width: 50, height: 50}} source={require('../../assets/main/project_img.png')}/>
     <View>
       <View style={styles.projectName}>
@@ -31,7 +33,7 @@ const ProjectBar = ({project}) => {
         <Text style={{color: '#999999', fontSize: '12px'}}> 프로젝트 마감일</Text>
       </View>
     </View>
-  </View>;
+  </TouchableOpacity>;
 };
 
 const styles = StyleSheet.create({
