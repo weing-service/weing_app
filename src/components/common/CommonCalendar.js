@@ -58,7 +58,7 @@ const CommonCalendar = ({project}) => {
     }).catch((error) =>{
       console.log(error);
     })
-  }, [todoItems, todayTodo])
+  }, [todoItems])
 
   //done handler
   useEffect(() => {
