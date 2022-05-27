@@ -9,7 +9,7 @@ import BottomNavigator from "../../components/common/bottomNavigator";
 import { useNavigation } from '@react-navigation/native';
 import Modal from "react-native-modalbox";
 
-const API_URL = 'https://7dcd-14-32-12-211.jp.ngrok.io';
+const API_URL = 'http://54.180.145.205:8080';
 
 const MainPage = () => {
   const userId = 2243399485;
