@@ -9,126 +9,34 @@ import BottomNavigator from "../../components/common/bottomNavigator";
 import { useNavigation } from '@react-navigation/native';
 import Modal from "react-native-modalbox";
 
-const API_URL = 'http://localhost:8080';
+const API_URL = 'https://ad50-106-243-247-152.jp.ngrok.io';
 
 const MainPage = () => {
+  const userId = 2247764663;
   const navigation = useNavigation();
-  const [projects, setProjects] = useState([{
-    _id: "628ce74004c2c463f42e905a",
-    title: "도오개걸",
-    info: "육조",
-    users: [
-        {
-            _id: "62887bbbe70b757d50f04efb",
-            id: 2243399485,
-            username: "김민지",
-            displayName: "김민지",
-            provider: "kakao",
-            profile_image: "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_640x640.jpg",
-            thumbnail_image: "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_110x110.jpg",
-            __v: 0
-        },
-        {
-            _id: "6288798b47229a0d324fcfdb",
-            id: 2247764663,
-            username: "정재희",
-            displayName: "정재희",
-            provider: "kakao",
-            profile_image: "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_640x640.jpg",
-            thumbnail_image: "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_110x110.jpg",
-            __v: 0
-        }
-    ],
-    startDate: {year: "2022", month: "5", date: "27"},
-    finishDate: {year: "2022", month: "5", date: "27"},
-    coverImg: {
-        _id: "628887440a1f4f33d2b2d394",
-        originalFileName: "chihiro043.jpg",
-        serverFileName: "43cc5513e1b2a180cc269572d39b6f42",
-        savedName: "chihiro043.jpg1653114692308",
-        size: 220671,
-        category: "coverImg"
-    },
-    profileImg: {
-        _id: "6288888aad0e7cd7d6e6585c",
-        originalFileName: "totoro034.jpg",
-        serverFileName: "f5d83996ca8a52e189d2f3c33c6a3a6c",
-        savedName: "totoro034.jpg1653115018967",
-        size: 192604,
-        category: "profileImg"
-    }
-  }, {
-    _id: "628ce74004c2c463f42e905a",
-    title: "zz",
-    info: "육조",
-    users: [
-        {
-            _id: "62887bbbe70b757d50f04efb",
-            id: 2243399485,
-            username: "김민지",
-            displayName: "김민지",
-            provider: "kakao",
-            profile_image: "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_640x640.jpg",
-            thumbnail_image: "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_110x110.jpg",
-            __v: 0
-        },
-        {
-            _id: "6288798b47229a0d324fcfdb",
-            id: 2247764663,
-            username: "정재희",
-            displayName: "정재희",
-            provider: "kakao",
-            profile_image: "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_640x640.jpg",
-            thumbnail_image: "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_110x110.jpg",
-            __v: 0
-        }
-    ],
-    startDate: {year: "2022", month: "5", date: "27"},
-    finishDate: {year: "2022", month: "5", date: "27"},
-    coverImg: {
-        _id: "628887440a1f4f33d2b2d394",
-        originalFileName: "chihiro043.jpg",
-        serverFileName: "43cc5513e1b2a180cc269572d39b6f42",
-        savedName: "chihiro043.jpg1653114692308",
-        size: 220671,
-        category: "coverImg"
-    },
-    profileImg: {
-        _id: "6288888aad0e7cd7d6e6585c",
-        originalFileName: "totoro034.jpg",
-        serverFileName: "f5d83996ca8a52e189d2f3c33c6a3a6c",
-        savedName: "totoro034.jpg1653115018967",
-        size: 192604,
-        category: "profileImg"
-    }
-  }])
-  const [project, setProject] = useState(projects[0]);
+  const [projects, setProjects] = useState([]);
+  const [project, setProject] = useState();
   const [isProject, setIsProject] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   // 현재 로그인한 사용자의 모든 프로젝트 불러오기
   useEffect(() => {
-    fetch(`${API_URL}/project/`, {
-      method: 'GET'
+    fetch(`${API_URL}/project/user`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({id: 2243399485}),
     }).then(async (res) => {
-      let jsonRes = await res.json();
+      const jsonRes = await res.json();
       setProjects(jsonRes.data);
-    })
-  })
-
-  // setProject
-  useEffect(() => {
-    setProject(project)
-    if(project !== null) {
-      // setTodoItems
+      return jsonRes;
+    }).then(async (jsonRes) => {
+      setProject(jsonRes.data[0])
+    }).then(async() => {
       setIsProject(true);
-    }
-    // 만약에 없으면 새 프로젝트 생성으로 이동
-  }, [project])
-
-  useEffect(() => {
-    console.log("최초렌더링: ",project)
-  }, [isProject])
+    })
+  }, [])
 
   const onPressChange = (pro) => {
     setProject(pro); 
@@ -136,7 +44,7 @@ const MainPage = () => {
   }
 
   return <View style={{ flex: 1}}>
-    {isProject ? <View style={{ flex: 1}}>
+    {isProject === true ? <View style={{ flex: 1}}>
       <TouchableOpacity>
         <View style={styles.topView}>
           <TopBar/>
@@ -195,7 +103,7 @@ const MainPage = () => {
                   <Image style={{flex: 1,width: 60, height: 50}} source={require('../../assets/main/project_img.png')}/>
                   <View style={{flex: 6}}>
                     <Text style={[{color: '#89B6C2'}, modalStyle.title]}>{pro.title}</Text>
-                    <Text style={modalStyle.users}>팀원: {pro.users.map((user) => (`${user.username} `))}</Text>
+                    {/* <Text style={modalStyle.users}>팀원: {pro.users.map((user) => (`${user.username} `))}</Text> */}
                   </View>
                   <Image style={{width: 30, height: 30}} source={require('../../assets/main/btn_check.png')}/>
                 </TouchableOpacity>
@@ -207,7 +115,7 @@ const MainPage = () => {
                   <Image style={{flex: 1,width: 60, height: 50}} source={require('../../assets/main/project_img.png')}/>
                   <View style={{flex: 6.5}}>
                     <Text style={[{color: '#404855'}, modalStyle.title]}>{pro.title}</Text>
-                    <Text style={[modalStyle.users, {color: '#999999'}]}>팀원: {pro.users.map((user) => (`${user.username} `))}</Text>
+                    {/* <Text style={[modalStyle.users, {color: '#999999'}]}>팀원: {pro.users.map((user) => (`${user.username} `))}</Text> */}
                   </View>
                 </TouchableOpacity>
                   <Image style={{width: 380, height: 1}} source={require('../../assets/main/line_divider.png')}/>
