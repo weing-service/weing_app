@@ -144,10 +144,11 @@ const MainPage = () => {
         </View>
       </TouchableOpacity>
       <CalenderContainer style={{flex: 3}} project={project}/>
-      <AddBtn style={{flex: 1}}/>
+      <AddBtn style={{flex: 1}} title={project.title}/>
       <View style = {styles.fixed2}>
         <BottomNavigator type = {1} modal={modalOpen} setModal={setModalOpen}/>
       </View>
+
     </View> 
     : <View style={styles.noView}>
       <Image 
