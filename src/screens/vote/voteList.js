@@ -6,8 +6,32 @@ import CardContainer from '../../components/vote/cardContainer';
 import { useNavigation } from '@react-navigation/native';
 import BottomNavigator from '../../components/common/bottomNavigator';
 
-const VoteList = () => {
 
+const getAll = async() => {
+    await fetch("https://142d-106-243-247-152.jp.ngrok.io/vote/doingVotes",{
+        method : "POST",
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({ project_title: "도오개걸",
+                               userId: 2243399485 })
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+        console.log(responseJson);
+        if (responseJson.status == 200) {
+            return response
+        } else {
+        }
+        })
+        .catch((error) => {
+        console.error(error);
+        });
+    };
+
+const VoteList = () => {
+    const res = getAll();
+    console.log(res)
     const navigation = useNavigation();
     const data1 = [
         {
@@ -71,7 +95,7 @@ const VoteList = () => {
                 </TouchableOpacity>
             </View>
             <View
-                style = {{height : 110}}>
+                style = {{height : 70}}>
             </View>
             <View style = {styles.fixed2}>
                 <BottomNavigator type = {0}/>

@@ -25,12 +25,12 @@ const ProjectBar = ({project}) => {
     <Image style={{width: 50, height: 50}} source={require('../../assets/main/project_img.png')}/>
     <View>
       <View style={styles.projectName}>
-        <Text style={{fontSize: '18px', fontWeight: 'bold'}}>{projectInfo.name}</Text>
-        <Text style={{fontSize: '18px'}}> 프로젝트</Text>
+        <Text style={{fontSize: 18, fontWeight: 'bold'}}>{projectInfo.name}</Text>
+        <Text style={{fontSize: 18}}> 프로젝트</Text>
       </View>
       <View style={styles.deadline}>
-        <Text style={{color: '#999999', fontSize: '12px', fontWeight: 'bold'}}>D-{dday}</Text>
-        <Text style={{color: '#999999', fontSize: '12px'}}> 프로젝트 마감일</Text>
+        <Text style={{color: '#999999', fontSize: 12, fontWeight: 'bold'}}>D-{dday}</Text>
+        <Text style={{color: '#999999', fontSize: 12}}> 프로젝트 마감일</Text>
       </View>
     </View>
   </View>;

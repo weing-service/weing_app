@@ -7,6 +7,7 @@ import SlideModal from '../../components/vote/slideModal';
 import RoundCheck from '../../components/vote/roundCheck';
 import BottomNavigator from '../../components/common/bottomNavigator';
 
+
 const VoteMake = () => {
 
     const [deadlineChecked, setDeadlineChecked] = useState(false);
