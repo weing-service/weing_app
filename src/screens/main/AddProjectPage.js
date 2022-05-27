@@ -1,8 +1,7 @@
 // 새 프로젝트 생성 페이지
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal, ImageBackground } from "react-native";
-import { Calendar } from "react-native-calendars";
-import { DateToString } from "../../components/common/DateToString";
+import DateModal from "../../components/common/DateModal";
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -20,9 +19,7 @@ const AddProjectPage = () => {
   const [users, setUsers] = useState(); // 전체 사용자
   const [joiners, setJoiners] = useState(); // 참여자
 
-  const [marker, setMarker] = useState({});
-  const [picker, setPicker] = useState(false);
-  const [count, setCount] = useState(0);
+  const [dateModal, setDateModal] = useState(false);
   // 제목 입력되었는지 여부
   const [isTitle, setIsTitle] = useState(false);
 
@@ -39,30 +36,6 @@ const AddProjectPage = () => {
     useEffect(() => {
         setStartDate(startDate);
     }, [startDate]);    
-
-  // 날짜 선택 캘린더 클릭시
-  const onPressDate = (day) => {
-    let newMark = {};
-    if(count % 2 == 0){
-        // 홀수번째 클릭이면 startDate 설정
-        setStartDate(day);
-        newMark[day.dateString] = {startingDay: true, dotColor: "#89B6C2", color: "#89B6C2"};
-    } else {
-        // 짝수번째 클릭이면 finishDate 설정
-        setFinishDate(day);
-        let bt = day.timestamp - startDate.timestamp;
-        let btDay = bt / (1000*60*60*24);
-        for(let i=0; i<btDay; i++){
-            if(i == 0)
-                newMark[startDate.dateString] = {startingDay: true, dotColor: "#89B6C2", color: "#89B6C2"};
-            else
-                newMark[DateToString(new Date(startDate.year, startDate.month - 1, startDate.day + i))] = {color: "#89B6C24D"}
-        }
-        newMark[day.dateString] = {endingDay: true, dotColor: "#89B6C2", color: "#89B6C2"};
-    }
-    setMarker(newMark);
-    setCount(count + 1);
-  }
   
   // 프로젝트 생성 버튼 클릭시
   const onPressGenerate = async () => {
@@ -195,7 +168,7 @@ const AddProjectPage = () => {
             </TouchableOpacity>
             : <TouchableOpacity 
                 style={{left: 20, top: 20}}
-                onPress={() => setPicker(true)}>
+                onPress={() => setDateModal(true)}>
             <Image 
                 style={{width: 80, height: 80}}
                 source={require('../../assets/main/todo/btn_calendar.png')}/>
@@ -205,51 +178,17 @@ const AddProjectPage = () => {
             <Text style={styles.text}>참여자</Text>
             <Image 
                 style={{width: 48, height: 48, top: 20, left: 20}}
-                source={require('../../assets/main/todo/btn_calendar.png')}
+                source={require('../../assets/main/btn_add_grey.png')}
             />
         </View>
     </View>
 
     {/* 날짜 선택 모달 */}
-    <Modal 
-      animationType={"slide"}
-      transparent={true}
-      visible={picker}
-      onRequestClose={() => setIsPickerOpen(false)}
-    >
-        <View style={{flex: 1, backgroundColor: 'black', opacity: 0.4}}>
-        </View>
-      <View style={{flex: 1.5, backgroundColor:'white', borderTopLeftRadius: 20, borderTopRightRadius: 20}}>
-        <View style={{flex: 1}}>
-            <TouchableOpacity style={{flex: 1, alignItems:'center', paddingTop: 20}}>
-                <Image 
-                    style={{width: 32, height: 4}}
-                    source={require('../../assets/main/modal_knob.png')}
-                />
-            </TouchableOpacity>
-            <Text style={{flex: 1, left: 20, color: "#404855"}}>프로젝트 시작일과 마감일을 설정해주세요.</Text>
-        </View>
-        <View style={{flex: 4}}>
-            <Calendar
-            enableSwipeMonths
-            //selected={pickedDate}
-            onDayPress={day => onPressDate(day)}
-            markingType={'period'}
-            markedDates={marker}
-            />
-        </View>
-
-        <View style={{flex: 1, alignItems: 'center'}}>
-            <TouchableOpacity 
-                onPress={() => setPicker(false)}
-            >
-            <Image 
-            style={{width: 156, height: 38, borderRadius: 10}}
-            source={require('../../assets/main/todo/btn_select_complete.png')} />
-            </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
+    <DateModal  modalInfo={"프로젝트 시작일과 마감일을 설정해주세요"}
+        modal={dateModal} setModal={setDateModal}
+        startDate={startDate}   setStartDate={setStartDate}
+        finishDate={finishDate} setFinishDate={setFinishDate}
+    />
   </View>;
 };
 

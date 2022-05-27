@@ -1,10 +1,15 @@
 // 일정 이름 input 컴포넌트
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { Modal } from "react-native-paper";
 
-const TodoDate = ({pickerOpener, finishDateString}) => {
+const TodoDate = ({pickerOpener, finishDate}) => {
+  const [finishDateString, setFinishDateString] = useState(finishDate);
+
+  useEffect(() => {
+    setFinishDateString(finishDate);
+  }, [finishDate])
 
   return <View style={styles.input}>
       <Text style={styles.text}>날짜 및 시간 설정*</Text>
