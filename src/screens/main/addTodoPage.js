@@ -48,17 +48,6 @@ const AddTodoPage = (props) => {
     setCatModal(true);
     setColorsModal(false);
   }
-
-  const pickerOpener = () => {
-    // 추가모달은 끄고 색상선택모달은 켬
-    setCatModal(false);
-    setColorsModal(true);
-  }
-
-  const dateModalOpener = () => {
-    setDateModal(!dateModal);
-  }
-
   // 프로젝트에 속하는 사용자들 받아오기
   useEffect(() => {
     fetch(`${API_URL}/schedule/list`, {
