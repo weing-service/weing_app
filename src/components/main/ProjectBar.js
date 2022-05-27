@@ -1,5 +1,5 @@
 // 프로젝트 이름을 표시할 컴포넌트
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
 const ProjectBar = ({project}) => {
@@ -7,15 +7,17 @@ const ProjectBar = ({project}) => {
     name: project.title,
     deadline: project.finishDate
   });
+  const [dday, setDday] = useState();
 
-  // 디데이 계산
-  const getDDay = () => {
+  useEffect(() => {
+    // 디데이 계산
     const today = new Date();
-    const dday = new Date(projectInfo.deadline.getFullYear(), projectInfo.deadline.getMonth() - 1, projectInfo.deadline.getDate());
+    const dday = new Date(project.finishDate.year, project.finishDate.month, project.finishDate.date);
     const gap = dday.getTime() - today.getTime();
     const result = Math.ceil(gap / (1000 * 60 * 60 * 24));
-    return result;
-  }
+
+    setDday(result)
+  }, [projectInfo])
 
   return <View style={styles.container}>
     <Image style={{width: 50, height: 50}} source={require('../../assets/main/project_img.png')}/>
@@ -25,7 +27,7 @@ const ProjectBar = ({project}) => {
         <Text style={{fontSize: '18px'}}> 프로젝트</Text>
       </View>
       <View style={styles.deadline}>
-        <Text style={{color: '#999999', fontSize: '12px', fontWeight: 'bold'}}>D-{getDDay()}</Text>
+        <Text style={{color: '#999999', fontSize: '12px', fontWeight: 'bold'}}>D-{dday}</Text>
         <Text style={{color: '#999999', fontSize: '12px'}}> 프로젝트 마감일</Text>
       </View>
     </View>
