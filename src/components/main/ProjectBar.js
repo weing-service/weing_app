@@ -10,6 +10,7 @@ const ProjectBar = ({project}) => {
   const [dday, setDday] = useState();
 
   useEffect(() => {
+    console.log(projectInfo);
     // 디데이 계산
     const today = new Date();
     const dday = new Date(project.finishDate.year, project.finishDate.month, project.finishDate.date);
