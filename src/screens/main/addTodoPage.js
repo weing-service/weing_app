@@ -61,7 +61,6 @@ const AddTodoPage = (props) => {
 
   // 프로젝트에 속하는 사용자들 받아오기
   useEffect(() => {
-    console.log(props.route.params)
     fetch(`${API_URL}/schedule/list`, {
       method: 'POST',
       headers: {
