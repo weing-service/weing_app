@@ -210,7 +210,10 @@ const MainPage = () => {
               </View>
             ))}
             <View style={{justifyContent:'center', alignItems: 'center'}}>
-                <TouchableOpacity style={modalStyle.container} onPress={() => navigation.navigate('AddProjectPage') }>
+                <TouchableOpacity style={modalStyle.container} onPress={() => {
+                  navigation.navigate('AddProjectPage')
+                  setModalOpen(false)
+                  } }>
                   <Image style={{flex: 1,width: 60, height: 50}} source={require('../../assets/main/project_img.png')}/>
                   <View style={{flex: 6.5}}>
                     <Text style={[modalStyle.title, {color: '#404855', fontWeight: '500', top: 15}]}>새 프로젝트 추가</Text>

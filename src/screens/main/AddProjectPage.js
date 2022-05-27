@@ -1,10 +1,10 @@
 // 새 프로젝트 생성 페이지
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal, ImageBackground } from "react-native";
-import { Calendar } from "react-native-calendars";
-import { DateToString } from "../../components/common/DateToString";
+import DateModal from "../../components/common/DateModal";
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import MemberModal from "../../components/common/MemberModal";
 
 const API_URL = 'http://localhost:8080';
 
@@ -17,39 +17,50 @@ const AddProjectPage = () => {
   const [info, setInfo] = useState("");
   const [startDate, setStartDate] = useState();
   const [finishDate, setFinishDate] = useState();
-  const [marker, setMarker] = useState({});
-  const [picker, setPicker] = useState(false);
-  const [count, setCount] = useState(0);
+  const [users, setUsers] = useState([]); // 전체 사용자
+  const [members, setMembers] = useState([]); // 참여자
+
+  const [dateModal, setDateModal] = useState(false);
+  const [memberModal, setMemberModal] = useState(false);
   // 제목 입력되었는지 여부
   const [isTitle, setIsTitle] = useState(false);
+
+  // 전체 사용자 조회 -> users에 저장
+  useEffect(() => {
+    fetch(`${API_URL}/user/` , {
+        method: 'GET',
+      }).then(async (res) => {
+        const jsonRes = await res.json();
+        setUsers(jsonRes.allUsers);
+      });
+
+    setUsers([
+        {
+            "_id": "6288798b47229a0d324fcfdb",
+            "id": 2247764663,
+            "username": "정재희",
+            "displayName": "정재희",
+            "provider": "kakao",
+            "profile_image": "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_640x640.jpg",
+            "thumbnail_image": "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_110x110.jpg",
+            "__v": 0
+        },
+        {
+            "_id": "62887bbbe70b757d50f04efb",
+            "id": 2243399485,
+            "username": "김민지",
+            "displayName": "김민지",
+            "provider": "kakao",
+            "profile_image": "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_640x640.jpg",
+            "thumbnail_image": "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_110x110.jpg",
+            "__v": 0
+        }
+    ]);
+  }, [])
 
     useEffect(() => {
         setStartDate(startDate);
     }, [startDate]);    
-
-  // 날짜 선택 캘린더 클릭시
-  const onPressDate = (day) => {
-    let newMark = {};
-    if(count % 2 == 0){
-        // 홀수번째 클릭이면 startDate 설정
-        setStartDate(day);
-        newMark[day.dateString] = {startingDay: true, dotColor: "#89B6C2", color: "#89B6C2"};
-    } else {
-        // 짝수번째 클릭이면 finishDate 설정
-        setFinishDate(day);
-        let bt = day.timestamp - startDate.timestamp;
-        let btDay = bt / (1000*60*60*24);
-        for(let i=0; i<btDay; i++){
-            if(i == 0)
-                newMark[startDate.dateString] = {startingDay: true, dotColor: "#89B6C2", color: "#89B6C2"};
-            else
-                newMark[DateToString(new Date(startDate.year, startDate.month - 1, startDate.day + i))] = {color: "#89B6C24D"}
-        }
-        newMark[day.dateString] = {endingDay: true, dotColor: "#89B6C2", color: "#89B6C2"};
-    }
-    setMarker(newMark);
-    setCount(count + 1);
-  }
   
   // 프로젝트 생성 버튼 클릭시
   const onPressGenerate = async () => {
@@ -174,61 +185,44 @@ const AddProjectPage = () => {
         <View style={styles.inputView}>
             <Text style={styles.text}>프로젝트 시작일 및 마감일 설정*</Text>
             {finishDate && finishDate.dateString ? <TouchableOpacity onPress={() => setPicker(true)}>
-                <View style={{backgroundColor: 'white', width: 100, height: 50, borderRadius: 10, justifyContent: 'center', alignItems: 'center', margin: 20}}>
+                <View style={{backgroundColor: 'white', width: 200, height: 50, borderRadius: 10, justifyContent: 'center', alignItems: 'center', margin: 20, marginBottom: 0}}>
                     <Text style={{color: '#999999'}}>
-                    {finishDate.dateString}
+                    {startDate.dateString} ~ {finishDate.dateString}
                     </Text>
                 </View>
             </TouchableOpacity>
             : <TouchableOpacity 
                 style={{left: 20, top: 20}}
-                onPress={() => setPicker(true)}>
+                onPress={() => setDateModal(true)}>
             <Image 
                 style={{width: 80, height: 80}}
                 source={require('../../assets/main/todo/btn_calendar.png')}/>
             </TouchableOpacity>}
         </View>
+        <TouchableOpacity 
+            onPress={() => setMemberModal(true)}
+            style={{top: 20}}>
+            <Text style={styles.text}>참여자</Text>
+            <Image 
+                style={{width: 48, height: 48, top: 20, left: 20}}
+                source={require('../../assets/main/btn_add_grey.png')}
+            />
+        </TouchableOpacity>
     </View>
 
-    <Modal 
-      animationType={"slide"}
-      transparent={true}
-      visible={picker}
-      onRequestClose={() => setIsPickerOpen(false)}
-    >
-        <View style={{flex: 1, backgroundColor: 'black', opacity: 0.4}}>
-        </View>
-      <View style={{flex: 1.5, backgroundColor:'white', borderTopLeftRadius: 20, borderTopRightRadius: 20}}>
-        <View style={{flex: 1}}>
-            <TouchableOpacity style={{flex: 1, alignItems:'center', paddingTop: 20}}>
-                <Image 
-                    style={{width: 32, height: 4}}
-                    source={require('../../assets/main/modal_knob.png')}
-                />
-            </TouchableOpacity>
-            <Text style={{flex: 1, left: 20, color: "#404855"}}>프로젝트 시작일과 마감일을 설정해주세요.</Text>
-        </View>
-        <View style={{flex: 4}}>
-            <Calendar
-            enableSwipeMonths
-            //selected={pickedDate}
-            onDayPress={day => onPressDate(day)}
-            markingType={'period'}
-            markedDates={marker}
-            />
-        </View>
+    {/* 날짜 선택 모달 */}
+    <DateModal  modalInfo={"프로젝트 시작일과 마감일을 설정해주세요"}
+        modal={dateModal} setModal={setDateModal}
+        startDate={startDate}   setStartDate={setStartDate}
+        finishDate={finishDate} setFinishDate={setFinishDate}
+    />
 
-        <View style={{flex: 1, alignItems: 'center'}}>
-            <TouchableOpacity 
-                onPress={() => setPicker(false)}
-            >
-            <Image 
-            style={{width: 156, height: 38, borderRadius: 10}}
-            source={require('../../assets/main/todo/btn_select_complete.png')} />
-            </TouchableOpacity>
-        </View>
-      </View>
-    </Modal>
+    {/* 참여자 선택 모달 */}
+    <MemberModal
+        modal={memberModal} setModal={setMemberModal}
+        users={users} setUsers={setUsers}
+        members={members} setMembers={setMembers}
+    />
   </View>;
 };
 
