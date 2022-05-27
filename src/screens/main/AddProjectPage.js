@@ -122,7 +122,7 @@ const AddProjectPage = () => {
         {coverImg? 
             <View>
                 <Image source={{ uri: coverImg }}/>
-            </View> : <View>
+            </View> : <View style={{flexDirection: 'row'}}>
             <Image 
             style={{width: 20, height: 20, marginRight: 10}}
             source={require('../../assets/main/btn_camera_bold.png')}
@@ -173,13 +173,20 @@ const AddProjectPage = () => {
         </View>
         <View style={styles.inputView}>
             <Text style={styles.text}>프로젝트 시작일 및 마감일 설정*</Text>
-            <TouchableOpacity 
+            {finishDate && finishDate.dateString ? <TouchableOpacity onPress={() => setPicker(true)}>
+                <View style={{backgroundColor: 'white', width: 100, height: 50, borderRadius: 10, justifyContent: 'center', alignItems: 'center', margin: 20}}>
+                    <Text style={{color: '#999999'}}>
+                    {finishDate.dateString}
+                    </Text>
+                </View>
+            </TouchableOpacity>
+            : <TouchableOpacity 
                 style={{left: 20, top: 20}}
                 onPress={() => setPicker(true)}>
             <Image 
                 style={{width: 80, height: 80}}
                 source={require('../../assets/main/todo/btn_calendar.png')}/>
-            </TouchableOpacity>
+            </TouchableOpacity>}
         </View>
     </View>
 
