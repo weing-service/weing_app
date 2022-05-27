@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal, ImageBackground } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, ImageBackground } from "react-native";
 import { Calendar } from "react-native-calendars";
 import { DateToString } from "./DateToString";
+import Modal from "react-native-modalbox"
 
 const DateModal = ({modalInfo, modal, setModal, startDate, setStartDate, finishDate, setFinishDate}) => {
     const [marker, setMarker] = useState({});
@@ -32,16 +33,16 @@ const DateModal = ({modalInfo, modal, setModal, startDate, setStartDate, finishD
     setCount(count + 1);
   }
 
-    return <Modal 
-    animationType={"slide"}
-    transparent={true}
-    visible={modal}
-    onRequestClose={() => setModal(false)}
-  >
-      <TouchableOpacity 
-      onPress={() => setModal(false)}
-      style={{flex: 1, backgroundColor: 'black', opacity: 0.4}}>
-      </TouchableOpacity>
+    return <Modal
+        style = {{height : 700, width : '100%', marginTop: 100,borderTopLeftRadius: 10, borderTopRightRadius: 10}}
+        animationType={"slide"}
+        transparent={false}
+        isOpen={modal}
+        entry = {'bottom'}
+        swipeToClose = {true}
+        swipeArea = {600}
+        swipeThreshold = {0}
+        position = {'bottom'}>
     <View style={{flex: 1.5, backgroundColor:'white', borderTopLeftRadius: 20, borderTopRightRadius: 20}}>
       <View style={{flex: 1}}>
           <TouchableOpacity style={{flex: 1, alignItems:'center', paddingTop: 20}}>
@@ -62,7 +63,7 @@ const DateModal = ({modalInfo, modal, setModal, startDate, setStartDate, finishD
           />
       </View>
 
-      <View style={{flex: 1, alignItems: 'center'}}>
+      <View style={{flex: 2, alignItems: 'center'}}>
           <TouchableOpacity 
               onPress={() => setModal(false)}
           >

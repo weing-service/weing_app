@@ -49,7 +49,7 @@ const todos = {
   ],
 };
 
-// 렌더링을 다하고 props: project를 받기때문에 useEffect 오류남 ==> 백에서 넘겨주는 데이터 수정 필요
+// 렌더링을 다하고 props: project를 받기때문에 useEffect ==> 백에서 넘겨주는 데이터 수정 필요
 const CommonCalendar = ({project}) => {
   // states
   const [today, setToday] = useState("2022-05-27"); // 오늘 날짜 yyyy-mm-dd

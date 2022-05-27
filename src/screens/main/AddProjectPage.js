@@ -70,7 +70,8 @@ const AddProjectPage = () => {
         startDate: startDate,
         finishDate: finishDate,
         coverImg : coverImg,
-        profileImg: profileImg
+        profileImg: profileImg,
+        users: members
     }
     if(isTitle) {
         fetch(`${API_URL}/project/project`, {

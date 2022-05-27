@@ -10,11 +10,13 @@ import TodoCat from "../../components/main/addTodo/TodoCat";
 
 import { useNavigation } from '@react-navigation/native';
 import DateModal from "../../components/common/DateModal";
+import MemberModal from "../../components/common/MemberModal";
 
 const API_URL = 'http://localhost:8080';
 
-const AddTodoPage = () => {
+const AddTodoPage = (props) => {
   const navigation = useNavigation();
+  const [project, setProject] = useState();
   const [title, setTitle] = useState("");
   const [info, setInfo] = useState("");
   const [startDate, setStartDate] = useState();
@@ -22,8 +24,29 @@ const AddTodoPage = () => {
   const [intoCal, setIntoCal] = useState(true); // 캘린더 반영 여부
   const [category, setCategory] = useState("");
   const [color, setColor] = useState("");
+  const [users, setUsers] = useState([]);     // 프로젝트에 속하는 참여자들
+  const [members, setMembers] = useState([]); // 일정 참여자들
 
   const [dateModal, setDateModal] = useState(false);
+  const [memberModal, setMemberModal] = useState(false);
+
+  useEffect(() => {
+    setProject(props.route.params);
+  }, [])
+
+  // 프로젝트에 속하는 사용자들 받아오기
+  useEffect(() => {
+    fetch(`${API_URL}/schedule/list`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(project),
+    }).then(async (res) => {
+      const jsonRes = await res.json();
+      setUsers(jsonRes);
+    });
+  }, [project])
 
   const dateModalOpener = () => {
     setDateModal(!dateModal);
@@ -32,7 +55,7 @@ const AddTodoPage = () => {
   // 일정 data POST
   const onPressComplete = () => {
     const postData = {
-      project: "", // ??
+      project: project,
       title: title,
       info: info,
       startDate: startDate,
@@ -40,7 +63,7 @@ const AddTodoPage = () => {
       category: category,
       color: color,
       intoCal: intoCal,
-      users: []
+      users: members
     };
     fetch(`${API_URL}/schedule`, {
       method: 'POST',
@@ -75,6 +98,17 @@ const AddTodoPage = () => {
       category={category} setCategory={setCategory}
       color={color} setColor={setColor}
     />
+    <View style={{padding: 20}}>
+      <TouchableOpacity 
+            onPress={() => setMemberModal(true)}
+            style={{top: 20}}>
+            <Text style={styles.text}>참여자</Text>
+            <Image 
+                style={{width: 48, height: 48, top: 20}}
+                source={require('../../assets/main/btn_add_grey.png')}
+            />
+      </TouchableOpacity>
+    </View>
 
     {/* 날짜 설정 모달 */}
     <DateModal 
@@ -83,7 +117,15 @@ const AddTodoPage = () => {
       startDate={startDate}   setStartDate={setStartDate}
       finishDate={finishDate} setFinishDate={setFinishDate}
     />
+
+    {/* 참여자 선택 모달 */}
+    <MemberModal
+        modal={memberModal} setModal={setMemberModal}
+        users={users} setUsers={setUsers}
+        members={members} setMembers={setMembers}
+    />
   </View>;
+  
 };
 
 const styles = StyleSheet.create({
