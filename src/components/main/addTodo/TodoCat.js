@@ -80,17 +80,26 @@ const TodoCat = ({category, setCategory}) => {
     setPickerOpen(true);
     setModalOpen(false);
   }
+
   // if category added
   const onPressAdd = () => {
-    let newCats = categories.concat([{
+    const newCat ={
       id: categories.length + 1,
       name: newName,
-      color: newColor
-    }]);
+      color: `${newColor}33`
+    };
+    setCategory(newCat.name)
+    let newCats = categories.concat([newCat]);
     newCats = newCats.filter((cat) => cat.name === newName).concat(categories.filter((cat) => cat.name !== newName));
     setCategories(newCats);
     setModalOpen(false);
   }
+
+  // 카테고리 설정 리렌더링
+  useEffect(() => {
+
+  }, [categories])
+
   // if category selected
   const onPressCat = (item) => {
     setCategory(item.name);
@@ -285,7 +294,7 @@ const TodoCat = ({category, setCategory}) => {
       borderColor: 'white',
       shadowColor: 'black',
       overflow: 'hidden',
-      shadowOffset: {width: 2, height: 2},
+      shadowOffset: {width: 2, height: 3},
       shadowRadius: 2,
       shadowOpacity: 0.2,
       borderRadius: 10,
