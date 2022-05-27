@@ -72,7 +72,7 @@ const SlideModal = (props) => {
                           onPress={() => props.setOpen(!props.open)}>
                 <Text
                     style = {{fontSize : 15, color : 'white'}}>
-                    선택완료 >
+                    선택완료
                 </Text>
             </TouchableOpacity>
         </Modal>

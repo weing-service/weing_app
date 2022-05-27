@@ -3,7 +3,7 @@ import React from "react";
 import { Button, View, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-const AddBtn = () => {
+const AddBtn = ({title}) => {
   const navigation = useNavigation();
   
   return <View style={{position: 'absolute', right: 20, bottom: 140}}>
@@ -11,7 +11,7 @@ const AddBtn = () => {
       style={{ alignItems:"flex-end" }}
       onPress={() => {
         // 새일정 추가로 이동
-        navigation.navigate('AddTodoPage')
+        navigation.navigate('AddTodoPage', title)
       }}
     >
       <Image style={{width: 60, height: 60}} source={require('../../assets/main/btn_add.png')}/>

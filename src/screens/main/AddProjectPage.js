@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import MemberModal from "../../components/common/MemberModal";
 
-const API_URL = 'http://localhost:8080';
+const API_URL = 'https://ad50-106-243-247-152.jp.ngrok.io';
 
 const AddProjectPage = () => {
   const navigation = useNavigation();
@@ -70,7 +70,8 @@ const AddProjectPage = () => {
         startDate: startDate,
         finishDate: finishDate,
         coverImg : coverImg,
-        profileImg: profileImg
+        profileImg: profileImg,
+        users: members
     }
     if(isTitle) {
         fetch(`${API_URL}/project/project`, {

@@ -6,106 +6,21 @@ import { StyleSheet } from "react-native";
 import DateToString from "../common/DateToString";
 import Slider from "react-native-slider";
 
-const API_URL = 'http://localhost:8080';
+const API_URL = 'https://ad50-106-243-247-152.jp.ngrok.io';
 
-// 예사 데이터들
-const todos = {
-  // dummies
-  "2022-05-27": [
-    {
-      _id: 1,
-      title: "기획팀 스토리보드 회의",
-      info: "스토리보드 추합",
-      startDate: "2022-05-27",
-      finishDate: "2022-05-27",
-      intoCal: true,
-      category: "기획",
-      color: "#FD9F9D",
-      place: "비대면 zoom"
-    },
-    {
-      _id: 2,
-      title: "개발팀 스터디",
-      info: "스토리보드 추합",
-      startDate: "2022-05-27",
-      finishDate: "2022-05-27",
-      category: "개발",
-      intoCal: true,
-      color: "#F9D83E",
-      place: "비대면 Zoom"
-    },
-  ],
-  "2022-05-23": [
-    {
-      _id: 3,
-      title: "디자인팀",
-      info: "스토리보드",
-      startDate: "2022-05-23",
-      category: "디자인",
-      intoCal: true,
-      color:"#A0DDE0",
-      place: "강남역 할리스"
-    },
-  ],
-};
-
-// 렌더링을 다하고 props: project를 받기때문에 useEffect 오류남 ==> 백에서 넘겨주는 데이터 수정 필요
+// 렌더링을 다하고 props: project를 받기때문에 useEffect ==> 백에서 넘겨주는 데이터 수정 필요
 const CommonCalendar = ({project}) => {
   // states
-  const [today, setToday] = useState("2022-05-27"); // 오늘 날짜 yyyy-mm-dd
-  const [todoItems, setTodoItems] = useState({
-    [today] : [
-      {
-          "_id": "628f9a514d25ed77539f131d",
-          "project": "도오개걸",
-          "title": "밋업 데이",
-          "info": "개발 마무으리",
-          "startDate": "2022-05-27",
-          "finishDate": "2022-05-27",
-          "place": "",
-          "category": "개발",
-          "color": "#FD9F9D",
-          "intoCal": true,
-          "repeated": false,
-          "isCompleted": true
-      },
-      {
-          "_id": "628f9b7b1d63d8dd2492a180",
-          "project": "도오개걸",
-          "title": "밋업 데이-수정",
-          "info": "기획 마무으리",
-          "startDate": "2022-05-27",
-          "finishDate": "2022-05-27",
-          "place": "강남 할리스",
-          "category": "기획",
-          "color": "#F9D83E",
-          "intoCal": true,
-          "repeated": false,
-          "isCompleted": false
-      }
-  ]
-  });  // 프로젝트 -> 그 안의 모든 일정
-  const [todayTodo, setTodayTodo] = useState(todoItems[today]); // 오늘 해야할 일
+  const [td, setToday] = useState("2022-05-25"); // 오늘 날짜 yyyy-mm-dd
+  const [todoItems, setTodoItems] = useState();  // 프로젝트 -> 그 안의 모든 일정
+  const [todayTodo, setTodayTodo] = useState(); // 오늘 해야할 일
   const [markTodos, setMarkTodos] = useState({});
   const [done, setDone] = useState({});
   const [doneCount, setDoneCount] = useState(0);
   const [id, setId] = useState();
 
-  // 오늘 날짜 설정하기
-  useEffect(() => {
-    // 오늘 날짜 가져와서 포맷대로 바꾸는 코드 *
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = ("0" + (today.getMonth() + 1)).slice(-2);
-    const day = ("0" + today.getDate()).slice(-2);
-    const dateString = year + "-" + month + "-" + day;
-
-    setToday(dateString);
-  })
-
   // 프로젝트 하나 불러오기
   useEffect(() => {
-    // setTodoItems
     fetch(`${API_URL}/project/one`, {
       method: 'POST',
       headers: {
@@ -114,41 +29,55 @@ const CommonCalendar = ({project}) => {
       body: JSON.stringify({title: project.title}),
     }).then(async (res) => {
       const jsonRes = await res.json();
-      setTodoItems({
-        [today] : jsonRes.schedules
-      });
-    });
-  }, [today])
+      for(let i=0; i<jsonRes.data.schedules.length; i++) {
+        if(jsonRes.data.schedules[i] in todos)
+          // 이미 그 날짜에 value 있으면
+          todos[td].concat(new Array(jsonRes.data.schedules[i]))
+        else
+          Object.assign(todos, {
+            [td] : jsonRes.data.schedules[i]
+        });
+      }
+      setTodoItems(todos);
+    }).then(async(jsonRes) => {
+      console.log(todoItems);
+      setTodayTodo(todoItems)
+    }).then(async() => {
+      console.log("오늘 할일: ",todayTodo)
+    }).catch((error) =>{
+      console.log(error);
+    })
+  }, [])
 
-  // 오늘 일정 설정하기
   useEffect(() => {
-    console.log("오늘 일정: ", todoItems);
-    setTodayTodo(todoItems[today]);
+    console.log("todoItems",td);
   }, [todoItems])
 
   // 캘린더에 일정 마킹
-  useEffect(() => {
-    let marks = {};
-    todayTodo.map(todo => {
-      if(todo.startDate in marks)
-        // 이미 그 날짜에 마킹되어있으면
-        marks[todo.startDate].dots.push({color: todo.color})
-      else
-        Object.assign(marks, {
-          [todo.startDate] : {dots: [{color: todo.color}]}
-        });
-    })
-    setMarkTodos(marks);
-  }, [todayTodo]);
+  // useEffect(() => {
+  //   console.log(todayTodo);
+
+  //   let marks = {};
+  //   todayTodo.map(todo => {
+  //     if(todo.startDate in marks)
+  //       // 이미 그 날짜에 마킹되어있으면
+  //       marks[todo.startDate].dots.push({color: todo.color})
+  //     else
+  //       Object.assign(marks, {
+  //         [todo.startDate] : {dots: [{color: todo.color}]}
+  //       });
+  //   })
+  //   setMarkTodos(marks);
+  // }, [todayTodo]);
 
   // done handler
-  useEffect(() => {
-    if(done[id] === false && doneCount > 0){
-      setDoneCount(doneCount - 1);
-    } else if(done[id] === true && doneCount < todayTodo.length ) {
-      setDoneCount(doneCount + 1);
-    }
-  }, [done])
+  // useEffect(() => {
+  //   if(done[id] === false && doneCount > 0){
+  //     setDoneCount(doneCount - 1);
+  //   } else if(done[id] === true && doneCount < todayTodo.length ) {
+  //     setDoneCount(doneCount + 1);
+  //   }
+  // }, [done])
 
   const onPressDone =(event) => {
     const id = event.nativeEvent.target;
@@ -265,8 +194,8 @@ const CommonCalendar = ({project}) => {
         items={todoItems}
         markingType={'multi-dot'}
         markedDates={markTodos}
-        current={today}
-        selected={today}
+        current={td}
+        selected={td}
         // todos 렌더링할 부분
         renderItem={renderItem}
         renderEmptyData={renderEmpty}
