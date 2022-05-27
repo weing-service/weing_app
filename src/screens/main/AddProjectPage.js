@@ -68,33 +68,6 @@ const AddProjectPage = () => {
     navigation.navigate('MainPage')
   }
 
-//   // post Image
-//   useEffect(() => {
-//       console.log(coverImg);
-//     const formData = new FormData();
-//     formData.append('image', coverImg);
-//     fetch(`${API_URL}/project/coverImg`, {
-//         method: 'POST',
-//         body: formData,
-//     }).then(async(res) => {
-//         const jsonRes = await res.json();
-//         setCoverImg(jsonRes.originalFilename);
-//     })
-//   }, [coverImg])
-
-//   // 이미지 선택
-//   const pickImage = async () => {
-//     let result = await ImagePicker.launchImageLibraryAsync({
-//         mediaTypes: ImagePicker.MediaTypeOptions.Images,
-//         allowsEditing: true,
-//         aspect: [4, 3],
-//         quality: 1,
-//       }) 
-//     if (!result.cancelled) {
-//         setCoverImg(result.uri);
-//     }
-//   }
-
   return <View>
     <View style={styles.topView}>
         {/* {coverImg && <ImageBackground source={{uri: coverImg}} resizeMode="cover" style={{width: 100}}>

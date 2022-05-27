@@ -16,7 +16,7 @@ const API_URL = 'https://7dcd-14-32-12-211.jp.ngrok.io';
 
 const AddTodoPage = (props) => {
   const navigation = useNavigation();
-  const [project, setProject] = useState();
+  const [project, setProject] = useState(props.route.params);
   const [title, setTitle] = useState("");
   const [info, setInfo] = useState("");
   const [startDate, setStartDate] = useState();
@@ -30,10 +30,6 @@ const AddTodoPage = (props) => {
   const [dateModal, setDateModal] = useState(false);
   const [memberModal, setMemberModal] = useState(false);
 
-  useEffect(() => {
-    setProject(props.route.params);
-  }, [])
-
   // 프로젝트에 속하는 사용자들 받아오기
   useEffect(() => {
     fetch(`${API_URL}/schedule/list`, {
@@ -44,8 +40,10 @@ const AddTodoPage = (props) => {
       body: JSON.stringify(project),
     }).then(async (res) => {
       const jsonRes = await res.json();
-      setUsers(jsonRes);
-    });
+      setUsers(jsonRes.users);
+    }).catch((error) => {
+      console.log(error)
+    })
   }, [project])
 
   const dateModalOpener = () => {
@@ -55,15 +53,16 @@ const AddTodoPage = (props) => {
   // 일정 data POST
   const onPressComplete = () => {
     const postData = {
-      project: project,
+      project: project.title,
       title: title,
       info: info,
       startDate: startDate,
       finishDate: finishDate,
+      place: '비대면 zoom',
       category: category,
       color: color,
       intoCal: intoCal,
-      users: members
+      users: users
     };
     fetch(`${API_URL}/schedule`, {
       method: 'POST',
@@ -76,6 +75,8 @@ const AddTodoPage = (props) => {
       console.log('응답: ', jsonRes);
 
       navigation.navigate('MainPage');
+    }).catch((error) => {
+      console.log(error);
     })
   }
 

@@ -79,7 +79,7 @@ const MainPage = () => {
 
     {/* 프로젝트 선택 모달 */}
     <Modal
-        style = {{height : 400, width : '100%', marginTop: 300,borderTopLeftRadius: 10, borderTopRightRadius: 10}}
+        style = {{height : 400, width : '100%',borderTopLeftRadius: 10, borderTopRightRadius: 10}}
         animationType={"slide"}
         transparent={false}
         isOpen={modalOpen}
