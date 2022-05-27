@@ -3,7 +3,7 @@ import { View, Image, TouchableOpacity, Text } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const signIn = async() => {
-    await fetch("http://182.215.235.49:8080/auth/kakao",{
+    await fetch("http://localhost:8080/auth/kakao",{
         method : "GET",
         headers: {
             'Content-Type' : 'application/json'

@@ -138,7 +138,6 @@ const CommonCalendar = ({project}) => {
   const renderEmpty = () => {
     return (
       <View>
-        <Text>일정을 추가해주세요</Text>
       </View>
     );
   };

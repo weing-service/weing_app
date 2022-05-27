@@ -61,12 +61,13 @@ const AddTodoPage = (props) => {
 
   // 프로젝트에 속하는 사용자들 받아오기
   useEffect(() => {
+    console.log(props.route.params)
     fetch(`${API_URL}/schedule/list`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(props.route.params),
+      body: JSON.stringify({project: project}),
     }).then(async (res) => {
       const jsonRes = await res.json();
       console.log("앱: ",jsonRes);
@@ -74,7 +75,7 @@ const AddTodoPage = (props) => {
     }).catch((error) => {
       console.log(error)
     })
-  }, [])
+  }, [project])
 
   // if category added
   const onPressAdd = () => {
@@ -93,6 +94,7 @@ const AddTodoPage = (props) => {
   // if category selected
   const onPressCat = (item) => {
     setCategory(item.name);
+    setColor(item.color.slice(0, 7));
     // 선택된 카테고리 맨앞으로 보내기
     let newCats = categories;
     newCats = newCats.filter((cat) => cat.name === item.name).concat(categories.filter((cat) => cat.name !== item.name));
@@ -102,7 +104,7 @@ const AddTodoPage = (props) => {
   // 일정 data POST
   const onPressComplete = () => {
     const postData = {
-      project: project.title,
+      project: project,
       title: title,
       info: info,
       startDate: startDate,
@@ -113,6 +115,7 @@ const AddTodoPage = (props) => {
       intoCal: intoCal,
       users: users
     };
+    console.log(postData)
     fetch(`${API_URL}/schedule`, {
       method: 'POST',
       headers: {
