@@ -9,10 +9,10 @@ import BottomNavigator from "../../components/common/bottomNavigator";
 import { useNavigation } from '@react-navigation/native';
 import Modal from "react-native-modalbox";
 
-const API_URL = 'https://ad50-106-243-247-152.jp.ngrok.io';
+const API_URL = 'http://54.180.145.205:8080';
 
 const MainPage = () => {
-  const userId = 2247764663;
+  const userId = 2243399485;
   const navigation = useNavigation();
   const [projects, setProjects] = useState([]);
   const [project, setProject] = useState();
@@ -26,7 +26,7 @@ const MainPage = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({id: 2243399485}),
+      body: JSON.stringify({id: userId}),
     }).then(async (res) => {
       const jsonRes = await res.json();
       setProjects(jsonRes.data);
@@ -35,6 +35,8 @@ const MainPage = () => {
       setProject(jsonRes.data[0])
     }).then(async() => {
       setIsProject(true);
+    }).catch((error) => {
+      console.log(error);
     })
   }, [])
 
@@ -77,7 +79,7 @@ const MainPage = () => {
 
     {/* 프로젝트 선택 모달 */}
     <Modal
-        style = {{height : 400, width : '100%', marginTop: 300,borderTopLeftRadius: 10, borderTopRightRadius: 10}}
+        style = {{height : 400, width : '100%',borderTopLeftRadius: 10, borderTopRightRadius: 10}}
         animationType={"slide"}
         transparent={false}
         isOpen={modalOpen}
@@ -126,12 +128,11 @@ const MainPage = () => {
                   navigation.navigate('AddProjectPage')
                   setModalOpen(false)
                   } }>
-                  <Image style={{flex: 1,width: 60, height: 50}} source={require('../../assets/main/project_img.png')}/>
+                  <Image style={{flex: 1,width: 60, height: 50}} source={require('../../assets/main/btn_new_project.png')}/>
                   <View style={{flex: 6.5}}>
                     <Text style={[modalStyle.title, {color: '#404855', fontWeight: '500', top: 15}]}>새 프로젝트 추가</Text>
                   </View>
                 </TouchableOpacity>
-                  <Image style={{flex: 1, width: 380, height: 1}} source={require('../../assets/main/line_divider.png')}/>
               </View>
         </View>
       </View>
