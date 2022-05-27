@@ -80,9 +80,9 @@ const AddTodoPage = () => {
     }).then(async(res) => {
       const jsonRes = await res.json();
       console.log('응답: ', jsonRes);
-    })
 
-    navigation.navigate('MainPage');
+      navigation.navigate('MainPage');
+    })
   }
 
   return <View style={{flex: 1}}>

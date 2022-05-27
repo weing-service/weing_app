@@ -5,7 +5,7 @@ import Slider from "react-native-slider";
 
 // 멀티 모달 미완
 
-const TodoCat = ({category, setCategory, color, setColor}) => {
+const TodoCat = ({category, setCategory}) => {
   const colors = [
     {
       id: 1,
@@ -69,7 +69,7 @@ const TodoCat = ({category, setCategory, color, setColor}) => {
   const [newColor, setNewColor] = useState("#86B0BC"); // 새 카테고리 색상
   
   const modalOpener = (colorSelected) => {
-    setColor(colorSelected);
+    setNewColor(colorSelected);
     // 추가모달은 켜고 색상선택모달은 끔
     setModalOpen(true);
     setPickerOpen(false);
@@ -82,11 +82,12 @@ const TodoCat = ({category, setCategory, color, setColor}) => {
   }
   // if category added
   const onPressAdd = () => {
-    const newCats = categories.concat([{
+    let newCats = categories.concat([{
       id: categories.length + 1,
       name: newName,
       color: newColor
     }]);
+    newCats = newCats.filter((cat) => cat.name === newName).concat(categories.filter((cat) => cat.name !== newName));
     setCategories(newCats);
     setModalOpen(false);
   }
@@ -130,7 +131,7 @@ const TodoCat = ({category, setCategory, color, setColor}) => {
             placeholder="카테고리 이름을 입력해주세요."
             placeholderTextColor={"#999999"}
             value={newName}
-            onChangeText={text => setCategory(text)}
+            onChangeText={text => setNewName(text)}
           />
 
           <TouchableOpacity
