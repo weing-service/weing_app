@@ -260,19 +260,52 @@ const TodoCat = ({category, setCategory}) => {
       return (<TouchableOpacity 
         style = {[catStyles.item, style]}
         onPress={onPress}>
+        <Slider 
+        style={{width: 0, marginRight: 20}} 
+        thumbStyle={
+          {
+            width: 10,
+            height: 10,
+            backgroundColor: '#FFFFFF',
+            borderColor: item.color.slice(0, 7),
+            borderWidth: 3,
+          }}
+        />
         <Text style={catStyles.name}>{item.name}</Text>
       </TouchableOpacity>);
   }
 
   const renderItem = ({item}) => {
-    const backgroundColor = item.name === category?
-      item.color.slice(0, 7) : item.color;
+    const style = item.name === category?
+    {
+      height: 15,
+      borderRadius: 10,
+      backgroundColor: item.color,
+      borderWidth: 0.2,
+      borderColor: 'white',
+      shadowColor: 'black',
+      overflow: 'hidden',
+      shadowOffset: {width: 2, height: 2},
+      shadowRadius: 2,
+      shadowOpacity: 0.2,
+      borderRadius: 10,
+      top: 20,
+      height: 35,
+      padding: 10,
+      paddingHorizontal: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: 5,
+      flexDirection: 'row',
+    } : {
+      backgroundColor: item.color
+    };
 
     return (
       <Item 
         item={item}
         onPress={() => onPressCat(item)}
-        style={{backgroundColor}}
+        style={style}
       />
     );
   };
@@ -339,15 +372,15 @@ const catStyles = StyleSheet.create({
   item: {
     borderRadius: 10,
     top: 20,
-    width: 80,
     height: 35,
     padding: 10,
+    paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 5
+    margin: 5,
+    flexDirection: 'row',
   },
   name: {
-
   },
   thumb: {
     flex: 1,
