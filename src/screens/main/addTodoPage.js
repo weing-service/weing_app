@@ -37,11 +37,10 @@ const AddTodoPage = () => {
       info: info,
       startDate: startDate,
       finishDate: finishDate,
-      place: "", // ??
       category: category,
       color: color,
       intoCal: intoCal,
-      _id: "" // ?? 
+      users: []
     };
     fetch(`${API_URL}/schedule`, {
       method: 'POST',

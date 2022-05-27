@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, Modal, Imag
 import DateModal from "../../components/common/DateModal";
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
+import MemberModal from "../../components/common/MemberModal";
 
 const API_URL = 'http://localhost:8080';
 
@@ -16,10 +17,11 @@ const AddProjectPage = () => {
   const [info, setInfo] = useState("");
   const [startDate, setStartDate] = useState();
   const [finishDate, setFinishDate] = useState();
-  const [users, setUsers] = useState(); // 전체 사용자
-  const [joiners, setJoiners] = useState(); // 참여자
+  const [users, setUsers] = useState([]); // 전체 사용자
+  const [members, setMembers] = useState([]); // 참여자
 
   const [dateModal, setDateModal] = useState(false);
+  const [memberModal, setMemberModal] = useState(false);
   // 제목 입력되었는지 여부
   const [isTitle, setIsTitle] = useState(false);
 
@@ -31,6 +33,29 @@ const AddProjectPage = () => {
         const jsonRes = await res.json();
         setUsers(jsonRes.allUsers);
       });
+
+    setUsers([
+        {
+            "_id": "6288798b47229a0d324fcfdb",
+            "id": 2247764663,
+            "username": "정재희",
+            "displayName": "정재희",
+            "provider": "kakao",
+            "profile_image": "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_640x640.jpg",
+            "thumbnail_image": "http://k.kakaocdn.net/dn/QY3PZ/btrzxxcHXcJ/zODgLVStwiyRUncpYmdn8K/img_110x110.jpg",
+            "__v": 0
+        },
+        {
+            "_id": "62887bbbe70b757d50f04efb",
+            "id": 2243399485,
+            "username": "김민지",
+            "displayName": "김민지",
+            "provider": "kakao",
+            "profile_image": "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_640x640.jpg",
+            "thumbnail_image": "http://k.kakaocdn.net/dn/c1Kyde/btrAdc6T5X2/jboB2G970cye5tiJJej3kK/img_110x110.jpg",
+            "__v": 0
+        }
+    ]);
   }, [])
 
     useEffect(() => {
@@ -174,13 +199,15 @@ const AddProjectPage = () => {
                 source={require('../../assets/main/todo/btn_calendar.png')}/>
             </TouchableOpacity>}
         </View>
-        <View style={{top: 20,}}>
+        <TouchableOpacity 
+            onPress={() => setMemberModal(true)}
+            style={{top: 20}}>
             <Text style={styles.text}>참여자</Text>
             <Image 
                 style={{width: 48, height: 48, top: 20, left: 20}}
                 source={require('../../assets/main/btn_add_grey.png')}
             />
-        </View>
+        </TouchableOpacity>
     </View>
 
     {/* 날짜 선택 모달 */}
@@ -188,6 +215,13 @@ const AddProjectPage = () => {
         modal={dateModal} setModal={setDateModal}
         startDate={startDate}   setStartDate={setStartDate}
         finishDate={finishDate} setFinishDate={setFinishDate}
+    />
+
+    {/* 참여자 선택 모달 */}
+    <MemberModal
+        modal={memberModal} setModal={setMemberModal}
+        users={users} setUsers={setUsers}
+        members={members} setMembers={setMembers}
     />
   </View>;
 };

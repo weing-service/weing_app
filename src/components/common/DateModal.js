@@ -6,6 +6,7 @@ import { DateToString } from "./DateToString";
 const DateModal = ({modalInfo, modal, setModal, startDate, setStartDate, finishDate, setFinishDate}) => {
     const [marker, setMarker] = useState({});
     const [count, setCount] = useState(0);
+
   // 날짜 선택 캘린더 클릭시
   const onPressDate = (day) => {
     let newMark = {};
@@ -26,6 +27,7 @@ const DateModal = ({modalInfo, modal, setModal, startDate, setStartDate, finishD
         }
         newMark[day.dateString] = {endingDay: true, dotColor: "#89B6C2", color: "#89B6C2"};
     }
+
     setMarker(newMark);
     setCount(count + 1);
   }
@@ -36,8 +38,10 @@ const DateModal = ({modalInfo, modal, setModal, startDate, setStartDate, finishD
     visible={modal}
     onRequestClose={() => setModal(false)}
   >
-      <View style={{flex: 1, backgroundColor: 'black', opacity: 0.4}}>
-      </View>
+      <TouchableOpacity 
+      onPress={() => setModal(false)}
+      style={{flex: 1, backgroundColor: 'black', opacity: 0.4}}>
+      </TouchableOpacity>
     <View style={{flex: 1.5, backgroundColor:'white', borderTopLeftRadius: 20, borderTopRightRadius: 20}}>
       <View style={{flex: 1}}>
           <TouchableOpacity style={{flex: 1, alignItems:'center', paddingTop: 20}}>

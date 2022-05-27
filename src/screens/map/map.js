@@ -58,7 +58,7 @@ const Map = () => {
             <View style={{flex: 1}}>
                 <SearchBar />
                 <View style={styles.mapConainter}>
-                    <MapView 
+                    {location && <MapView 
                         region={{
                             latitude: location.coords.latitude,
                             longitude: location.coords.longitude,
@@ -69,7 +69,7 @@ const Map = () => {
                         style={styles.map}
                         userLocationCalloutEnabled={true}
                         customMapStyle={customStyle}
-                    />
+                    />}
                 </View>
             </View>
             <View style = {styles.fixed2}>
