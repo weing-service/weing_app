@@ -11,6 +11,8 @@ import TodoCat from "../../components/main/addTodo/TodoCat";
 import { useNavigation } from '@react-navigation/native';
 import DateModal from "../../components/common/DateModal";
 import MemberModal from "../../components/common/MemberModal";
+import CategoryModal from "../../components/common/CateogryModal";
+import ColorsModal from "../../components/common/ColorsModal";
 
 const API_URL = 'http://54.180.145.205:8080';
 
@@ -29,7 +31,33 @@ const AddTodoPage = (props) => {
 
   const [dateModal, setDateModal] = useState(false);
   const [memberModal, setMemberModal] = useState(false);
+  const [catModal, setCatModal] = useState(false);  // 카테고리 추가 모달
+  const [colorsModal, setColorsModal] = useState(false);  // 색상 선택 모달
+  
+  const [categories, setCategories] = useState([
+    {id: 1, name: '기획', color: "#FD9F9D33"},
+    {id: 2, name: '개발', color: "#F9D83E33"},
+    {id: 3, name: '디자인', color: "#A0DDE033"}
+  ]); // 카테고
+  const [newName, setNewName] = useState("")  // 새 카테고리 이름
+  const [newColor, setNewColor] = useState("#86B0BC"); // 새 카테고리 색상
+  
+  const modalOpener = (colorSelected) => {
+    setNewColor(colorSelected);
+    // 추가모달은 켜고 색상선택모달은 끔
+    setCatModal(true);
+    setColorsModal(false);
+  }
+  
+  const pickerOpener = () => {
+    // 추가모달은 끄고 색상선택모달은 켬
+    setCatModal(false);
+    setColorsModal(true);
+  }
 
+  const dateModalOpener = () => {
+    setDateModal(!dateModal);
+  }
   // 프로젝트에 속하는 사용자들 받아오기
   useEffect(() => {
     fetch(`${API_URL}/schedule/list`, {
@@ -37,23 +65,44 @@ const AddTodoPage = (props) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(project),
+      body: JSON.stringify({project: project}),
     }).then(async (res) => {
       const jsonRes = await res.json();
-      setUsers(jsonRes.users);
+      console.log("앱: ",jsonRes);
+      setUsers(jsonRes);
     }).catch((error) => {
       console.log(error)
     })
   }, [project])
 
-  const dateModalOpener = () => {
-    setDateModal(!dateModal);
+  // if category added
+  const onPressAdd = () => {
+    const newCat ={
+      id: categories.length + 1,
+      name: newName,
+      color: `${newColor}33`
+    };
+    setCategory(newCat.name)
+    let newCats = categories.concat([newCat]);
+    newCats = newCats.filter((cat) => cat.name === newName).concat(categories.filter((cat) => cat.name !== newName));
+    setCategories(newCats);
+    setCatModal(false);
+  }
+
+  // if category selected
+  const onPressCat = (item) => {
+    setCategory(item.name);
+    setColor(item.color.slice(0, 7));
+    // 선택된 카테고리 맨앞으로 보내기
+    let newCats = categories;
+    newCats = newCats.filter((cat) => cat.name === item.name).concat(categories.filter((cat) => cat.name !== item.name));
+    setCategories(newCats);
   }
 
   // 일정 data POST
   const onPressComplete = () => {
     const postData = {
-      project: project.title,
+      project: project,
       title: title,
       info: info,
       startDate: startDate,
@@ -64,6 +113,7 @@ const AddTodoPage = (props) => {
       intoCal: intoCal,
       users: users
     };
+    console.log(postData)
     fetch(`${API_URL}/schedule`, {
       method: 'POST',
       headers: {
@@ -96,8 +146,15 @@ const AddTodoPage = (props) => {
     <TodoDate pickerOpener={dateModalOpener} finishDate={finishDate && finishDate.dateString}/>
     <TodoSwitch intoCal={intoCal} setIntoCal={setIntoCal}/>
     <TodoCat 
+      categories={categories} setCategories={setCategories}
       category={category} setCategory={setCategory}
       color={color} setColor={setColor}
+      catModal={catModal} setCatModal={setCatModal}
+      colorsModal={colorsModal} setColorsModal={setColorsModal}
+      newName={newName} setNewName={setNewName}
+      newColor={newColor} setNewColor={setNewColor}
+      pickerOpener={pickerOpener} modalOpener={modalOpener}
+      onPressAdd={onPressAdd} onPressCat={onPressCat}
     />
     <View style={{padding: 20}}>
       <TouchableOpacity 
@@ -125,6 +182,23 @@ const AddTodoPage = (props) => {
         users={users} setUsers={setUsers}
         members={members} setMembers={setMembers}
     />
+
+    {/* 카테고리 추가 모달 */}
+    <CategoryModal 
+    newColor={newColor}
+    newName={newName} setNewName={setNewName}
+    onPressAdd={onPressAdd} 
+    catModal={catModal} setCatModal={setCatModal} 
+    colorsModal={colorsModal} setColorsModal={setColorsModal} 
+    pickerOpener={pickerOpener} modalOpener={modalOpener}/>
+
+    {/* 카테고리 색상 설정 모달 */}
+    <ColorsModal 
+    newColor={newColor} setNewColor={setNewColor}
+    onPressAdd={onPressAdd} 
+    colorsModal={colorsModal} setColorsModal={setColorsModal} 
+    catModal={catModal} setCatModal={setCatModal}
+    modalOpener={modalOpener} pickerOpener={pickerOpener}/>
   </View>;
   
 };
