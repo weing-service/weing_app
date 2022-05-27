@@ -6,10 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="6a0e8b05-36db-4d0e-9e16-5cc1b4b6a3ce" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/login/loginMethod.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/login/loginMethod.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/vote/cardContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/cardContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/vote/modalResult.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/modalResult.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/vote/timeCardContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/timeCardContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/vote/voteCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/vote/voteCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/map/map.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/map/map.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/vote/voteDo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteDo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/vote/voteList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/screens/vote/voteMake.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteMake.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/screens/vote/voteResult.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/vote/voteResult.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

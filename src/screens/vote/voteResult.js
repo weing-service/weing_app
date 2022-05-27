@@ -11,18 +11,17 @@ const VoteResult = () => {
     const data1 = [
         {
             key : '1',
-            title : '기획 회의',
-            deadline : new Date(),
+            title : '개발 회의',
+            info : '개발 마무리 회의 및 피드백',
+            place : '강남',
+            date : '5월 27일(금) 15:00 ~ 21:00',
         },
         {
             key : '2',
-            title : '기획 회의',
-            deadline : new Date(),
-        },
-        {
-            key : '3',
-            title : '기획 회의',
-            deadline : new Date(),
+            title : '뒷풀이 회식',
+            info : '마무리 기념 회식',
+            place : '신촌',
+            date : '5월 28일(토) 19:00 ~ 23:00',
         }
     ]
 

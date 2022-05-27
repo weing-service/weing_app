@@ -1,27 +1,81 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { StyleSheet, View, ImageBackground, Text, TouchableOpacity, Image, Checkbox } from "react-native";
 import VoteInfo from '../../components/vote/voteInfo';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '../../components/vote/searchBar';
 import BottomNavigator from '../../components/common/bottomNavigator';
 import DateList from '../../components/vote/dateList';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const userId = 2243399485;
+
+const doVote = async(data, time) => {
+    await fetch("http://54.180.145.205:8080/vote/result",{
+        method : "POST",
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({ project_title: data.project, vote_title: data.title,
+                               user_id: userId , vote_count : 1, vote_time : time, place : '강남역' })
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+        console.log(responseJson);
+        if (responseJson.status == 200) {
+        } else {
+        }
+        })
+        .catch((error) => {
+        console.error(error);
+        });
+    };
+
+
+const handleDayPress = (start, end) => {
+    const object = {};
+    object[start] = [];
+    for (let i=0;i<end.substring(8,10)-start.substring(8,10)-1;i++){
+        const day = [moment(start).add(i+1, 'days').format("YYYY-MM-DD")];
+        object[day] = [];
+    }
+    object[end] = [];
+    return object
+  }
+
+const storeData = async (data) => {
+    try {
+        const value = JSON.stringify(data)
+        console.log(value)
+        await AsyncStorage.setItem('key', '1')
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const callData = async () => {
+    try {
+        await AsyncStorage.getItem('key').then((value) => {
+            const rvalue = JSON.parse(value)
+            return rvalue
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 const VoteDo = (props) => {
 
     const [place, setPlace] = useState(false);
     const navigation = useNavigation();
-    const data1 = {'2022-05-15' : [],
-                    '2022-05-16' : [],
-                    '2022-05-17' : [],
-                    '2022-05-18' : [],
-                    '2022-05-19' : []};
+    const [userInfo, setUserInfo] = useState(props.route.params);
 
     let getData;
-    if (!props.route.params){
-        getData = data1;
+    if (props.route.params.title){
+        getData = handleDayPress(props.route.params.startDate, props.route.params.endDate);
     } else {
-        getData = props.route.params;
+        getData = props.route.params
     }
+
 
     const [selectedDate, setSelectedDate] = useState(Object.keys(getData)[0]);
     const length = Object.values(getData).map((x)=>x.length).reduce((x,y) => x+y);
@@ -39,15 +93,15 @@ const VoteDo = (props) => {
                     시간/장소 투표
                 </Text>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('VoteList')}>
+                    onPress={() => {doVote(userInfo, getData), navigation.navigate('VoteList', 1)}}>
                     <Text
                         style = {styles.title2}>
                         투표 완료
                     </Text>
                 </TouchableOpacity>
                 </View>
-                <VoteInfo title = {'일정 이름'} text = {'기획 회의'} touch = {false}/>
-                <VoteInfo title = {'일정 설명'} text = {'와이어 프레임 제작'} touch = {false}/>
+                <VoteInfo title = {'일정 이름'} text = {userInfo.title } touch = {false}/>
+                <VoteInfo title = {'일정 설명'} text = {userInfo.info} touch = {false}/>
                 {length === 0 ?
                 (
                     <VoteInfo title = {'가능한 날짜/시간 투표'} data = {getData} touch = {true}/>

@@ -21,22 +21,22 @@ const ModalResult  = (props) => {
                 <Text style={styles.resultText}>일정 설명</Text>
                 <TouchableOpacity
                     style={styles.button1}>
-                    <Text style={styles.textStyle1}>{props.data.title}</Text>
+                    <Text style={styles.textStyle1}>{props.data.info}</Text>
                 </TouchableOpacity>
                 <Text style={styles.resultText}>날짜/시간 투표 결과</Text>
                 <TouchableOpacity
                     style={styles.button2}>
-                    <Text style={styles.textStyle2}>{props.data.deadline.toLocaleDateString('en-Us')}</Text>
+                    <Text style={styles.textStyle2}>{props.data.date}</Text>
                 </TouchableOpacity>
                 <Text style={styles.resultText}>장소 투표 결과</Text>
                 <TouchableOpacity
                     style={styles.button1}>
-                    <Text style={styles.textStyle1}>{props.data.title}</Text>
+                    <Text style={styles.textStyle1}>{props.data.place}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                 style={styles.button}
                 onPress={() => props.setModalVisible(!props.modalVisible)}>
-                    <Text style={styles.textStyle}>캘린더에 연동하기</Text>
+                    <Text style={styles.textStyle}>창 닫기</Text>
                 </TouchableOpacity>
             </View>
             </View>

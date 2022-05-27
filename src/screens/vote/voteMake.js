@@ -8,6 +8,29 @@ import RoundCheck from '../../components/vote/roundCheck';
 import BottomNavigator from '../../components/common/bottomNavigator';
 
 
+const makeVote = async(data, time) => {
+    await fetch("http://54.180.145.205:8080/vote/",{
+        method : "POST",
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({ project_title: '도오개걸', vote_title: '기획 회의',
+                               info: "기획 세부 회의", startDate: "2022-05-29",
+                                endDate : "2022-05-31", deadLine: "2022-05-28",
+                                intoCal: false, isCompleted: false})
+    })
+        .then((response) => response.json())
+        .then((responseJson) => {
+        console.log(responseJson);
+        if (responseJson.status == 200) {
+        } else {
+        }
+        })
+        .catch((error) => {
+        console.error(error);
+        });
+    };
+
 const VoteMake = () => {
 
     const [deadlineChecked, setDeadlineChecked] = useState(false);
@@ -32,7 +55,7 @@ const VoteMake = () => {
                     투표 생성
                 </Text>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('VoteList')}>
+                    onPress={() => {makeVote(), navigation.navigate('VoteList')}}>
                     <Text
                         style = {styles.title2}>
                         완료
