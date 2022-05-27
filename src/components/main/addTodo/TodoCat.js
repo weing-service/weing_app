@@ -5,7 +5,7 @@ import Slider from "react-native-slider";
 
 // 멀티 모달 미완
 
-const TodoCat = ({category, setCategory, color, setColor}) => {
+const TodoCat = ({category, setCategory}) => {
   const colors = [
     {
       id: 1,
@@ -69,7 +69,7 @@ const TodoCat = ({category, setCategory, color, setColor}) => {
   const [newColor, setNewColor] = useState("#86B0BC"); // 새 카테고리 색상
   
   const modalOpener = (colorSelected) => {
-    setColor(colorSelected);
+    setNewColor(colorSelected);
     // 추가모달은 켜고 색상선택모달은 끔
     setModalOpen(true);
     setPickerOpen(false);
@@ -80,16 +80,21 @@ const TodoCat = ({category, setCategory, color, setColor}) => {
     setPickerOpen(true);
     setModalOpen(false);
   }
+
   // if category added
   const onPressAdd = () => {
-    const newCats = categories.concat([{
+    const newCat ={
       id: categories.length + 1,
       name: newName,
-      color: newColor
-    }]);
+      color: `${newColor}33`
+    };
+    setCategory(newCat.name)
+    let newCats = categories.concat([newCat]);
+    newCats = newCats.filter((cat) => cat.name === newName).concat(categories.filter((cat) => cat.name !== newName));
     setCategories(newCats);
     setModalOpen(false);
   }
+
   // if category selected
   const onPressCat = (item) => {
     setCategory(item.name);
@@ -130,7 +135,7 @@ const TodoCat = ({category, setCategory, color, setColor}) => {
             placeholder="카테고리 이름을 입력해주세요."
             placeholderTextColor={"#999999"}
             value={newName}
-            onChangeText={text => setCategory(text)}
+            onChangeText={text => setNewName(text)}
           />
 
           <TouchableOpacity
@@ -259,19 +264,52 @@ const TodoCat = ({category, setCategory, color, setColor}) => {
       return (<TouchableOpacity 
         style = {[catStyles.item, style]}
         onPress={onPress}>
+        <Slider 
+        style={{width: 0, marginRight: 20}} 
+        thumbStyle={
+          {
+            width: 10,
+            height: 10,
+            backgroundColor: '#FFFFFF',
+            borderColor: item.color.slice(0, 7),
+            borderWidth: 3,
+          }}
+        />
         <Text style={catStyles.name}>{item.name}</Text>
       </TouchableOpacity>);
   }
 
   const renderItem = ({item}) => {
-    const backgroundColor = item.name === category?
-      item.color.slice(0, 7) : item.color;
+    const style = item.name === category?
+    {
+      height: 15,
+      borderRadius: 10,
+      backgroundColor: item.color,
+      borderWidth: 0.2,
+      borderColor: 'white',
+      shadowColor: 'black',
+      overflow: 'hidden',
+      shadowOffset: {width: 2, height: 3},
+      shadowRadius: 2,
+      shadowOpacity: 0.2,
+      borderRadius: 10,
+      top: 20,
+      height: 35,
+      padding: 10,
+      paddingHorizontal: 20,
+      justifyContent: 'center',
+      alignItems: 'center',
+      margin: 5,
+      flexDirection: 'row',
+    } : {
+      backgroundColor: item.color
+    };
 
     return (
       <Item 
         item={item}
         onPress={() => onPressCat(item)}
-        style={{backgroundColor}}
+        style={style}
       />
     );
   };
@@ -338,15 +376,15 @@ const catStyles = StyleSheet.create({
   item: {
     borderRadius: 10,
     top: 20,
-    width: 80,
     height: 35,
     padding: 10,
+    paddingHorizontal: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 5
+    margin: 5,
+    flexDirection: 'row',
   },
   name: {
-
   },
   thumb: {
     flex: 1,

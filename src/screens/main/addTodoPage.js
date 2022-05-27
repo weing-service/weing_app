@@ -80,9 +80,9 @@ const AddTodoPage = () => {
     }).then(async(res) => {
       const jsonRes = await res.json();
       console.log('응답: ', jsonRes);
-    })
 
-    navigation.navigate('MainPage');
+      navigation.navigate('MainPage');
+    })
   }
 
   return <View style={{flex: 1}}>
@@ -98,7 +98,7 @@ const AddTodoPage = () => {
 
     <TodoName  title={title} setTitle={setTitle}/>
     <TodoContent content={info} setInfo={setInfo}/>
-    <TodoDate pickerOpener={pickerOpener}/>
+    <TodoDate pickerOpener={pickerOpener} finishDate={finishDate && finishDate.dateString}/>
     <TodoSwitch intoCal={intoCal} setIntoCal={setIntoCal}/>
     <TodoCat 
       category={category} setCategory={setCategory}

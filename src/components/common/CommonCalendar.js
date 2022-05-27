@@ -49,11 +49,43 @@ const todos = {
   ],
 };
 
+// 렌더링을 다하고 props: project를 받기때문에 useEffect 오류남 ==> 백에서 넘겨주는 데이터 수정 필요
 const CommonCalendar = ({project}) => {
   // states
-  const [today, setToday] = useState(""); // 오늘 날짜 yyyy-mm-dd
-  const [todoItems, setTodoItems] = useState();  // 프로젝트 -> 그 안의 모든 일정
-  const [todayTodo, setTodayTodo] = useState(); // 오늘 해야할 일
+  const [today, setToday] = useState("2022-05-27"); // 오늘 날짜 yyyy-mm-dd
+  const [todoItems, setTodoItems] = useState({
+    [today] : [
+      {
+          "_id": "628f9a514d25ed77539f131d",
+          "project": "도오개걸",
+          "title": "밋업 데이",
+          "info": "개발 마무으리",
+          "startDate": "2022-05-27",
+          "finishDate": "2022-05-27",
+          "place": "",
+          "category": "개발",
+          "color": "#FD9F9D",
+          "intoCal": true,
+          "repeated": false,
+          "isCompleted": true
+      },
+      {
+          "_id": "628f9b7b1d63d8dd2492a180",
+          "project": "도오개걸",
+          "title": "밋업 데이-수정",
+          "info": "기획 마무으리",
+          "startDate": "2022-05-27",
+          "finishDate": "2022-05-27",
+          "place": "강남 할리스",
+          "category": "기획",
+          "color": "#F9D83E",
+          "intoCal": true,
+          "repeated": false,
+          "isCompleted": false
+      }
+  ]
+  });  // 프로젝트 -> 그 안의 모든 일정
+  const [todayTodo, setTodayTodo] = useState(todoItems[today]); // 오늘 해야할 일
   const [markTodos, setMarkTodos] = useState({});
   const [done, setDone] = useState({});
   const [doneCount, setDoneCount] = useState(0);
@@ -69,7 +101,7 @@ const CommonCalendar = ({project}) => {
     const dateString = year + "-" + month + "-" + day;
 
     setToday(dateString);
-  }, [])
+  })
 
   // 프로젝트 하나 불러오기
   useEffect(() => {
@@ -90,12 +122,12 @@ const CommonCalendar = ({project}) => {
 
   // 오늘 일정 설정하기
   useEffect(() => {
+    console.log("오늘 일정: ", todoItems);
     setTodayTodo(todoItems[today]);
   }, [todoItems])
 
   // 캘린더에 일정 마킹
   useEffect(() => {
-    console.log(todayTodo);
     let marks = {};
     todayTodo.map(todo => {
       if(todo.startDate in marks)
@@ -195,7 +227,7 @@ const CommonCalendar = ({project}) => {
   const renderKnob = () => {
     return <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
       {
-        todayTodo.length === doneCount ?
+        todayTodo && todayTodo.length === doneCount ?
         <Image 
           style={{top: -5, marginRight: 10, width: 25, height: 25}}
           source={
@@ -218,10 +250,10 @@ const CommonCalendar = ({project}) => {
         trackStyle={sliderStyle.track}
         thumbStyle={sliderStyle.thumb}
         minimumValue={0}
-        maximumValue={todayTodo.length}
+        maximumValue={todayTodo && todayTodo.length}
         minimumTrackTintColor="#89B6C27F"
       />
-      <Text style={{color: "#999999"}}>{doneCount}/{todayTodo.length}</Text>
+      <Text style={{color: "#999999"}}>{doneCount}/{todayTodo && todayTodo.length}</Text>
     </View>;
   };
 
@@ -233,8 +265,8 @@ const CommonCalendar = ({project}) => {
         items={todoItems}
         markingType={'multi-dot'}
         markedDates={markTodos}
-        current={dateString}
-        selected={dateString}
+        current={today}
+        selected={today}
         // todos 렌더링할 부분
         renderItem={renderItem}
         renderEmptyData={renderEmpty}
