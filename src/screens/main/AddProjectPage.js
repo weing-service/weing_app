@@ -12,7 +12,7 @@ const AddProjectPage = () => {
   const navigation = useNavigation();
     // 이미지 등록 미완
   const [coverImg, setCoverImg] = useState("");
-  const [projectImg, setProjectImg] = useState("");
+  const [profileImg, setProjectImg] = useState("");
   const [title, setTitle] = useState("");
   const [info, setInfo] = useState("");
   const [startDate, setStartDate] = useState();
@@ -21,11 +21,11 @@ const AddProjectPage = () => {
   const [picker, setPicker] = useState(false);
   const [count, setCount] = useState(0);
   // 제목 입력되었는지 여부
-  const [isTitle, setIsTitle] = useState(true);
+  const [isTitle, setIsTitle] = useState(false);
 
     useEffect(() => {
         setStartDate(startDate);
-    }, [startDate]);
+    }, [startDate]);    
 
   // 날짜 선택 캘린더 클릭시
   const onPressDate = (day) => {
@@ -52,14 +52,16 @@ const AddProjectPage = () => {
   }
   
   // 프로젝트 생성 버튼 클릭시
-  const onPressGenerate = () => {
+  const onPressGenerate = async () => {
     const postData = {
         title: title,
         info: info,
-        coverImg : coverImg
+        startDate: startDate,
+        finishDate: finishDate,
+        coverImg : coverImg,
+        profileImg: profileImg
     }
-    if(title) {
-        isTitle(true);
+    if(isTitle) {
         fetch(`${API_URL}/project/project`, {
             method: 'POST',
             headers: {
@@ -68,12 +70,10 @@ const AddProjectPage = () => {
             body: JSON.stringify(postData)
         }).then(async (res) => {
             const json = await res.json();
-            console.log(json)
+            console.log("json: " + json)
         })
-    } else {
-        isTitle(false);
     }
-    navigation.navigate('MainPage')
+    //navigation.navigate('MainPage')
   }
 
   // post Image
@@ -160,7 +160,6 @@ const AddProjectPage = () => {
                     setIsTitle(true)
                 }}
             />
-            {!isTitle && <Text style={{color: 'red'}}>! 필수 입력사항입니다</Text>}
         </View>
         <View style={styles.inputView}>
             <Text style={styles.text}>프로젝트 설명</Text>

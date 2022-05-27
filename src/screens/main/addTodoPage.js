@@ -21,7 +21,8 @@ const AddTodoPage = () => {
   const [startDate, setStartDate] = useState();
   const [finishDate, setFinishDate] = useState();
   const [intoCal, setIntoCal] = useState(true); // 캘린더 반영 여부
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("");
+  const [color, setColor] = useState("");
 
   const [picker, setPicker] = useState(false);
   const [marker, setMarker] = useState({});
@@ -59,13 +60,16 @@ const AddTodoPage = () => {
   // 일정 data POST
   const onPressComplete = () => {
     const postData = {
+      project: "", // ??
       title: title,
       info: info,
       startDate: startDate,
       finishDate: finishDate,
+      place: "", // ??
       category: category,
+      color: color,
       intoCal: intoCal,
-      repeated: false
+      _id: "" // ?? 
     };
     fetch(`${API_URL}/schedule`, {
       method: 'POST',
@@ -96,7 +100,10 @@ const AddTodoPage = () => {
     <TodoContent content={info} setInfo={setInfo}/>
     <TodoDate pickerOpener={pickerOpener}/>
     <TodoSwitch intoCal={intoCal} setIntoCal={setIntoCal}/>
-    <TodoCat category={category} setCategory={setCategory}/>
+    <TodoCat 
+      category={category} setCategory={setCategory}
+      color={color} setColor={setColor}
+    />
 
     {/* 날짜 설정 모달 */}
     <Modal 

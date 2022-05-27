@@ -11,28 +11,24 @@ const API_URL = 'http://localhost:8080';
 // 예사 데이터들
 const todos = {
   // dummies
-  "2022-05-26": [
+  "2022-05-27": [
     {
-      id: 1,
+      _id: 1,
       title: "기획팀 스토리보드 회의",
       info: "스토리보드 추합",
-      startDate: "2022-05-26",
-      finishDate: "2022-05-26",
-      category: "기획",
-      // color 받아야 함
+      startDate: "2022-05-27",
+      finishDate: "2022-05-27",
       intoCal: true,
-      // 시간도 없음 --> 날짜랑 같이 date 형식으로 보낼것
-      // cateogry 컬러
+      category: "기획",
       color: "#FD9F9D",
-      // 프로젝트명도 같이 보낼것
-      place: "강남역 할리스"
+      place: "비대면 zoom"
     },
     {
-      id: 2,
+      _id: 2,
       title: "개발팀 스터디",
       info: "스토리보드 추합",
-      startDate: "2022-05-26",
-      finishDate: "2022-05-26",
+      startDate: "2022-05-27",
+      finishDate: "2022-05-27",
       category: "개발",
       intoCal: true,
       color: "#F9D83E",
@@ -41,49 +37,61 @@ const todos = {
   ],
   "2022-05-23": [
     {
-      id: 3,
+      _id: 3,
       title: "디자인팀",
       info: "스토리보드",
       startDate: "2022-05-23",
-      // finishDate 꼭 넣어야 하나..?
       category: "디자인",
       intoCal: true,
-      // db에 장소 안들어가있음
       color:"#A0DDE0",
       place: "강남역 할리스"
     },
   ],
 };
 
-// colors for dots
-const categories = [pd, dev, design];
-const pd = {key: '기획', color: '#FD9F9D'};
-const dev = {key: '개발', color: '#F9D83E', };
-const design = {key: '디자인', color: '#A0DDE0', };
-
-const CommonCalendar = () => {
-  // 오늘 날짜 가져와서 포맷대로 바꾸는 코드 *
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = ("0" + (today.getMonth() + 1)).slice(-2);
-  const day = ("0" + today.getDate()).slice(-2);
-  const dateString = year + "-" + month + "-" + day;
-
+const CommonCalendar = ({project}) => {
   // states
-  const [todoItems, setTodoItems] = useState(todos);
+  const [today, setToday] = useState(""); // 오늘 날짜 yyyy-mm-dd
+  const [todoItems, setTodoItems] = useState();  // 프로젝트 -> 그 안의 모든 일정
+  const [todayTodo, setTodayTodo] = useState(); // 오늘 해야할 일
   const [markTodos, setMarkTodos] = useState({});
-  const [todayTodo, setTodayTodo] = useState(todos[dateString]); // 오늘 해야할 일
   const [done, setDone] = useState({});
   const [doneCount, setDoneCount] = useState(0);
   const [id, setId] = useState();
 
+  // 오늘 날짜 설정하기
   useEffect(() => {
-    fetch(`${API_URL}/schedule/`, {
-      method: 'GET'
+    // 오늘 날짜 가져와서 포맷대로 바꾸는 코드 *
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = ("0" + (today.getMonth() + 1)).slice(-2);
+    const day = ("0" + today.getDate()).slice(-2);
+    const dateString = year + "-" + month + "-" + day;
+
+    setToday(dateString);
+  }, [])
+
+  // 프로젝트 하나 불러오기
+  useEffect(() => {
+    // setTodoItems
+    fetch(`${API_URL}/project/one`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({title: project.title}),
     }).then(async (res) => {
-      let jsonRes = await res.json();
-    })
-  },[])
+      const jsonRes = await res.json();
+      setTodoItems({
+        [today] : jsonRes.schedules
+      });
+    });
+  }, [today])
+
+  // 오늘 일정 설정하기
+  useEffect(() => {
+    setTodayTodo(todoItems[today]);
+  }, [todoItems])
 
   // 캘린더에 일정 마킹
   useEffect(() => {
@@ -219,7 +227,7 @@ const CommonCalendar = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      <Agenda
+        <Agenda
         style={{borderTopRightRadius: 40, top: 10}}
         refreshing={true}
         items={todoItems}
