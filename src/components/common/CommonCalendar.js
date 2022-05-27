@@ -1,17 +1,16 @@
 // 공용 컴포넌트 - 달력
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, Button } from "react-native";
 import { Agenda, Calendar } from "react-native-calendars";
 import { StyleSheet } from "react-native";
-import DateToString from "../common/DateToString";
 import Slider from "react-native-slider";
 
-const API_URL = 'https://ad50-106-243-247-152.jp.ngrok.io';
+const API_URL = 'http://54.180.145.205:8080';
 
 // 렌더링을 다하고 props: project를 받기때문에 useEffect ==> 백에서 넘겨주는 데이터 수정 필요
 const CommonCalendar = ({project}) => {
   // states
-  const [td, setToday] = useState("2022-05-25"); // 오늘 날짜 yyyy-mm-dd
+  const [td, setToday] = useState("2022-05-28"); // 오늘 날짜 yyyy-mm-dd
   const [todoItems, setTodoItems] = useState();  // 프로젝트 -> 그 안의 모든 일정
   const [todayTodo, setTodayTodo] = useState(); // 오늘 해야할 일
   const [markTodos, setMarkTodos] = useState({});
@@ -29,55 +28,46 @@ const CommonCalendar = ({project}) => {
       body: JSON.stringify({title: project.title}),
     }).then(async (res) => {
       const jsonRes = await res.json();
+      let todos ={};
       for(let i=0; i<jsonRes.data.schedules.length; i++) {
-        if(jsonRes.data.schedules[i] in todos)
+        const dateStr = jsonRes.data.schedules[i].startDate.dateString;
+        if(todos[dateStr])
           // 이미 그 날짜에 value 있으면
-          todos[td].concat(new Array(jsonRes.data.schedules[i]))
+          todos[dateStr].push(jsonRes.data.schedules[i])
         else
           Object.assign(todos, {
-            [td] : jsonRes.data.schedules[i]
+            [dateStr] : new Array(jsonRes.data.schedules[i])
         });
       }
+
       setTodoItems(todos);
-    }).then(async(jsonRes) => {
-      console.log(todoItems);
-      setTodayTodo(todoItems)
     }).then(async() => {
-      console.log("오늘 할일: ",todayTodo)
+      setTodayTodo(todoItems["2022-05-28"])
+    }).then(async() => {
+      let marks = {};
+      todayTodo.map(todo => {
+        if(todo.startDate.dateString in marks)
+          // 이미 그 날짜에 마킹되어있으면
+          marks[todo.startDate.dateString].dots.push({color: todo.color})
+        else
+          Object.assign(marks, {
+            [todo.startDate.dateString] : {dots: [{color: todo.color}]}
+          });
+      })
+      setMarkTodos(marks);
     }).catch((error) =>{
       console.log(error);
     })
-  }, [])
+  }, [todoItems, todayTodo])
 
+  //done handler
   useEffect(() => {
-    console.log("todoItems",td);
-  }, [todoItems])
-
-  // 캘린더에 일정 마킹
-  // useEffect(() => {
-  //   console.log(todayTodo);
-
-  //   let marks = {};
-  //   todayTodo.map(todo => {
-  //     if(todo.startDate in marks)
-  //       // 이미 그 날짜에 마킹되어있으면
-  //       marks[todo.startDate].dots.push({color: todo.color})
-  //     else
-  //       Object.assign(marks, {
-  //         [todo.startDate] : {dots: [{color: todo.color}]}
-  //       });
-  //   })
-  //   setMarkTodos(marks);
-  // }, [todayTodo]);
-
-  // done handler
-  // useEffect(() => {
-  //   if(done[id] === false && doneCount > 0){
-  //     setDoneCount(doneCount - 1);
-  //   } else if(done[id] === true && doneCount < todayTodo.length ) {
-  //     setDoneCount(doneCount + 1);
-  //   }
-  // }, [done])
+    if(done[id] === false && doneCount > 0){
+      setDoneCount(doneCount - 1);
+    } else if(done[id] === true && doneCount < todayTodo.length ) {
+      setDoneCount(doneCount + 1);
+    }
+  }, [done])
 
   const onPressDone =(event) => {
     const id = event.nativeEvent.target;

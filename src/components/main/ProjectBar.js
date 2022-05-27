@@ -10,10 +10,9 @@ const ProjectBar = ({project}) => {
   const [dday, setDday] = useState();
 
   useEffect(() => {
-    console.log(projectInfo);
     // 디데이 계산
-    const today = new Date();
-    const dday = new Date(project.finishDate.year, project.finishDate.month, project.finishDate.date);
+    const today = new Date(2022, 4, 28);
+    const dday = new Date(projectInfo.deadline.year, projectInfo.deadline.month - 1, projectInfo.deadline.day);
     const gap = dday.getTime() - today.getTime();
     const result = Math.ceil(gap / (1000 * 60 * 60 * 24));
 
