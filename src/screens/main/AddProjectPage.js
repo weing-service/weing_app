@@ -17,11 +17,24 @@ const AddProjectPage = () => {
   const [info, setInfo] = useState("");
   const [startDate, setStartDate] = useState();
   const [finishDate, setFinishDate] = useState();
+  const [users, setUsers] = useState(); // 전체 사용자
+  const [joiners, setJoiners] = useState(); // 참여자
+
   const [marker, setMarker] = useState({});
   const [picker, setPicker] = useState(false);
   const [count, setCount] = useState(0);
   // 제목 입력되었는지 여부
   const [isTitle, setIsTitle] = useState(false);
+
+  // 전체 사용자 조회 -> users에 저장
+  useEffect(() => {
+    fetch(`${API_URL}/user/` , {
+        method: 'GET',
+      }).then(async (res) => {
+        const jsonRes = await res.json();
+        setUsers(jsonRes.allUsers);
+      });
+  }, [])
 
     useEffect(() => {
         setStartDate(startDate);
@@ -174,9 +187,9 @@ const AddProjectPage = () => {
         <View style={styles.inputView}>
             <Text style={styles.text}>프로젝트 시작일 및 마감일 설정*</Text>
             {finishDate && finishDate.dateString ? <TouchableOpacity onPress={() => setPicker(true)}>
-                <View style={{backgroundColor: 'white', width: 100, height: 50, borderRadius: 10, justifyContent: 'center', alignItems: 'center', margin: 20}}>
+                <View style={{backgroundColor: 'white', width: 200, height: 50, borderRadius: 10, justifyContent: 'center', alignItems: 'center', margin: 20, marginBottom: 0}}>
                     <Text style={{color: '#999999'}}>
-                    {finishDate.dateString}
+                    {startDate.dateString} ~ {finishDate.dateString}
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -188,8 +201,16 @@ const AddProjectPage = () => {
                 source={require('../../assets/main/todo/btn_calendar.png')}/>
             </TouchableOpacity>}
         </View>
+        <View style={{top: 20,}}>
+            <Text style={styles.text}>참여자</Text>
+            <Image 
+                style={{width: 48, height: 48, top: 20, left: 20}}
+                source={require('../../assets/main/todo/btn_calendar.png')}
+            />
+        </View>
     </View>
 
+    {/* 날짜 선택 모달 */}
     <Modal 
       animationType={"slide"}
       transparent={true}
